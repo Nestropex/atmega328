@@ -15,9 +15,9 @@ USR_INC = ../../../../../../usr/include
 TARGET_DIR = $(APP_DIR)/target
 INC_DIR = $(APP_INC_DIR)
 
-#sudo apt-get install arm-none-eabi
-OBJCOPY = arm-none-eabi-objcopy
-CC = arm-none-eabi-gcc --specs=nosys.specs
+#install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
+OBJCOPY = avr-objcopy
+CC = avr-gcc
 CFLAGS=-I$(INC_DIR)
 
 OBJ_DIR=$(APP_DIR)/target/obj
@@ -36,14 +36,15 @@ OBJ_ENDING := ${SRC_FILES:.c=.o}
 OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
-	$(CC) -c $< $(CFLAGS)
-	mv $(@F) $@
-LDFLAGS = -Xlinker   -nostdlib -T ../lib/ldscripts/armelf.x
+	$(CC) -c $< $(CFLAGS) -o $@
+#mv $(@F) $@
+LDFLAGS = -Xlinker   -nostdlib
+#-T ../lib/ldscripts/armelf.x
 OBJCOPY_FLAGS = -Wl
 #-MAP=>output.map
 $(TARGET): $(OBJ_FILES)
-	$(CC)  -o  $@.bin $^ $(CFLAGS) $(LIBS) $(LDFLAGS)
-	${OBJCOPY} -j .text -j .data -O ihex ${TARGET}.bin ${TARGET}.hex
+	$(CC)  $(CFLAGS) $(LIBS) $(LDFLAGS) $^ -o  $@
+	${OBJCOPY} -O ihex ${TARGET} ${TARGET}.hex
 
 
 flash: 
