@@ -1,7 +1,8 @@
 
 
 MCU = ATmega328P
-PORT = /dev/ttyUSB0
+PORT = COM3
+#PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
 APP_DIR = ../
@@ -16,7 +17,7 @@ INC_DIR = $(APP_INC_DIR)
 
 #sudo apt-get install arm-none-eabi
 OBJCOPY = arm-none-eabi-objcopy
-CC = gcc
+CC = arm-none-eabi-gcc --specs=nosys.specs
 CFLAGS=-I$(INC_DIR)
 
 OBJ_DIR=$(APP_DIR)/target/obj
@@ -37,16 +38,16 @@ OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
 	$(CC) -c $< $(CFLAGS)
 	mv $(@F) $@
-LDFLAGS = -Xlinker  -MAP=>output.map -nostdlib -T linker.ld
+LDFLAGS = -Xlinker   -nostdlib -T ../lib/ldscripts/armelf.x
 OBJCOPY_FLAGS = -Wl
-
+#-MAP=>output.map
 $(TARGET): $(OBJ_FILES)
 	$(CC)  -o  $@.bin $^ $(CFLAGS) $(LIBS) $(LDFLAGS)
 	${OBJCOPY} -j .text -j .data -O ihex ${TARGET}.bin ${TARGET}.hex
 
 
 flash: 
-	sudo avrdude -p $(MCU) -b 115200 -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
+	avrdude -p $(MCU) -b 115200 -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
 .PHONY: clean
 
 clean:

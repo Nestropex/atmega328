@@ -1,10 +1,7 @@
 
-int myvar;
 
-int main()
+int main(void)
 {
 
-while(myvar)
-
-return 0;
+    return 0;
 }
