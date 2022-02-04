@@ -1,13 +1,13 @@
 
-int test(void);
-int main(void)
+int pwmtest(void);
+int pwmmain(void)
 {
-    test();
+    pwmtest();
     return 0;
 }
 
 
-int test(void)
+int pwmtest(void)
 {
     int array[5000];
 

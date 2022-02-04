@@ -26,7 +26,7 @@ LDIR =$(APP_DIR)/target/lib
 LIBS  =-lm 
 #Find all Source files withing the dir of the argument
 SRC_FILES = $(APP_SRC_DIR)/main.c
-
+SRC_FILES += $(APP_SRC_DIR)/timer.c
 
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}
@@ -38,10 +38,10 @@ OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
 #mv $(@F) $@
-LDFLAGS = -Xlinker   -nostdlib
-#-T ../lib/ldscripts/armelf.x
-OBJCOPY_FLAGS = -Wl
-#-MAP=>output.map
+LDFLAGS = -Xlinker   -nostdlib 
+
+OBJCOPY_FLAGS = -Wl -MAP=>output.map
+#
 $(TARGET): $(OBJ_FILES)
 	$(CC)  $(CFLAGS) $(LIBS) $(LDFLAGS) $^ -o  $@
 	${OBJCOPY} -O ihex ${TARGET} ${TARGET}.hex
