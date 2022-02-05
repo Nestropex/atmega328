@@ -70,11 +70,7 @@ uint8_t GPIO_read(uint8_t port, uint8_t pin)
 
 
         switch (port)
-        {
-            case 0:
-               
-                break;
-            
+        {           
             case 1:
                 PINB = ret_state;
                 break;
@@ -88,7 +84,6 @@ uint8_t GPIO_read(uint8_t port, uint8_t pin)
                 break;
             
             default:
-
                 break;
         }
    
