@@ -2,7 +2,7 @@
 #include <avr/io.h>
 
 
-uint8_t GPIO_setup(uint8_t port, uint8_t pin_config)
+error_t GPIO_setup(uint8_t port, uint8_t pin_config)
 {
     error_t ret_val = no_error;
 
@@ -33,13 +33,97 @@ uint8_t GPIO_setup(uint8_t port, uint8_t pin_config)
 }
 
 
-int pwmtest(void)
+error_t GPIO_write(uint8_t port, uint8_t pin, uint8_t state)
 {
-    int array[5000];
+    error_t ret_val = no_error;
 
-
-    for (int i = 0; i<5000;i++)
+    if (state == 0U)
     {
-        array[i] = i;
+        switch (port)
+        {
+            case 0:
+                ret_val = error;
+                break;
+            
+            case 1:
+                PORTB &= ~(1 << pin);
+                break;
+            
+            case 2:
+                PORTC &= ~(1 << pin);
+                break;
+            
+            case 3:
+                PORTD &= ~(1 << pin);
+                break;
+            
+            default:
+                ret_val = error;
+                break;
+        }
     }
+    else if(state == 1U)
+    {
+        switch (port)
+        {
+            case 0:
+                ret_val = error;
+                break;
+            
+            case 1:
+                PORTB |= 1 << pin;
+                break;
+            
+            case 2:
+                PORTC |= 1 << pin;
+                break;
+            
+            case 3:
+                PORTD |= 1 << pin;
+                break;
+            
+            default:
+                ret_val = error;
+                break;
+        }
+    }
+    else
+    {
+        ret_val = error;
+    }
+
+    return ret_val;
+}
+
+uint8_t GPIO_read(uint8_t port, uint8_t pin)
+{
+    uint8_t ret_state = 0xffU;
+
+
+        switch (port)
+        {
+            case 0:
+               
+                break;
+            
+            case 1:
+                PINB = ret_state;
+                break;
+            
+            case 2:
+                PINC = ret_state;
+                break;
+            
+            case 3:
+                PIND = ret_state;
+                break;
+            
+            default:
+
+                break;
+        }
+   
+    ret_state &= (1 << pin);
+
+    return ret_state >> pin;
 }
