@@ -1,19 +1,39 @@
 
-int test(void);
+#define __AVR_ATmega324A__
+#include <avr/io.h>
+
+void delay(int delay);
 int main(void)
 {
-    test();
+int i = 0;
+    int mydelay = 500;
+    while(1)
+    {    
+    if (i < mydelay)
+    {
+        DDRB |= 1 << PB5;
+        PORTB |= 1 << PB5;
+    }
+    else
+    {
+        DDRB = 0 ;
+        PORTB = 0 ;
+    }
+    i++;
+    
+    }
+
     return 0;
 }
 
 
-int test(void)
+void delay(int delay)
 {
-    int array[5000];
+    
 
 
-    for (int i = 0; i<5000;i++)
+    for (int i = 0; i<delay;i++)
     {
-        array[i] = i;
+        
     }
 }

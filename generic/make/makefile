@@ -37,7 +37,7 @@ OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
-#mv $(@F) $@
+
 LDFLAGS = -Xlinker   -nostdlib 
 
 OBJCOPY_FLAGS = -Wl -MAP=>output.map
