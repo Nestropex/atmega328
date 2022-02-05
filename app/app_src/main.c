@@ -19,15 +19,3 @@ int main(void)
 
     return 0;
 }
-
-
-void delay(int delay)
-{
-    
-
-
-    for (int i = 0; i<delay;i++)
-    {
-        
-    }
-}

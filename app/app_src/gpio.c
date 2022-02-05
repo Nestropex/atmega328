@@ -2,97 +2,66 @@
 #include <avr/io.h>
 
 
-error_t GPIO_setup(uint8_t port, uint8_t pin_config)
+void GPIO_setup(uint8_t port, uint8_t pin_config)
 {
-    error_t ret_val = no_error;
-
     switch (port)
     {
-        case 0:
-            ret_val = error;
-            break;
-
-        case 1:
+        case 1U:
             DDRB = pin_config;
             break;
 
-        case 2:
+        case 2U:
             DDRC = pin_config;
             break;
 
-        case 3:
+        case 3U:
             DDRD = pin_config;
             break;
 
         default:
-            ret_val  = error;
             break;
     }
-
-    return ret_val;
 }
 
 
-error_t GPIO_write(uint8_t port, uint8_t pin, uint8_t state)
+void GPIO_write(uint8_t port, uint8_t pin, uint8_t state)
 {
-    error_t ret_val = no_error;
 
-    if (state == 0U)
+    switch (port)
     {
-        switch (port)
-        {
-            case 0:
-                ret_val = error;
-                break;
-            
-            case 1:
+        case 1U:
+            if (state == 0U)
+            {
                 PORTB &= ~(1 << pin);
-                break;
-            
-            case 2:
-                PORTC &= ~(1 << pin);
-                break;
-            
-            case 3:
-                PORTD &= ~(1 << pin);
-                break;
-            
-            default:
-                ret_val = error;
-                break;
-        }
-    }
-    else if(state == 1U)
-    {
-        switch (port)
-        {
-            case 0:
-                ret_val = error;
-                break;
-            
-            case 1:
+            }else
+            {
                 PORTB |= 1 << pin;
-                break;
-            
-            case 2:
+            }             
+            break;
+        
+        case 2U:
+            if (state == 0U)
+            {
+                PORTC &= ~(1 << pin);
+            }else
+            {
                 PORTC |= 1 << pin;
-                break;
-            
-            case 3:
+            }
+            break;
+        
+        case 3U:
+            if (state == 0U)
+            {
+                PORTD &= ~(1 << pin);
+            }else
+            {
                 PORTD |= 1 << pin;
-                break;
-            
-            default:
-                ret_val = error;
-                break;
-        }
+            }
+            break;
+        
+        default:
+            break;
     }
-    else
-    {
-        ret_val = error;
-    }
-
-    return ret_val;
 }
 
 uint8_t GPIO_read(uint8_t port, uint8_t pin)

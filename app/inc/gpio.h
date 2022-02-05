@@ -10,9 +10,8 @@
  * @param port 0-3
  * @param pin_config bitwise 1 output 0 input 
  * @param dir 0 input, 1 output
- * @return 0 in case of error 
  */
-error_t GPIO_setup(uint8_t port, uint8_t pin_config);
+void GPIO_setup(uint8_t port, uint8_t pin_config);
 
 /**
  * @brief Sets pins as high or low
@@ -20,9 +19,8 @@ error_t GPIO_setup(uint8_t port, uint8_t pin_config);
  * @param port 0-3
  * @param pin 0 to 7
  * @param state 0 low 1 high
- * @return 0 in case of error 
  */
-error_t GPIO_write(uint8_t port, uint8_t pin, uint8_t state);
+void GPIO_write(uint8_t port, uint8_t pin, uint8_t state);
 
 /**
  * @brief Gives the current state of a requested pin 
