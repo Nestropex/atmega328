@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "io.h": "c",
+        "iom328p.h": "c"
+    }
+}

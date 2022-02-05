@@ -7,7 +7,7 @@ PROGRAMMER = arduino
 
 APP_DIR = ../
 GEN_DIR = ../../generic
-APP_INC_DIR =$(APP_DIR)/app_include
+APP_INC_DIR =$(APP_DIR)/inc
 GEN_INC_DIR +=$(GEN_DIR)/gen_include
 APP_SRC_DIR = $(APP_DIR)/app_src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
@@ -26,7 +26,7 @@ LDIR =$(APP_DIR)/target/lib
 LIBS  =-lm 
 #Find all Source files withing the dir of the argument
 SRC_FILES = $(APP_SRC_DIR)/main.c
-SRC_FILES += $(APP_SRC_DIR)/timer.c
+SRC_FILES += $(APP_SRC_DIR)/gpio.c
 
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}
