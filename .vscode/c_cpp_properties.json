@@ -3,37 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:/Toolchain"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64",
-            "compilerPath": "C:\\Toolchain\\avr\\bin\\avr-gcc"
-        },
-        {
-            "name": "avr include",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64",
-            "compilerPath": "C:\\Toolchain\\avr\\avr\\include\\avr\\io.h"
-        },
-        {
-            "name": "avr include",
-            "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:\\Toolchain\\avr\\avr\\include\\"
             ],
             "defines": [
                 "_DEBUG",
