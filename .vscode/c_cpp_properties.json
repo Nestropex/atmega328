@@ -1,19 +1,25 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "avr",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\Toolchain\\avr\\avr\\include\\"
+                "C:\\Toolchain\\avr\\avr\\include\\",
+                "C:\\Toolchain\\avr\\avr\\include\\avr"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE"
+                "_UNICODE",
+                "__AVR_ATmega328P__"
             ],
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64"
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "C:\\Toolchain\\avr\\bin\\avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p"
+            ]
         }
     ],
     "version": 4
