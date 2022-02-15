@@ -17,6 +17,7 @@ INC_DIR = $(APP_INC_DIR)
 
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
 OBJCOPY = avr-objcopy
+OBJDUMP = avr-objdump
 CC = avr-gcc
 CFLAGS=-I$(INC_DIR)
 
@@ -43,8 +44,9 @@ LDFLAGS = -Xlinker   -nostdlib
 OBJCOPY_FLAGS = -Wl -MAP=>output.map
 #
 $(TARGET): $(OBJ_FILES)
-	$(CC)  $(CFLAGS) $(LIBS) $(LDFLAGS) $^ -o  $@
-	${OBJCOPY} -O ihex ${TARGET} ${TARGET}.hex
+	$(CC)  $(CFLAGS) $(LIBS) $(LDFLAGS) $^ -o  $@.elf
+	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
+	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 
 
 flash: 
