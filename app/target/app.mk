@@ -1,7 +1,7 @@
 
 MAKEFILE_DIR = ../../generic/make
 
-TARGET = stepper
+TARGET = atmega328
 
 AVR_HEADER = ../../../../../../../avr-libc
 DEPS += $(USR_INC)
