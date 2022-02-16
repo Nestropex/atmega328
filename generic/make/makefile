@@ -37,14 +37,14 @@ OBJ_ENDING := ${SRC_FILES:.c=.o}
 OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
-	$(CC) -c $< $(CFLAGS) -o $@ -DDEBUG -g2
+	$(CC) -c $< $(CFLAGS) -o $@ -DDEBUG -g2 -D__AVR_ATmega328P__
 
 LDFLAGS = -Xlinker   -nostdlib 
 
 OBJCOPY_FLAGS = -Wl -MAP=>output.map
 #
 $(TARGET): $(OBJ_FILES)
-	$(CC)  $(CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf -g2 -DDEBUG
+	$(CC)  $(CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf -g2 -DDEBUG -D__AVR_ATmega328P__
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 

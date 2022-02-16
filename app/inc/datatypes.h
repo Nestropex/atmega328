@@ -2,7 +2,7 @@
 #define DATATYPES_H
 
 #include <stdint.h>
-#define __AVR_ATmega328P__
+
 
 typedef enum
 {
