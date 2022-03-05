@@ -34,19 +34,23 @@ SRC_FILES += $(APP_SRC_DIR)/gpio.c
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}
 
+OPTIMIZATION = -Og
+#OPTIMIZATION = -O1
+#OPTIMIZATION = -O2
+#OPTIMIZATION = -O3
 
 #Replace src file path with obj file path
 OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
-	$(CC) -c $< $(CFLAGS) -o $@  -g2 $(DEFINES)
+	$(CC) -c $< $(CFLAGS) -o $@  $(OPTIMIZATION ) -g2 $(DEFINES)
 
-LDFLAGS = -Xlinker   -nostdlib 
+LDFLAGS = -Xlinker   -nostdlib -g
 
 OBJCOPY_FLAGS = -Wl -MAP=>output.map
 #
 $(TARGET): $(OBJ_FILES)
-	$(CC)  $(CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf -g2 $(DEFINES)
+	$(CC)  $(CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 
