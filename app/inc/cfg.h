@@ -54,5 +54,34 @@ const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
                                 PIN_OUT,  // Pin 5
                                 PIN_IN,  // Pin 6
                                 PIN_IN   // Pin 7
-                                };                                
+                                };               
+
+// make static, so every module gets its own copy
+static const input_t g_in = {
+    .switch1 = {.port = 1u, .bit = 1u},
+    .switch2 = {.port = 2u, .bit = 4u},
+    .button1 = {.port = 1u, .bit = 0u},
+    .button2 = {.port = 2u, .bit = 5u},
+    .button3 = {.port = 1u, .bit = 2u}
+};
+
+static const output_t g_out = {
+    .dir1  = {.port = 3u, .bit = 2u},
+    .dir2  = {.port = 3u, .bit = 4u},
+    .step1 = {.port = 3u, .bit = 3u},
+    .step2 = {.port = 3u, .bit = 5u}
+};        
+
+/*
+
+   pin_t dir1  = {.port = 3u, .bit = 2u,.state = 0u};
+    pin_t step1 = {.port = 3u, .bit = 3u,.state = 0u};
+    pin_t dir2  = {.port = 3u, .bit = 4u,.state = 0u};
+    pin_t step2 = {.port = 3u, .bit = 5u,.state = 0u};
+
+    pin_t switch1  = {.port = 1u, .bit = 1u,.state = 0u};
+    pin_t switch2  = {.port = 2u, .bit = 4u,.state = 0u}; 
+    pin_t button1  = {.port = 1u, .bit = 0u,.state = 0u}; 
+    pin_t button2  = {.port = 2u, .bit = 5u,.state = 0u}; 
+    pin_t button3  = {.port = 1u, .bit = 2u,.state = 0u};*/
 #endif

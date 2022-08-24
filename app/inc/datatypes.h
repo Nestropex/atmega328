@@ -14,9 +14,25 @@ typedef enum
 typedef struct pin {
     uint8_t port;
     uint8_t bit;
-    uint8_t state;
-
 }pin_t;
+
+typedef struct input {
+    pin_t switch1;
+    pin_t switch2;
+    pin_t button1;
+    pin_t button2;
+    pin_t button3;
+
+}input_t;
+
+typedef struct output {
+    pin_t dir1;
+    pin_t dir2;
+    pin_t step1;
+    pin_t step2;
+
+}output_t;
+
 
 
 #endif

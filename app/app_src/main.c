@@ -51,31 +51,25 @@ static void read_inputs(void)
 
 static void app_out(void)
 {
-    pin_t dir1  = {.port = 3u, .bit = 2u,.state = 0u};
-    pin_t step1 = {.port = 3u, .bit = 3u,.state = 0u};
-    pin_t dir2  = {.port = 3u, .bit = 4u,.state = 0u};
-    pin_t step2 = {.port = 3u, .bit = 5u,.state = 0u};
+ 
+    const pin_t *switch1 = &g_in.switch1;
+    const output_t *out = &g_out;
+    int state = 0u;
 
-    pin_t switch1  = {.port = 1u, .bit = 1u,.state = 0u};
-    pin_t switch2  = {.port = 2u, .bit = 4u,.state = 0u}; 
-    pin_t button1  = {.port = 1u, .bit = 0u,.state = 0u}; 
-    pin_t button2  = {.port = 2u, .bit = 5u,.state = 0u}; 
-    pin_t button3  = {.port = 1u, .bit = 2u,.state = 0u};
-    
     //gpio_write(dir1.port,dir1.bit,1);
-    gpio_write(dir2.port,dir2.bit,1);
+    gpio_write(g_out.dir1.port, g_out.dir2.bit,1);
     
-    gpio_write(step2.port,step2.bit,1);
+    //gpio_write(g_out.step1.port, g_out.step1.bit,1);
 
-    button1.state = gpio_read(button1.port, button1.bit);
+    state = gpio_read(g_in.switch1.port, g_in.switch1.bit);
 
-    if(button1.state != 0u)
+    if(state != 0u)
     {
-        gpio_write(step1.port,step1.bit,1);
+        gpio_write(g_out.step1.port, g_out.step1.bit,1);
     }
     else
     {
-        gpio_write(step1.port,step1.bit,0);
+        gpio_write(g_out.step1.port, g_out.step1.bit,0);
     }
     
 }
