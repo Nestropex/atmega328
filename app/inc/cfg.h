@@ -48,10 +48,10 @@ const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
                                 };
 const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
-                                PIN_IN,  // Pin 2
-                                PIN_IN,  // Pin 3
-                                PIN_IN,  // Pin 4
-                                PIN_IN,  // Pin 5
+                                PIN_OUT,  // Pin 2
+                                PIN_OUT,  // Pin 3
+                                PIN_OUT,  // Pin 4
+                                PIN_OUT,  // Pin 5
                                 PIN_IN,  // Pin 6
                                 PIN_IN   // Pin 7
                                 };                                
