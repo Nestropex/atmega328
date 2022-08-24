@@ -25,9 +25,9 @@ VIN               TxD -- PD1 (TxD)
 
 
 #include "datatypes.h"
-const uint8_t gc_portb_cfg = 0xffU;
-const uint8_t gc_portc_cfg = 0x03U;
-const uint8_t gc_portd_cfg = 0x00U;
+const uint8_t gc_portb_cfg = 0x20U;
+const uint8_t gc_portc_cfg = 0xdfU;
+const uint8_t gc_portd_cfg = 0x22U;
 
 
 

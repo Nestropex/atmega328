@@ -1,7 +1,7 @@
 
 
 MCU = ATmega328P
-PORT = COM3
+PORT = COM10
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
@@ -30,6 +30,7 @@ LIBS  =-lm
 #Find all Source files withing the dir of the argument
 SRC_FILES = $(APP_SRC_DIR)/main.c
 SRC_FILES += $(APP_SRC_DIR)/gpio.c
+SRC_FILES += $(APP_SRC_DIR)/watchdog.c
 
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}
@@ -54,7 +55,7 @@ $(TARGET): $(OBJ_FILES)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 
-
+#choose 57600 for arduino old bootloader 115200 for new bootloader
 flash: 
 	avrdude -p $(MCU) -b 115200 -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
 .PHONY: clean
