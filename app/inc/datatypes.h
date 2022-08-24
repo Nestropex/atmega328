@@ -11,6 +11,12 @@ typedef enum
     error = 1u
 }error_t;
 
+typedef struct pin {
+    uint8_t port;
+    uint8_t bit;
+    uint8_t dir;
+
+}pin_t;
 
 
 #endif

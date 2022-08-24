@@ -9,19 +9,19 @@
 
 static void init(void);
 static void read_inputs(void);
-static void write_outputs(void);
+static void app_out(void);
 
 
 // main function must be the first one in the file 
 int main(void)
 {
     init();
- 
+    
     while(1)
     {  
         watchdog_reset();
         read_inputs();
-        write_outputs();
+        app_out();
     }
 
     return 0;
@@ -49,7 +49,15 @@ static void read_inputs(void)
 
 }
 
-static void write_outputs(void)
+static void app_out(void)
 {
-    GPIO_write(1,5,1);
+    pin_t dir1  = {.port = 3u, .bit = 2u,.dir = 1u};
+    pin_t step1 = {.port = 3u, .bit = 3u,.dir = 1u};
+    pin_t dir2  = {.port = 3u, .bit = 4u,.dir = 1u};
+    pin_t step2 = {.port = 3u, .bit = 5u,.dir = 1u};
+    
+    GPIO_write(dir1.port,dir1.bit,1);
+    GPIO_write(dir2.port,dir2.bit,1);
+    GPIO_write(step1.port,step1.bit,1);
+    GPIO_write(step2.port,step2.bit,1);
 }
