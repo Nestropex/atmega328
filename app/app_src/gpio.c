@@ -2,7 +2,7 @@
 #include <avr/io.h>
 
 
-uint8_t GPIO_setup(uint8_t port, const uint8_t *pin_config)
+uint8_t gpio_setup(uint8_t port, const uint8_t *pin_config)
 {
     uint8_t ret_val = 0u;
     for(uint8_t i = 0u; i < 8; i++)
@@ -32,7 +32,7 @@ uint8_t GPIO_setup(uint8_t port, const uint8_t *pin_config)
 }
 
 
-void GPIO_write(uint8_t port, uint8_t pin, uint8_t state)
+void gpio_write(uint8_t port, uint8_t pin, uint8_t state)
 {
 
     switch (port)
@@ -72,7 +72,7 @@ void GPIO_write(uint8_t port, uint8_t pin, uint8_t state)
     }
 }
 
-uint8_t GPIO_read(uint8_t port, uint8_t pin)
+uint8_t gpio_read(uint8_t port, uint8_t pin)
 {
     uint8_t ret_state = 0xffU;
 
@@ -80,15 +80,15 @@ uint8_t GPIO_read(uint8_t port, uint8_t pin)
         switch (port)
         {           
             case 1:
-                PINB = ret_state;
+                ret_state = PINB;
                 break;
             
             case 2:
-                PINC = ret_state;
+                ret_state = PINC;
                 break;
             
             case 3:
-                PIND = ret_state;
+                ret_state = PIND;
                 break;
             
             default:

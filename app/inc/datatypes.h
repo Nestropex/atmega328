@@ -14,7 +14,7 @@ typedef enum
 typedef struct pin {
     uint8_t port;
     uint8_t bit;
-    uint8_t dir;
+    uint8_t state;
 
 }pin_t;
 

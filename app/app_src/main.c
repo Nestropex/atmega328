@@ -33,9 +33,9 @@ static void init(void)
 
     error |= watchdog_enable(1u);
 
-    error |= GPIO_setup(1U,(const uint8_t *)gc_portb_dir);
-    error |= GPIO_setup(2U,(const uint8_t *)gc_portc_dir);
-    error |= GPIO_setup(3U,(const uint8_t *)gc_portd_dir);
+    error |= gpio_setup(1U,(const uint8_t *)gc_portb_dir);
+    error |= gpio_setup(2U,(const uint8_t *)gc_portc_dir);
+    error |= gpio_setup(3U,(const uint8_t *)gc_portd_dir);
 
     if(error != 0u)
     {
@@ -51,13 +51,31 @@ static void read_inputs(void)
 
 static void app_out(void)
 {
-    pin_t dir1  = {.port = 3u, .bit = 2u,.dir = 1u};
-    pin_t step1 = {.port = 3u, .bit = 3u,.dir = 1u};
-    pin_t dir2  = {.port = 3u, .bit = 4u,.dir = 1u};
-    pin_t step2 = {.port = 3u, .bit = 5u,.dir = 1u};
+    pin_t dir1  = {.port = 3u, .bit = 2u,.state = 0u};
+    pin_t step1 = {.port = 3u, .bit = 3u,.state = 0u};
+    pin_t dir2  = {.port = 3u, .bit = 4u,.state = 0u};
+    pin_t step2 = {.port = 3u, .bit = 5u,.state = 0u};
+
+    pin_t switch1  = {.port = 1u, .bit = 1u,.state = 0u};
+    pin_t switch2  = {.port = 2u, .bit = 4u,.state = 0u}; 
+    pin_t button1  = {.port = 1u, .bit = 0u,.state = 0u}; 
+    pin_t button2  = {.port = 2u, .bit = 5u,.state = 0u}; 
+    pin_t button3  = {.port = 1u, .bit = 2u,.state = 0u};
     
-    GPIO_write(dir1.port,dir1.bit,1);
-    GPIO_write(dir2.port,dir2.bit,1);
-    GPIO_write(step1.port,step1.bit,1);
-    GPIO_write(step2.port,step2.bit,1);
+    //gpio_write(dir1.port,dir1.bit,1);
+    gpio_write(dir2.port,dir2.bit,1);
+    
+    gpio_write(step2.port,step2.bit,1);
+
+    button1.state = gpio_read(button1.port, button1.bit);
+
+    if(button1.state != 0u)
+    {
+        gpio_write(step1.port,step1.bit,1);
+    }
+    else
+    {
+        gpio_write(step1.port,step1.bit,0);
+    }
+    
 }

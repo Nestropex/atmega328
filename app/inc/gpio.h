@@ -12,7 +12,7 @@
  * @param dir 0 input, 1 output
  * @return error variable
  */
-uint8_t GPIO_setup(uint8_t port, const uint8_t *pin_config);
+uint8_t gpio_setup(uint8_t port, const uint8_t *pin_config);
 
 /**
  * @brief Sets pins as high or low
@@ -21,7 +21,7 @@ uint8_t GPIO_setup(uint8_t port, const uint8_t *pin_config);
  * @param pin 0 to 7
  * @param state 0 low 1 high
  */
-void GPIO_write(uint8_t port, uint8_t pin, uint8_t state);
+void gpio_write(uint8_t port, uint8_t pin, uint8_t state);
 
 /**
  * @brief Gives the current state of a requested pin 
@@ -31,6 +31,6 @@ void GPIO_write(uint8_t port, uint8_t pin, uint8_t state);
  * @return current state of the pin 0 for low 1 for high 
  *         0xff means error
  */
-uint8_t GPIO_read(uint8_t port, uint8_t pin);
+uint8_t gpio_read(uint8_t port, uint8_t pin);
 
 #endif
