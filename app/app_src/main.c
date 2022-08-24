@@ -33,7 +33,9 @@ static void init(void)
 
     error |= watchdog_enable(1u);
 
-    GPIO_setup(1U,gc_portb_cfg);
+    error |= GPIO_setup(1U,(const uint8_t *)gc_portb_dir);
+    error |= GPIO_setup(2U,(const uint8_t *)gc_portc_dir);
+    error |= GPIO_setup(3U,(const uint8_t *)gc_portd_dir);
 
     if(error != 0u)
     {

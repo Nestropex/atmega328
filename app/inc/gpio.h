@@ -10,8 +10,9 @@
  * @param port 0-3
  * @param pin_config bitwise 1 output 0 input 
  * @param dir 0 input, 1 output
+ * @return error variable
  */
-void GPIO_setup(uint8_t port, uint8_t pin_config);
+uint8_t GPIO_setup(uint8_t port, const uint8_t *pin_config);
 
 /**
  * @brief Sets pins as high or low

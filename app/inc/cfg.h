@@ -25,10 +25,34 @@ VIN               TxD -- PD1 (TxD)
 
 
 #include "datatypes.h"
-const uint8_t gc_portb_cfg = 0x20U;
-const uint8_t gc_portc_cfg = 0xdfU;
-const uint8_t gc_portd_cfg = 0x22U;
 
 
+const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
+                                PIN_IN,  // Pin 1
+                                PIN_IN,  // Pin 2
+                                PIN_IN,  // Pin 3
+                                PIN_IN,  // Pin 4
+                                PIN_OUT, // Pin 5
+                                PIN_IN,  // Pin 6
+                                PIN_IN   // Pin 7
+                                };
 
+const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
+                                PIN_IN,  // Pin 1
+                                PIN_IN,  // Pin 2
+                                PIN_IN,  // Pin 3
+                                PIN_IN,  // Pin 4
+                                PIN_IN,  // Pin 5
+                                PIN_IN,  // Pin 6 Reset must must remain INPUT!!!
+                                PIN_IN   // Pin 7
+                                };
+const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
+                                PIN_IN,  // Pin 1
+                                PIN_IN,  // Pin 2
+                                PIN_IN,  // Pin 3
+                                PIN_IN,  // Pin 4
+                                PIN_IN,  // Pin 5
+                                PIN_IN,  // Pin 6
+                                PIN_IN   // Pin 7
+                                };                                
 #endif

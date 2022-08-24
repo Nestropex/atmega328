@@ -2,25 +2,33 @@
 #include <avr/io.h>
 
 
-void GPIO_setup(uint8_t port, uint8_t pin_config)
+uint8_t GPIO_setup(uint8_t port, const uint8_t *pin_config)
 {
-    switch (port)
+    uint8_t ret_val = 0u;
+    for(uint8_t i = 0u; i < 8; i++)
     {
-        case 1U:
-            DDRB = pin_config;
-            break;
+        switch (port)
+        {
+            case 1U:
+                DDRB |= *(pin_config + i) << i;
+                break;
 
-        case 2U:
-            DDRC = pin_config;
-            break;
+            case 2U:
+                DDRC = *(pin_config + i) << i;
+                break;
 
-        case 3U:
-            DDRD = pin_config;
-            break;
+            case 3U:
+                DDRD = *(pin_config + i) << i;
+                break;
 
-        default:
-            break;
+            default:
+                ret_val = 0xffu; 
+                break;
+        }
     }
+
+    return ret_val;
+
 }
 
 
