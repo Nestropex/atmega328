@@ -57,7 +57,7 @@ uint16_t dummy_val = 0u;
 static void app_out(void)
 {
 
-    uint8_t data[] = "Filthy fucking cunt\n";
+    uint8_t data[] = "Hello World\n";
     uint16_t *dummy = &dummy_val;
     uint8_t size = sizeof(data)/sizeof(uint8_t);
     dummy_val++;
