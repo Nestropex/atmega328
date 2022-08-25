@@ -4,6 +4,7 @@
 #include <avr/wdt.h>
 #include "watchdog.h"
 #include "gpio.h"
+#include "uart.h"
 #include "cfg.h"
 
 
@@ -16,12 +17,14 @@ static void app_out(void);
 int main(void)
 {
     init();
-    
+
+
     while(1)
     {  
         watchdog_reset();
         read_inputs();
         app_out();
+        
     }
 
     return 0;
@@ -42,16 +45,37 @@ static void init(void)
         // error_handler
     }
 
+    uart_set_baudrate(9600u);
 }
 
 static void read_inputs(void)
 {
 
 }
-
+uint8_t state3;
+uint16_t dummy_val = 0u;
 static void app_out(void)
 {
- 
+
+        uint8_t data[5] = {47, 48, 49, 50, 51};
+uint8_t state2;
+state2 = gpio_read(g_in.switch1.port, g_in.switch1.bit);
+    uint16_t *dummy = &dummy_val;
+    //dummy_val = dummy_val + dummy_val;
+    dummy_val++;
+    if(dummy_val == 40000u)
+    {
+        
+        gpio_write(g_out.step1.port, g_out.step1.bit,1);
+        uart_transmit(data, 5u);
+    }
+
+    if(dummy_val == 40500)
+    {
+        gpio_write(g_out.step1.port, g_out.step1.bit,0);
+        dummy_val = 0u;
+    }
+    
     const pin_t *switch1 = &g_in.switch1;
     const output_t *out = &g_out;
     int state = 0u;
@@ -65,11 +89,11 @@ static void app_out(void)
 
     if(state != 0u)
     {
-        gpio_write(g_out.step1.port, g_out.step1.bit,1);
+        //gpio_write(g_out.step1.port, g_out.step1.bit,1);
     }
     else
     {
-        gpio_write(g_out.step1.port, g_out.step1.bit,0);
+      //  gpio_write(g_out.step1.port, g_out.step1.bit,0);
     }
     
 }
