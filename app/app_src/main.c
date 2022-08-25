@@ -57,17 +57,15 @@ uint16_t dummy_val = 0u;
 static void app_out(void)
 {
 
-        uint8_t data[5] = {47, 48, 49, 50, 51};
-uint8_t state2;
-state2 = gpio_read(g_in.switch1.port, g_in.switch1.bit);
+    uint8_t data[] = "Filthy fucking cunt\n";
     uint16_t *dummy = &dummy_val;
-    //dummy_val = dummy_val + dummy_val;
+    uint8_t size = sizeof(data)/sizeof(uint8_t);
     dummy_val++;
     if(dummy_val == 40000u)
     {
         
         gpio_write(g_out.step1.port, g_out.step1.bit,1);
-        uart_transmit(data, 5u);
+        uart_transmit(data, size);
     }
 
     if(dummy_val == 40500)
