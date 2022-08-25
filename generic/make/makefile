@@ -19,7 +19,13 @@ INC_DIR = $(APP_INC_DIR)
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 CC = avr-gcc
-CFLAGS=-I$(INC_DIR)
+DEBUG_LEVEL = -g
+OPT = s
+CFLAGS = -D GCC_MEGA_AVR -D F_CPU=16000000 -I$(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
+-fsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
+$(WARNINGS) \
+-Wa,-adhlns=$(<:.c=.lst) 
+CFLAGS += -std=gnu99
 OPTIMIZATION =
 DEFINES = -DDEBUG
 DEFINES += -D__AVR_ATmega328P__
@@ -31,29 +37,34 @@ LIBS  =-lm
 SRC_FILES = $(APP_SRC_DIR)/main.c
 SRC_FILES += $(APP_SRC_DIR)/gpio.c
 SRC_FILES += $(APP_SRC_DIR)/watchdog.c
+SRC_FILES += $(APP_SRC_DIR)/uart.c
 
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}
 
-OPTIMIZATION = -Og
+#OPTIMIZATION = -Og
 #OPTIMIZATION = -O1
-#OPTIMIZATION = -O2
+OPTIMIZATION = -O2
 #OPTIMIZATION = -O3
-
+ALL_CFLAGS += -mmcu=atmega328p -I. $(CFLAGS)
 #Replace src file path with obj file path
 OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 
 $(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
-	$(CC) -c $< $(CFLAGS) -o $@  $(OPTIMIZATION ) -g2 $(DEFINES)
+	$(CC) -c $< $(ALL_CFLAGS) -o $@  $(OPTIMIZATION ) -g2 $(DEFINES) 
 
-LDFLAGS = -Xlinker   -nostdlib -g
+LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 
-OBJCOPY_FLAGS = -Wl -MAP=>output.map
+OBJCOPY_FLAGS = 
 #
 $(TARGET): $(OBJ_FILES)
-	$(CC)  $(CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES)
+	$(CC)  $(ALL_CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES) $(OBJCOPY_FLAGS)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
+
+all: gccversion clean $(TARGET) flash
+gccversion: 
+	@$(CC) --version
 
 #choose 57600 for arduino old bootloader 115200 for new bootloader
 flash: 
