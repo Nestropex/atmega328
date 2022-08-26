@@ -26,6 +26,8 @@ VIN               TxD -- PD1 (TxD)
 
 #include "datatypes.h"
 
+#define SYSTEM_CLK 16000000u
+#define TIMER_16BIT_PRESCALER   256u
 
 static const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
