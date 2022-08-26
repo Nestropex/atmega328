@@ -5,6 +5,7 @@
 
 #define PIN_IN  0u
 #define PIN_OUT 1u
+#define NULL_PTR (void *)0
 typedef enum
 {
     no_error = 0u,

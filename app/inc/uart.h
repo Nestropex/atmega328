@@ -17,7 +17,7 @@ void uart_init(void);
  *        which can be viewed on a serial monitor
  * 
  * @param str pointer to data that has null termination
- * @return    pointer invalid if !=0
+ * @return    Number of transmitted bytes (Including null termination)
  */
 uint8_t uart_str_transmit(uint8_t *str);
 
@@ -28,4 +28,5 @@ uint8_t uart_str_transmit(uint8_t *str);
  * @param base 10 for decimal, 16 for hex etc.
  */
 void uart_nmb_transmit(unsigned long n, uint8_t base);
+
 #endif
