@@ -79,7 +79,7 @@ static void app_out(void)
     
     //gpio_write(g_out.step1.port, g_out.step1.bit,1);
 
-    state = gpio_read(g_in.switch1.port +10, g_in.switch1.bit);
+    state = gpio_read(g_in.switch1.port, g_in.switch1.bit);
 
     if(state != 0u)
     {

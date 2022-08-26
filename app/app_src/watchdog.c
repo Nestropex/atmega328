@@ -1,7 +1,7 @@
 
 
 #include <avr/wdt.h>
-
+#include "system.h"
 
 void watchdog_reset(void)
 {
@@ -30,6 +30,7 @@ void watchdog_init(uint8_t timeout)
         break;
     
     default:
+        ERROR_HANDLER("ERROR watchdog_init");
         break;
     }
 

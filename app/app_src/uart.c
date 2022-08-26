@@ -5,7 +5,7 @@
 
 #include <avr/io.h>
 #include "datatypes.h"
-
+#include "system.h"
 
 #define INIT_IN_SYNCH_MODE 0x80u
 #define BAUDRATE           103u
@@ -44,6 +44,10 @@ uint8_t uart_str_transmit(uint8_t *str)
 
         }while(*str != '\0');
     }
+    else
+    {
+        ERROR_HANDLER("ERROR uart_str_transmit");
+    }
 
     return count;
 }
@@ -71,5 +75,10 @@ void uart_nmb_transmit(unsigned long n, uint8_t base)
     uart_str_transmit(str);
     uart_str_transmit("\n");
   }
+  else
+  {
+      ERROR_HANDLER("ERROR uart_nmb_transmit");
+  }
+  
  
 }
