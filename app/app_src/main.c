@@ -45,7 +45,7 @@ static void init(void)
         // error_handler
     }
 
-    uart_set_baudrate(9600u);
+    uart_init();
 }
 
 static void read_inputs(void)
@@ -56,6 +56,7 @@ uint8_t state3;
 uint16_t dummy_val = 0u;
 static void app_out(void)
 {
+    uint8_t var2 = 240;
 
     uint8_t data[] = "Hello World\n";
     uint16_t *dummy = &dummy_val;
@@ -65,7 +66,9 @@ static void app_out(void)
     {
         
         gpio_write(g_out.step1.port, g_out.step1.bit,1);
-        uart_transmit(data, size);
+        //uart_transmit(data, size);
+
+        uart_nmb_transmit(var2, 10);
     }
 
     if(dummy_val == 40500)

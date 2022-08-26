@@ -7,7 +7,10 @@
 #include "datatypes.h"
 
 
-uint8_t uart_set_baudrate(uint32_t baudrate)
+
+
+
+void uart_init(void)
 {
     UCSR0C = 0x80u; // Init in synchronous mode
     UCSR0C |= (1<<UCSZ00 | 1<<UCSZ01); // 8bit transmit size
@@ -15,23 +18,44 @@ uint8_t uart_set_baudrate(uint32_t baudrate)
     UCSR0B |= (1 << TXEN0 | 1 << RXEN0); //transmit enable
     UBRR0L = 103; // 9600 baud @ 16 MHz
 
-    return 0u;
 }
 
-uint8_t uart_transmit(uint8_t *data, uint8_t count)
+uint8_t uart_str_transmit(uint8_t *str)
 {
-
-   
-
-    for(uint8_t i = 0u; i < count; i++)
+    do
     {
         while(!(UCSR0A & (1 << UDRE0)))
         {
 
         }
 
-        UDR0 = *data;
-        data++;
-    }
- 
+        UDR0 = *str;
+        str++;
+    }while(*str != '\0');
+
+    return 0;
+}
+
+void uart_nmb_transmit(unsigned long n, uint8_t base)
+{
+  uint8_t buf[8 * sizeof(long) + 1]; // Assumes 8-bit chars plus zero byte.
+  uint8_t *str = &buf[sizeof(buf) - 1];
+  uint8_t count = 0u;
+
+  *str = '\0';
+
+  // prevent crash if called with base == 1
+  if (base < 2) base = 10;
+
+  do {
+    char c = n % base;
+    n /= base;
+
+    *--str = c < 10 ? c + '0' : c + 'A' - 10;
+    count++;
+  } while(n);
+
+  uart_str_transmit(str);
+  uart_str_transmit("\n");
+  
 }
