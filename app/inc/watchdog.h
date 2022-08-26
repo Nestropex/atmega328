@@ -17,6 +17,6 @@ void watchdog_disable(void);
  * 
  * @param timeout  in seconds, 1s, 2s and 4s available
  */
-uint8_t watchdog_enable(uint8_t timeout);
+uint8_t watchdog_init(uint8_t timeout);
 
 #endif

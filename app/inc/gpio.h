@@ -7,18 +7,17 @@
 /**
  * @brief Sets pins as input or output
  * 
- * @param port 0-3
+ * @param port port b,c and d correspond to 1,2 and 3
  * @param pin_config bitwise 1 output 0 input 
  * @param dir 0 input, 1 output
- * @return error variable
  */
-uint8_t gpio_setup(uint8_t port, const uint8_t *pin_config);
+void gpio_init(uint8_t port, const uint8_t *pin_config);
 
 /**
  * @brief Sets pins as high or low
  * 
- * @param port 0-3
- * @param pin 0 to 7
+ * @param port port b,c and d correspond to 1,2 and 3
+ * @param pin 0 to 7, corresponds to pin number i.e pb5: port 1, pin 5
  * @param state 0 low 1 high
  */
 void gpio_write(uint8_t port, uint8_t pin, uint8_t state);
@@ -26,11 +25,20 @@ void gpio_write(uint8_t port, uint8_t pin, uint8_t state);
 /**
  * @brief Gives the current state of a requested pin 
  * 
- * @param port 0-3
- * @param pin 0 to 7
+ * @param port port b,c and d correspond to 1,2 and 3
+ * @param pin 0 to 7, corresponds to pin number i.e pb5: pin 5
  * @return current state of the pin 0 for low 1 for high 
  *         0xff means error
  */
 uint8_t gpio_read(uint8_t port, uint8_t pin);
+
+/**
+ * @brief Pulses output pin with requested frequency
+ * @param port port b,c and d correspond to 1,2 and 3
+ * @param pin  corresponds to pin number i.e pb5: port 1, pin 5
+ * @param frequency number of flashes per second; 50% duty cycle
+ * 
+ */
+void gpio_flash(uint8_t port, uint8_t pin, uint16_t frequency);
 
 #endif

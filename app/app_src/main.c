@@ -13,7 +13,7 @@ static void read_inputs(void);
 static void app_out(void);
 
 
-// main function must be the first one in the file 
+// Main function must be the first one in the file 
 int main(void)
 {
     init();
@@ -32,18 +32,11 @@ int main(void)
 
 static void init(void)
 {
-    uint8_t error = 0u;
+    watchdog_init(1u);
 
-    error |= watchdog_enable(1u);
-
-    error |= gpio_setup(1U,(const uint8_t *)gc_portb_dir);
-    error |= gpio_setup(2U,(const uint8_t *)gc_portc_dir);
-    error |= gpio_setup(3U,(const uint8_t *)gc_portd_dir);
-
-    if(error != 0u)
-    {
-        // error_handler
-    }
+    gpio_init(1U,(const uint8_t *)gc_portb_dir);
+    gpio_init(2U,(const uint8_t *)gc_portc_dir);
+    gpio_init(3U,(const uint8_t *)gc_portd_dir);
 
     uart_init();
 }
@@ -56,7 +49,7 @@ uint8_t state3;
 uint16_t dummy_val = 0u;
 static void app_out(void)
 {
-    uint8_t var2 = 240;
+    uint8_t var2 = 10;
 
     uint8_t data[] = "Hello World\n";
     uint16_t *dummy = &dummy_val;
@@ -66,9 +59,9 @@ static void app_out(void)
     {
         
         gpio_write(g_out.step1.port, g_out.step1.bit,1);
-        //uart_transmit(data, size);
+        //uart_str_transmit(data);
 
-        uart_nmb_transmit(var2, 10);
+        //uart_nmb_transmit(var2, 16);
     }
 
     if(dummy_val == 40500)
@@ -86,7 +79,7 @@ static void app_out(void)
     
     //gpio_write(g_out.step1.port, g_out.step1.bit,1);
 
-    state = gpio_read(g_in.switch1.port, g_in.switch1.bit);
+    state = gpio_read(g_in.switch1.port +10, g_in.switch1.bit);
 
     if(state != 0u)
     {

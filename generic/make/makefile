@@ -38,6 +38,9 @@ SRC_FILES = $(APP_SRC_DIR)/main.c
 SRC_FILES += $(APP_SRC_DIR)/gpio.c
 SRC_FILES += $(APP_SRC_DIR)/watchdog.c
 SRC_FILES += $(APP_SRC_DIR)/uart.c
+SRC_FILES += $(APP_SRC_DIR)/timer.c
+SRC_FILES += $(APP_SRC_DIR)/system.c
+
 
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}

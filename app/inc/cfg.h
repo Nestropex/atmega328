@@ -27,7 +27,7 @@ VIN               TxD -- PD1 (TxD)
 #include "datatypes.h"
 
 
-const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
+static const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_IN,  // Pin 2
                                 PIN_IN,  // Pin 3
@@ -37,7 +37,7 @@ const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN   // Pin 7
                                 };
 
-const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
+static const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_IN,  // Pin 2
                                 PIN_IN,  // Pin 3
@@ -46,7 +46,7 @@ const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 6 Reset must must remain INPUT!!!
                                 PIN_IN   // Pin 7
                                 };
-const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
+static const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_OUT,  // Pin 2
                                 PIN_OUT,  // Pin 3
@@ -56,7 +56,6 @@ const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN   // Pin 7
                                 };               
 
-// make static, so every module gets its own copy
 static const input_t g_in = {
     .switch1 = {.port = 1u, .bit = 1u},
     .switch2 = {.port = 2u, .bit = 4u},
@@ -71,6 +70,12 @@ static const output_t g_out = {
     .step1 = {.port = 3u, .bit = 3u},
     .step2 = {.port = 3u, .bit = 5u}
 };        
+
+// Pin shall be connected to an LED in order to give an visible alarm
+static const pin_t g_error_out = {.port = 1u, .bit = 5u};
+
+
+
 
 /*
 

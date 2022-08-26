@@ -1,10 +1,10 @@
 #include "datatypes.h"
 #include <avr/io.h>
+#include "system.h"
 
 
-uint8_t gpio_setup(uint8_t port, const uint8_t *pin_config)
+void gpio_init(uint8_t port, const uint8_t *pin_config)
 {
-    uint8_t ret_val = 0u;
     for(uint8_t i = 0u; i < 8; i++)
     {
         switch (port)
@@ -22,13 +22,10 @@ uint8_t gpio_setup(uint8_t port, const uint8_t *pin_config)
                 break;
 
             default:
-                ret_val = 0xffu; 
+            ERROR_HANDLER("ERROR gpio_init");
                 break;
         }
     }
-
-    return ret_val;
-
 }
 
 
@@ -68,6 +65,7 @@ void gpio_write(uint8_t port, uint8_t pin, uint8_t state)
             break;
         
         default:
+        ERROR_HANDLER("ERROR gpio_write");
             break;
     }
 }
@@ -92,10 +90,16 @@ uint8_t gpio_read(uint8_t port, uint8_t pin)
                 break;
             
             default:
+            ERROR_HANDLER("ERROR gpio_read");
                 break;
         }
    
     ret_state &= (1 << pin);
 
     return ret_state >> pin;
+}
+
+void gpio_flash(uint8_t port, uint8_t pin, uint16_t frequency)
+{
+
 }

@@ -8,7 +8,7 @@
 
 
 #define INIT_IN_SYNCH_MODE 0x80u
-#define BAUDRATE_9600      103u
+#define BAUDRATE           103u
 #define ENABLE_TRANSMIT    (1 << TXEN0 | 1 << RXEN0)
 #define STOP_BITS_2        (1 << USBS0) 
 #define FRAME_SIZE_8BIT    (1<<UCSZ00 | 1<<UCSZ01)
@@ -19,7 +19,7 @@ void uart_init(void)
     UCSR0C |= FRAME_SIZE_8BIT; 
     UCSR0C |= STOP_BITS_2;              
     UCSR0B |= ENABLE_TRANSMIT;
-    UBRR0L  = BAUDRATE_9600;              
+    UBRR0L  = BAUDRATE;              
 
 }
 
