@@ -11,16 +11,17 @@
  *        and can be read via Serial Monitor. 
  *        Also the configured error pin will be flashed.
  * 
- *        This function should be called in case of NULL pointer or switch break statement etc. 
+ *        This function should be called in case of NULL pointer or switch break statement or
+ *        everywhere where a configuration error can occurre. 
  * 
- * @param error_description a string that holds information where the error occurred
- *                          i.e. module and function name
+ * @param error_description a string that holds information about the occurred error
+ *                          i.e. function name
  */
 void system_error_handler(uint8_t *error_description);
 
 /**
  * @brief Will check at every call whether an error has occurred. 
- *        This will prevent that an error is overseen 
+ *        This will prevent an error to be overseen 
  *        in case it occurred only once at start up. 
  * 
  *        This Function should be called periodically, i.e. every loop
