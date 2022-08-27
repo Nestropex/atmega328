@@ -19,7 +19,7 @@ typedef enum interrupts {
 
 
 /**
- * @brief Enables the interrupts globally via assembler instruction.
+ * @brief Enables the interrupts globally by calling assembler instruction.
  * 
  */
 void isr_init(void);
