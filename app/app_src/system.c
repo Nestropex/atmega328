@@ -26,10 +26,8 @@ void system_error_update(void)
 {
     if (stc_error_occurred != 0u)
     {
-        system_error_handler("An ERROR has occurred at least once at start up");
+       system_error_handler("An ERROR has occurred at least once at start up");
     }
-    
-
 }
 
 

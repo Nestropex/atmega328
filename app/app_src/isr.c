@@ -60,7 +60,6 @@ ISR(TIMER1_OVF_vect) {
 
 void isr_register(void (*isr), interrupts_t nmb)
 {
-    uart_str_transmit("regsister called\n");
     if (isr != NULL_PTR)
     {
         switch (nmb)
@@ -107,6 +106,6 @@ void isr_register(void (*isr), interrupts_t nmb)
     }
     else
     {
-        
+        ERROR_HANDLER("ERROR isr_register");
     }
 }
