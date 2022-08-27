@@ -29,6 +29,24 @@ VIN               TxD -- PD1 (TxD)
 #define SYSTEM_CLK 16000000u
 #define TIMER_16BIT_PRESCALER   256u
 
+typedef struct input {
+    pin_t switch1;
+    pin_t switch2;
+    pin_t button1;
+    pin_t button2;
+    pin_t button3;
+
+}input_t;
+
+typedef struct output {
+    pin_t dir1;
+    pin_t dir2;
+    pin_t step1;
+    pin_t step2;
+
+}output_t;
+
+
 static const uint8_t gc_portb_dir[] = {
                                 PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
