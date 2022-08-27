@@ -6,12 +6,14 @@
 #include "gpio.h"
 #include "uart.h"
 #include "cfg.h"
-
-
+#include "system.h"
+#include "timer.h"
+#include "isr.h"
 static void init(void);
 static void read_inputs(void);
 static void app_out(void);
 
+void app_isr_timer_0(void);
 
 // Main function must be the first one in the file 
 int main(void)
@@ -22,6 +24,7 @@ int main(void)
     while(1)
     {  
         watchdog_reset();
+        system_error_update();
         read_inputs();
         app_out();
         
@@ -32,13 +35,18 @@ int main(void)
 
 static void init(void)
 {
+    uart_str_transmit("start init");
     watchdog_init(1u);
 
     gpio_init(1U,(const uint8_t *)gc_portb_dir);
     gpio_init(2U,(const uint8_t *)gc_portc_dir);
     gpio_init(3U,(const uint8_t *)gc_portd_dir);
-
+    isr_init();
+    isr_register(&app_isr_timer_0, Timer1_Comp_A);
     uart_init();
+    timer_init();
+
+    
 }
 
 static void read_inputs(void)
@@ -52,19 +60,24 @@ static void app_out(void)
     uint8_t var2 = 10;
 
     uint8_t data[] = "Hello World\n";
-    uint16_t *dummy = &dummy_val;
+    uint16_t dummy = timer_get_16bit_ticks();
     uint8_t size = sizeof(data)/sizeof(uint8_t);
     dummy_val++;
-    if(dummy_val == 40000u)
+
+
+    if(dummy_val == 200000u)
     {
         
         gpio_write(g_out.step1.port, g_out.step1.bit,1);
-        //uart_str_transmit(data);
+      uart_str_transmit("\n");
+    uart_str_transmit("main: ");
+    uart_nmb_transmit(&app_isr_timer_0,2);
+    uart_str_transmit("\n");
 
-        //uart_nmb_transmit(var2, 16);
+   
     }
 
-    if(dummy_val == 40500)
+    if(dummy_val == 205000)
     {
         gpio_write(g_out.step1.port, g_out.step1.bit,0);
         dummy_val = 0u;
@@ -90,4 +103,10 @@ static void app_out(void)
       //  gpio_write(g_out.step1.port, g_out.step1.bit,0);
     }
     
+}
+
+
+void app_isr_timer_0(void)
+{
+    uart_str_transmit("function pointer executed\n");
 }
