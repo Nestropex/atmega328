@@ -17,8 +17,20 @@ typedef enum interrupts {
     Timer2_OVF
 }interrupts_t;
 
+
+/**
+ * @brief Enables the interrupts globally via assembler instruction.
+ * 
+ */
 void isr_init(void);
 
+/**
+ * @brief Enables the requested interrupt and allocates an interrupt service routine.
+ *              
+ *        This function must be executed after the timer initialization
+ * 
+ * @param nmb Requested interrupt as listed in enum
+ */
 void isr_register(void (*isr), interrupts_t nmb);
 
 #endif

@@ -6,8 +6,8 @@
 NANO V3 Clone
 D13 -- PB5(SCK)   D12 -- PB4 (MOSI)
 3V3               D11 -- PB3 (MISO)
-REF -- AREF       D10 -- PB2
-A0  -- PC0        D09 -- PB1
+REF -- AREF       D10 -- PB2 OC1B
+A0  -- PC0        D09 -- PB1 OC1A
 A1  -- PC1        D08 -- PB0
 A2  -- PC2        D07 -- PD7
 A3  -- PC3        D06 -- PD6

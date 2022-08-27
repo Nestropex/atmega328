@@ -7,6 +7,7 @@
 #include "system.h"
 #include "timer.h"
 
+
 #define ENABLE_INT_T1_A_COMP 0x02u
 #define ENABLE_INT_T1_B_COMP 0x04u
 #define ENABLE_INT_T1_OVF    0x01u
@@ -15,12 +16,11 @@ static void set_timer_frequency(void);
 
 uint32_t timer_init(void)
 {
-    TCCR1A = REG_RESET; 
-    TCCR1B = REG_RESET;
-    TIMSK1 = REG_RESET;
-    TIMSK1 = ENABLE_INT_T1_A_COMP | ENABLE_INT_T1_B_COMP | ENABLE_INT_T1_OVF; 
-    TIFR1  = REG_RESET;
-    TIFR1  = ENABLE_INT_T1_A_COMP | ENABLE_INT_T1_B_COMP | ENABLE_INT_T1_OVF; 
+    uint32_t value;
+    TCCR1A  = REG_RESET; 
+    TCCR1B  = REG_RESET;
+    TIMSK1  = REG_RESET;
+    TIFR1   = REG_RESET;
     set_timer_frequency();
 
     return SYSTEM_CLK/TIMER_16BIT_PRESCALER;

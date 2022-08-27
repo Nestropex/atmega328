@@ -13,17 +13,18 @@ static void init(void);
 static void read_inputs(void);
 static void app_out(void);
 
-void app_isr_timer_0(void);
+void app_isr_timer_1_comp_a(void);
 
 // Main function must be the first one in the file 
 int main(void)
 {
+    
     init();
-
+uart_str_transmit("init done\n");
 
     while(1)
     {  
-        watchdog_reset();
+        //watchdog_reset();
         system_error_update();
         read_inputs();
         app_out();
@@ -35,17 +36,16 @@ int main(void)
 
 static void init(void)
 {
-    uart_str_transmit("start init");
+    
     watchdog_init(1u);
-
+    uart_init();
+    timer_init();
     gpio_init(1U,(const uint8_t *)gc_portb_dir);
     gpio_init(2U,(const uint8_t *)gc_portc_dir);
     gpio_init(3U,(const uint8_t *)gc_portd_dir);
     isr_init();
-    isr_register(&app_isr_timer_0, Timer1_Comp_A);
-    uart_init();
-    timer_init();
-
+    isr_register(&app_isr_timer_1_comp_a, Timer1_Comp_A);
+    timer_set_compare(1u, 1u, 5000);
     
 }
 
@@ -64,20 +64,19 @@ static void app_out(void)
     uint8_t size = sizeof(data)/sizeof(uint8_t);
     dummy_val++;
 
-
-    if(dummy_val == 200000u)
+    if(dummy_val == 20000u)
     {
         
         gpio_write(g_out.step1.port, g_out.step1.bit,1);
-      uart_str_transmit("\n");
+     /* uart_str_transmit("\n");
     uart_str_transmit("main: ");
-    uart_nmb_transmit(&app_isr_timer_0,2);
-    uart_str_transmit("\n");
+    uart_nmb_transmit(&app_isr_timer_0,10);
+    uart_str_transmit("\n");*/
 
    
     }
 
-    if(dummy_val == 205000)
+    if(dummy_val == 20500)
     {
         gpio_write(g_out.step1.port, g_out.step1.bit,0);
         dummy_val = 0u;
@@ -106,7 +105,7 @@ static void app_out(void)
 }
 
 
-void app_isr_timer_0(void)
+void app_isr_timer_1_comp_a(void)
 {
     uart_str_transmit("function pointer executed\n");
 }
