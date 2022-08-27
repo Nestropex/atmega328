@@ -7,11 +7,10 @@
 #include "system.h"
 #include "timer.h"
 
-
-#define REG_RESET 0u
 #define ENABLE_INT_T1_A_COMP 0x02u
 #define ENABLE_INT_T1_B_COMP 0x04u
-#define ENABLE_INT_T1_OVF     0x01u
+#define ENABLE_INT_T1_OVF    0x01u
+
 static void set_timer_frequency(void);
 
 uint32_t timer_init(void)

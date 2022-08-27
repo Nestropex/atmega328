@@ -29,7 +29,8 @@ VIN               TxD -- PD1 (TxD)
 #define SYSTEM_CLK 16000000u
 #define TIMER_16BIT_PRESCALER   256u
 
-static const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
+static const uint8_t gc_portb_dir[] = {
+                                PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_IN,  // Pin 2
                                 PIN_IN,  // Pin 3
@@ -39,7 +40,8 @@ static const uint8_t gc_portb_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN   // Pin 7
                                 };
 
-static const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
+static const uint8_t gc_portc_dir[] = {
+                                PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_IN,  // Pin 2
                                 PIN_IN,  // Pin 3
@@ -48,12 +50,13 @@ static const uint8_t gc_portc_dir[] = {PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 6 Reset must must remain INPUT!!!
                                 PIN_IN   // Pin 7
                                 };
-static const uint8_t gc_portd_dir[] = {PIN_IN,  // Pin 0
+static const uint8_t gc_portd_dir[] = {
+                                PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
-                                PIN_OUT,  // Pin 2
-                                PIN_OUT,  // Pin 3
-                                PIN_OUT,  // Pin 4
-                                PIN_OUT,  // Pin 5
+                                PIN_OUT, // Pin 2
+                                PIN_OUT, // Pin 3
+                                PIN_OUT, // Pin 4
+                                PIN_OUT, // Pin 5
                                 PIN_IN,  // Pin 6
                                 PIN_IN   // Pin 7
                                 };               
