@@ -34,7 +34,7 @@ LDIR =$(HAL_DIR)/target/lib
 
 LIBS  =-lm 
 #Find all Source files withing the dir of the argument
-SRC_FILES =  $(HAL_SRC_DIR)/main.c
+#SRC_FILES =  $(HAL_SRC_DIR)/main.c
 SRC_FILES += $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
 SRC_FILES += $(HAL_SRC_DIR)/uart.c
@@ -66,7 +66,11 @@ $(TARGET): $(OBJ_FILES)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 
-all: gccversion clean $(TARGET) flash
+#hal: gccversion clean $(TARGET) flash
+
+lib: $(OBJ_FILES)
+	avr-ar rcs libatmega328p.a $(OBJ_FILES)
+
 gccversion: 
 	@$(CC) --version
 
