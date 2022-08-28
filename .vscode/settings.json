@@ -3,6 +3,12 @@
         "stdint.h": "c",
         "io.h": "c",
         "iom328p.h": "c",
-        "datatypes.h": "c"
+        "datatypes.h": "c",
+        "common.h": "c",
+        "wdt.h": "c",
+        "system.h": "c",
+        "interrupt.h": "c",
+        "uart.h": "c",
+        "cfg.h": "c"
     }
 }

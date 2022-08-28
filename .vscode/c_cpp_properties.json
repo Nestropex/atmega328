@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:\\Toolchain\\avr\\avr\\include\\",
-                "C:\\Toolchain\\avr\\avr\\include\\avr"
+                "C:\\Toolchain\\avr\\avr\\include\\avr",
+                "C:\\Users\\Nestropex1\\Documents\\GIT\\atmega328\\atmega328p\\inc"
             ],
             "defines": [
                 "_DEBUG",
