@@ -74,7 +74,9 @@ $(TARGET): $(APP_OBJ_FILES) libatmega328p.a
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 
-hal: gccversion $(TARGET) flash
+all: gccversion clean_all lib $(TARGET) flash
+app: gccversion clean_app $(TARGET) flash
+hal: gccversion clean_all $(TARGET) flash
 
 lib: $(OBJ_FILES)
 	avr-ar rcs libatmega328p.a $(OBJ_FILES)
@@ -87,5 +89,8 @@ flash:
 	avrdude -p $(MCU) -b 115200 -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
 .PHONY: clean
 
-clean:
+clean_hal:
 	rm -f $(OBJ_DIR)/*.o $(TARGET_DIR)/*.hex $(TARGET_DIR)/*.bin *~ core $(INCDIR)/*~ 
+clean_app:
+	rm -f $(APP_OBJ_DIR)/*.o $(APP_TARGET_DIR)/*.hex $(APP_TARGET_DIR)/*.bin *~ core $(INCDIR)/*~ 
+clean_all: clean_hal clean_app
