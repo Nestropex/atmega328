@@ -10,8 +10,8 @@ REF -- AREF       D10 -- PB2 OC1B
 A0  -- PC0        D09 -- PB1 OC1A
 A1  -- PC1        D08 -- PB0
 A2  -- PC2        D07 -- PD7
-A3  -- PC3        D06 -- PD6
-A4  -- PC4        D05 -- PD5
+A3  -- PC3        D06 -- PD6 OC0A
+A4  -- PC4        D05 -- PD5 0C0B
 A5  -- PC5        D04 -- PD4
 A6  -- ADC6       D03 -- PD3
 A7  -- ADC7       D02 -- PD2
@@ -27,7 +27,9 @@ VIN               TxD -- PD1 (TxD)
 #include "datatypes.h"
 
 #define SYSTEM_CLK 16000000u
-#define TIMER_16BIT_PRESCALER   256u
+#define TIMER_TIMER0_PRESCALER   1024u
+#define TIMER_TIMER1_PRESCALER   256u
+#define TIMER_TIMER2_PRESCALER   1024u
 
 typedef struct input {
     pin_t switch1;

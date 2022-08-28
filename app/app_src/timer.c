@@ -5,6 +5,7 @@
 #include <avr/io.h>
 #include "cfg.h"
 #include "system.h"
+#include "isr.h"
 #include "timer.h"
 
 
@@ -12,38 +13,130 @@
 #define ENABLE_INT_T1_B_COMP 0x04u
 #define ENABLE_INT_T1_OVF    0x01u
 
-static void set_timer_frequency(void);
+static void set_timer_frequency(timer_t timer, uint16_t prescaler);
 
-uint32_t timer_init(void)
+uint32_t timer0_init(uint32_t clk, uint16_t prescaler)
 {
-    uint32_t value;
-    TCCR1A  = REG_RESET; 
+    TCCR0A  = REG_RESET;
+    TCCR0B  = REG_RESET;
+    TIMSK0  = REG_RESET;
+    TIFR0   = REG_RESET;
+    set_timer_frequency(Timer0, prescaler);
+    
+    return clk/prescaler; 
+}
+
+uint32_t timer1_init(uint32_t clk, uint16_t prescaler)
+{
+    TCCR1A  = REG_RESET;
     TCCR1B  = REG_RESET;
     TIMSK1  = REG_RESET;
     TIFR1   = REG_RESET;
-    set_timer_frequency();
-
-    return SYSTEM_CLK/TIMER_16BIT_PRESCALER;
+    set_timer_frequency(Timer1, prescaler);
+    
+    return clk/prescaler; 
 }
 
-static void set_timer_frequency(void)
+uint32_t timer2_init(uint32_t clk, uint16_t prescaler)
 {
-    switch (TIMER_16BIT_PRESCALER)
+    TCCR2A  = REG_RESET;
+    TCCR2B  = REG_RESET;
+    TIMSK2  = REG_RESET;
+    TIFR2   = REG_RESET;
+    set_timer_frequency(Timer2, prescaler);
+    
+    return clk/prescaler; 
+}
+
+static void set_timer_frequency(timer_t timer, uint16_t prescaler)
+{
+    switch (prescaler)
     {
+    case 0u:
+        if (timer == Timer0)
+        {
+            TCCR0B |= 0x00u;
+        }
+        else if (timer == Timer1)
+        {
+            TCCR1B |= 0x00u;
+        }
+        else
+        {
+            TCCR2B |= 0x00u;
+        }
+        break;
     case 1u:
-        TCCR1B |= 0x01u;
+        if (timer == Timer0)
+        {
+            TCCR0B |= 0x01u;
+        }
+        else if (timer == Timer1)
+        {
+            TCCR1B |= 0x01u;
+        }
+        else
+        {
+            TCCR2B |= 0x01u;
+        }
         break;
     case 8u:
-        TCCR1B |= 0x02u;
+        if (timer == Timer0)
+        {
+            TCCR0B |= 0x02u;
+        }
+        else if (timer == Timer1)
+        {
+            TCCR1B |= 0x02u;
+        }
+        else
+        {
+            TCCR2B |= 0x02u;
+        }
+        
         break;
     case 64u:
-        TCCR1B |= 0x03u;
+        if (timer == Timer0)
+        {
+            TCCR0B |= 0x03u;
+        }
+        else if (timer == Timer1)
+        {
+            TCCR1B |= 0x03u;
+        }
+        else
+        {
+            TCCR2B |= 0x03u;
+        }
         break;
     case 256u:
-        TCCR1B |= 0x04u;
+        if (timer == Timer0)
+        {
+            TCCR0B |= 0x04u;
+        }
+        else if (timer == Timer1)
+        {
+            TCCR1B |= 0x04u;
+        }
+        else
+        {
+            TCCR2B |= 0x04u;
+        }
+
         break;
     case 1024u:
-        TCCR1B |= 0x05u;
+        if (timer == Timer0)
+        {
+            TCCR0B |= 0x05u;
+        }
+        else if (timer == Timer1)
+        {
+            TCCR1B |= 0x05u;
+        }
+        else
+        {
+            TCCR2B |= 0x05u;
+        }
         break;
     
     default:
@@ -52,54 +145,49 @@ static void set_timer_frequency(void)
     }
 }
 
-uint16_t timer_get_16bit_ticks(void)
+uint8_t timer0_get_ticks(void)
+{
+
+return TCNT0 << 8;
+}
+
+uint16_t timer1_get_ticks(void)
 {
 
 return TCNT1L | TCNT1H << 8;
 }
 
-
-void timer_set_compare(uint8_t port, uint8_t pin, uint16_t comp_val)
+uint8_t timer2_get_ticks(void)
 {
-    if (port = 2u)
-    {
-        switch (pin)
+
+return TCNT2 << 8;
+}
+
+void timer_set_compare(interrupts_t nmb, uint16_t comp_val)
+{
+
+        switch (nmb)
         {
-        case 1u:
-            OCR1A = comp_val;
-            break;
-        case 2u:
-            OCR1B = comp_val;
-            break;
-        case 3u:
-            OCR2A = comp_val;
-            break;
-        default:
-            ERROR_HANDLER("timer_set_compare");
-            break;
-        }
-    }
-    else if (port = 3u)
-    {
-        switch (pin)
-        {
-        case 3u:
-            OCR2B = comp_val;
-            break;
-        case 5u:
-            OCR0B = comp_val;
-            break;
-        case 6u:
+        case Timer0_Comp_A:
             OCR0A = comp_val;
             break;
-        
+        case Timer0_Comp_B:
+            OCR0B = comp_val;
+            break;
+        case Timer1_Comp_A:
+            OCR1A = comp_val;
+            break;
+        case Timer1_Comp_B:
+            OCR1B = comp_val;
+            break;
+        case Timer2_Comp_A:
+            OCR2A = comp_val;
+            break;    
+        case Timer2_Comp_B:
+            OCR2B = comp_val;
+            break;
         default:
             ERROR_HANDLER("timer_set_compare");
             break;
         }
-    }
-    else
-    {
-        ERROR_HANDLER("timer_set_compare");
-    }
 }

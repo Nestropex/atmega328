@@ -39,13 +39,15 @@ static void init(void)
     
     watchdog_init(1u);
     uart_init();
-    timer_init();
+    timer0_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
+    timer1_init(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
+    timer2_init(SYSTEM_CLK, TIMER_TIMER2_PRESCALER);
     gpio_init(1U,(const uint8_t *)gc_portb_dir);
     gpio_init(2U,(const uint8_t *)gc_portc_dir);
     gpio_init(3U,(const uint8_t *)gc_portd_dir);
     isr_init();
     isr_register(&app_isr_timer_1_comp_a, Timer1_Comp_A);
-    timer_set_compare(1u, 1u, 5000);
+    timer_set_compare(Timer1_Comp_A, 5000);
     
 }
 
@@ -60,7 +62,7 @@ static void app_out(void)
     uint8_t var2 = 10;
 
     uint8_t data[] = "Hello World\n";
-    uint16_t dummy = timer_get_16bit_ticks();
+    uint16_t dummy = timer1_get_ticks();
     uint8_t size = sizeof(data)/sizeof(uint8_t);
     dummy_val++;
 
