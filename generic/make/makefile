@@ -5,15 +5,15 @@ PORT = COM10
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
-APP_DIR = ../
+HAL_DIR = ../
 GEN_DIR = ../../generic
-APP_INC_DIR =$(APP_DIR)/inc
+HAL_INC_DIR =$(HAL_DIR)/inc
 GEN_INC_DIR +=$(GEN_DIR)/gen_include
-HAL_SRC_DIR = $(APP_DIR)/hal_src
+HAL_SRC_DIR = $(HAL_DIR)/src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
 USR_INC = ../../../../../../usr/include
-TARGET_DIR = $(APP_DIR)/target
-INC_DIR = $(APP_INC_DIR)
+TARGET_DIR = $(HAL_DIR)/target
+INC_DIR = $(HAL_INC_DIR)
 
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
 OBJCOPY = avr-objcopy
@@ -29,8 +29,8 @@ CFLAGS += -std=gnu99
 OPTIMIZATION =
 DEFINES = -DDEBUG
 DEFINES += -D__AVR_ATmega328P__
-OBJ_DIR=$(APP_DIR)/target/obj
-LDIR =$(APP_DIR)/target/lib
+OBJ_DIR=$(HAL_DIR)/target/obj
+LDIR =$(HAL_DIR)/target/lib
 
 LIBS  =-lm 
 #Find all Source files withing the dir of the argument
