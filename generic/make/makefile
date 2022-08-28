@@ -5,7 +5,6 @@ PORT = COM10
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
-HAL_DIR = ../
 APP_DIR = ../../app
 GEN_DIR = ../../generic
 HAL_INC_DIR =$(HAL_DIR)/inc
@@ -14,7 +13,8 @@ HAL_SRC_DIR = $(HAL_DIR)/src
 APP_SRC_DIR = $(APP_DIR)/src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
 USR_INC = ../../../../../../usr/include
-TARGET_DIR = $(HAL_DIR)/target
+HAL_TARGET_DIR = $(HAL_DIR)/target
+TARGET_DIR = $(APP_DIR)/target
 INC_DIR = $(HAL_INC_DIR)
 
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
@@ -34,8 +34,8 @@ DEFINES += -D__AVR_ATmega328P__
 OBJ_DIR=$(HAL_DIR)/target/obj
 APP_OBJ_DIR=$(APP_DIR)/target/obj
 LDIR =$(HAL_DIR)/target/lib
-
-LIBS  =-lm -Llibatmega328p.a
+HAL_LIB = $(HAL_TARGET_DIR)/libatmega328p.a
+LIBS  =-lm -L$(HAL_LIB)
 #Find all Source files withing the dir of the argument
 APP_SRC_FILES =  $(APP_SRC_DIR)/main.c
 SRC_FILES = $(HAL_SRC_DIR)/gpio.c
@@ -69,7 +69,7 @@ LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 
 OBJCOPY_FLAGS = 
 
-$(TARGET): $(APP_OBJ_FILES) libatmega328p.a
+$(TARGET): $(APP_OBJ_FILES) $(HAL_LIB)
 	$(CC)  $(ALL_CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES) $(OBJCOPY_FLAGS)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
@@ -79,7 +79,7 @@ app: gccversion clean_app $(TARGET) flash
 hal: gccversion clean_all $(TARGET) flash
 
 lib: $(OBJ_FILES)
-	avr-ar rcs libatmega328p.a $(OBJ_FILES)
+	avr-ar rcs $(HAL_LIB) $(OBJ_FILES)
 
 gccversion: 
 	@$(CC) --version

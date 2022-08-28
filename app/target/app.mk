@@ -8,7 +8,7 @@ AVR_HEADER = ../../../../../../../avr-libc
 DEPS += $(USR_INC)
 DEPS += $(APP_INC_DIR)
 DEPS += $(AVR_HEADER)
-HAL_DIR = ../
+HAL_DIR = ../../atmega328p
 HAL_SRC_DIR = $(HAL_DIR)/src
 #Find all Source files withing the dir of the argument
 SRC_FILES += $(HAL_SRC_DIR)/gpio.c
