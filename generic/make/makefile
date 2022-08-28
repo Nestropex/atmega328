@@ -9,7 +9,7 @@ APP_DIR = ../
 GEN_DIR = ../../generic
 APP_INC_DIR =$(APP_DIR)/inc
 GEN_INC_DIR +=$(GEN_DIR)/gen_include
-APP_SRC_DIR = $(APP_DIR)/app_src
+HAL_SRC_DIR = $(APP_DIR)/hal_src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
 USR_INC = ../../../../../../usr/include
 TARGET_DIR = $(APP_DIR)/target
@@ -34,12 +34,13 @@ LDIR =$(APP_DIR)/target/lib
 
 LIBS  =-lm 
 #Find all Source files withing the dir of the argument
-SRC_FILES = $(APP_SRC_DIR)/main.c
-SRC_FILES += $(APP_SRC_DIR)/gpio.c
-SRC_FILES += $(APP_SRC_DIR)/watchdog.c
-SRC_FILES += $(APP_SRC_DIR)/uart.c
-SRC_FILES += $(APP_SRC_DIR)/timer.c
-SRC_FILES += $(APP_SRC_DIR)/system.c
+SRC_FILES =  $(HAL_SRC_DIR)/main.c
+SRC_FILES += $(HAL_SRC_DIR)/gpio.c
+SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
+SRC_FILES += $(HAL_SRC_DIR)/uart.c
+SRC_FILES += $(HAL_SRC_DIR)/timer.c
+SRC_FILES += $(HAL_SRC_DIR)/system.c
+SRC_FILES += $(HAL_SRC_DIR)/isr.c
 
 
 #Change ending .c to .o; Same Path!
@@ -51,9 +52,9 @@ OPTIMIZATION = -O2
 #OPTIMIZATION = -O3
 ALL_CFLAGS += -mmcu=atmega328p -I. $(CFLAGS)
 #Replace src file path with obj file path
-OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
+OBJ_FILES := $(patsubst $(HAL_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 
-$(OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(HAL_SRC_DIR)/%.c
 	$(CC) -c $< $(ALL_CFLAGS) -o $@  $(OPTIMIZATION ) -g2 $(DEFINES) 
 
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
