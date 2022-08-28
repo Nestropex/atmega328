@@ -6,10 +6,12 @@ PORT = COM10
 PROGRAMMER = arduino
 
 HAL_DIR = ../
+APP_DIR = ../../app
 GEN_DIR = ../../generic
 HAL_INC_DIR =$(HAL_DIR)/inc
 GEN_INC_DIR +=$(GEN_DIR)/gen_include
 HAL_SRC_DIR = $(HAL_DIR)/src
+APP_SRC_DIR = $(APP_DIR)/src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
 USR_INC = ../../../../../../usr/include
 TARGET_DIR = $(HAL_DIR)/target
@@ -30,12 +32,13 @@ OPTIMIZATION =
 DEFINES = -DDEBUG
 DEFINES += -D__AVR_ATmega328P__
 OBJ_DIR=$(HAL_DIR)/target/obj
+APP_OBJ_DIR=$(APP_DIR)/target/obj
 LDIR =$(HAL_DIR)/target/lib
 
-LIBS  =-lm 
+LIBS  =-lm -Llibatmega328p.a
 #Find all Source files withing the dir of the argument
-#SRC_FILES =  $(HAL_SRC_DIR)/main.c
-SRC_FILES += $(HAL_SRC_DIR)/gpio.c
+APP_SRC_FILES =  $(APP_SRC_DIR)/main.c
+SRC_FILES = $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
 SRC_FILES += $(HAL_SRC_DIR)/uart.c
 SRC_FILES += $(HAL_SRC_DIR)/timer.c
@@ -45,6 +48,7 @@ SRC_FILES += $(HAL_SRC_DIR)/isr.c
 
 #Change ending .c to .o; Same Path!
 OBJ_ENDING := ${SRC_FILES:.c=.o}
+APP_OBJ_ENDING := ${APP_SRC_FILES:.c=.o}
 
 #OPTIMIZATION = -Og
 #OPTIMIZATION = -O1
@@ -53,20 +57,24 @@ OPTIMIZATION = -O2
 ALL_CFLAGS += -mmcu=atmega328p -I. $(CFLAGS)
 #Replace src file path with obj file path
 OBJ_FILES := $(patsubst $(HAL_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
+APP_OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(APP_OBJ_DIR)/%,$(APP_OBJ_ENDING))
 
 $(OBJ_DIR)/%.o: $(HAL_SRC_DIR)/%.c
 	$(CC) -c $< $(ALL_CFLAGS) -o $@  $(OPTIMIZATION ) -g2 $(DEFINES) 
 
+$(APP_OBJ_DIR)/%.o: $(APP_SRC_DIR)/%.c 
+	$(CC) -c $< $(ALL_CFLAGS) -o $@  $(OPTIMIZATION ) -g2 $(DEFINES) 
+	
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 
 OBJCOPY_FLAGS = 
-#
-$(TARGET): $(OBJ_FILES)
+
+$(TARGET): $(APP_OBJ_FILES) libatmega328p.a
 	$(CC)  $(ALL_CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES) $(OBJCOPY_FLAGS)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 
-#hal: gccversion clean $(TARGET) flash
+hal: gccversion $(TARGET) flash
 
 lib: $(OBJ_FILES)
 	avr-ar rcs libatmega328p.a $(OBJ_FILES)
