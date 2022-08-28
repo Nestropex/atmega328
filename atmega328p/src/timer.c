@@ -21,7 +21,7 @@ uint32_t timer0_init(uint32_t clk, uint16_t prescaler)
     TIMSK0  = REG_RESET;
     TIFR0   = REG_RESET;
     set_timer_frequency(Timer0, prescaler);
-    
+
     return clk/prescaler; 
 }
 
@@ -147,7 +147,7 @@ static void set_timer_frequency(timer_t timer, uint16_t prescaler)
 uint8_t timer0_get_ticks(void)
 {
 
-return TCNT0 << 8;
+return TCNT0;
 }
 
 uint16_t timer1_get_ticks(void)
@@ -159,7 +159,7 @@ return TCNT1L | TCNT1H << 8;
 uint8_t timer2_get_ticks(void)
 {
 
-return TCNT2 << 8;
+return TCNT2;
 }
 
 void timer_set_compare(interrupts_t nmb, uint16_t comp_val)
