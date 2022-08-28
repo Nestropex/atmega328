@@ -36,9 +36,8 @@ uint8_t gpio_read(uint8_t port, uint8_t pin);
  * @brief Pulses output pin with requested frequency
  * @param port port b,c and d correspond to 1,2 and 3
  * @param pin  corresponds to pin number i.e pb5: port 1, pin 5
- * @param frequency number of flashes per second; 50% duty cycle
  * 
  */
-void gpio_flash(uint8_t port, uint8_t pin, uint16_t frequency);
+void gpio_flash(uint8_t port, uint8_t pin);
 
 #endif

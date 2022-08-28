@@ -98,8 +98,19 @@ uint8_t gpio_read(uint8_t port, uint8_t pin)
 
     return ret_state >> pin;
 }
-
-void gpio_flash(uint8_t port, uint8_t pin, uint16_t frequency)
+static uint8_t state;
+void gpio_flash(uint8_t port, uint8_t pin)
 {
-
+    if (state == 0u)
+    {
+        gpio_write(port, pin, 1u);
+        state = 1u;
+    }
+    else
+    {
+        gpio_write(port, pin, 0u);
+        state = 0u;
+    }
+    
+    
 }

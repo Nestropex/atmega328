@@ -152,8 +152,12 @@ return TCNT0;
 
 uint16_t timer1_get_ticks(void)
 {
+    uint16_t low  = (uint16_t)TCNT1L; 
+    uint16_t high = (uint16_t)TCNT1H;
+    uint16_t count = (high << 8) | low;
 
-return TCNT1L | TCNT1H << 8;
+    return count;
+
 }
 
 uint8_t timer2_get_ticks(void)
