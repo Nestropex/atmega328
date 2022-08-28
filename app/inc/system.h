@@ -6,6 +6,12 @@
 #define ERROR_HANDLER(x) system_error_handler(x)
 
 /**
+ * @brief Confiures the error led
+ * 
+ */
+void system_init(pin_t error_led);
+
+/**
  * @brief Brings the system to a defined state in case of error.
  *        The error description from the param will be sent via uart 
  *        and can be read via Serial Monitor. 

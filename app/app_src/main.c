@@ -9,6 +9,8 @@
 #include "system.h"
 #include "timer.h"
 #include "isr.h"
+
+
 static void init(void);
 static void read_inputs(void);
 static void app_out(void);
@@ -38,6 +40,7 @@ static void init(void)
 {
     
     watchdog_init(1u);
+    system_init(g_error_out);
     uart_init();
     timer0_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
     timer1_init(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);

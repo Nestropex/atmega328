@@ -3,7 +3,6 @@
 
 #include "datatypes.h"
 #include <avr/io.h>
-#include "cfg.h"
 #include "system.h"
 #include "isr.h"
 #include "timer.h"
