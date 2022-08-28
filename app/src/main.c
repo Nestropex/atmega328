@@ -9,7 +9,7 @@
 #include "system.h"
 #include "timer.h"
 #include "isr.h"
-
+#include "test.h"
 
 static void init(void);
 static void read_inputs(void);
@@ -22,6 +22,7 @@ int main(void)
 {
     
     init();
+    test();
 uart_str_transmit("init done\n");
 
     while(1)

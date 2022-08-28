@@ -7,7 +7,8 @@ PROGRAMMER = arduino
 
 APP_DIR = ../../app
 GEN_DIR = ../../generic
-HAL_INC_DIR =$(HAL_DIR)/inc
+HAL_INC_DIR = $(HAL_DIR)/inc
+APP_INC_DIR = $(APP_DIR)/inc
 GEN_INC_DIR +=$(GEN_DIR)/gen_include
 HAL_SRC_DIR = $(HAL_DIR)/src
 APP_SRC_DIR = $(APP_DIR)/src
@@ -15,7 +16,10 @@ GEN_SRC_DIR += $(GEN_DIR)/gen_src
 USR_INC = ../../../../../../usr/include
 HAL_TARGET_DIR = $(HAL_DIR)/target
 TARGET_DIR = $(APP_DIR)/target
-INC_DIR = $(HAL_INC_DIR)
+
+INC_DIR = -I$(HAL_INC_DIR)
+INC_DIR += -I$(APP_INC_DIR)
+
 
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
 OBJCOPY = avr-objcopy
@@ -23,7 +27,7 @@ OBJDUMP = avr-objdump
 CC = avr-gcc
 DEBUG_LEVEL = -g
 OPT = s
-CFLAGS = -D GCC_MEGA_AVR -D F_CPU=16000000 -I$(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
+CFLAGS = -D GCC_MEGA_AVR -D F_CPU=16000000 $(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
 -fsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
 $(WARNINGS) \
 -Wa,-adhlns=$(<:.c=.lst) 
@@ -38,6 +42,7 @@ HAL_LIB = $(HAL_TARGET_DIR)/libatmega328p.a
 LIBS  =-lm -L$(HAL_LIB)
 #Find all Source files withing the dir of the argument
 APP_SRC_FILES =  $(APP_SRC_DIR)/main.c
+APP_SRC_FILES +=  $(APP_SRC_DIR)/test.c
 SRC_FILES = $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
 SRC_FILES += $(HAL_SRC_DIR)/uart.c
