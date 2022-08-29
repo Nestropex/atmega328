@@ -18,7 +18,7 @@ static void app_isr_timer_0_ovf(void);
 loop_t main_loop;
 loop_t period_1_loop;
 loop_t period_2_loop;
-    
+uint8_t state;
 // Main function must be the first one in the file 
 int main(void)
 {
@@ -47,7 +47,19 @@ int main(void)
             loop_control(&period_2_loop);
             if(period_2_loop.execute_flag == 1u)
             {
-                system_error_update();   
+                system_error_update();
+
+                if(state == 0u)
+                {
+                    state = 1u;
+                }
+                else
+                {
+                    state = 0u;
+                }
+                
+                uart_str_transmit("Heartbeat\n");
+                gpio_write(1,4,state);
             }
 
         }
