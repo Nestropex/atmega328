@@ -20,7 +20,8 @@ void loop_control(loop_t  *period)
         uint32_t ticks_config = (temp_period->time_config*clk_scaled)/TIMER_TIMER1_PRESCALER;
 
     	uint32_t compute = period->diff;
-        compute = compute *TIMER_TIMER1_PRESCALER;
+        compute = compute * TIMER_TIMER1_PRESCALER;
+
         if (temp_period->diff >= ticks_config)
         {
             temp_period->execute_flag = 1u;
