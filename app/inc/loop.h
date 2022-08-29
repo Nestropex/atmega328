@@ -23,7 +23,7 @@ typedef struct loop {
  * 
  * @param period Object to fill with requested info
  */
-void loop_update(loop_t  *period);
+void loop_control(loop_t  *period);
 
 /**
  * @brief Sends looptime and loopcount of requested object via uart

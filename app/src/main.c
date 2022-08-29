@@ -48,15 +48,16 @@ int main(void)
         watchdog_reset();
         if ((timer0_get_ticks() == 0u) && (flag == 1u))
         {   
-            loop_update(&main_loop);
+            //loop_control(&main_loop);
 
 
             flag = 0u; // Avoid multiple executions while timer is 0
-        loop_time_elapsed(&period_1_loop);
+
+        loop_control(&period_1_loop);
 
         if(period_1_loop.execute_flag == 1u)
         {
-            loop_update(&period_1_loop);
+   
 
             cnt_last_0 = main_loop.cnt;
             
@@ -79,11 +80,11 @@ int main(void)
            //loop_print(&period_2_loop, "period_2.");
         } 
 
-
+        //loop_control(&period_2_loop);
         if((main_loop.cnt > period_2_loop.cnt) && ((main_loop.cnt % 60u) == 0u))
         {
             cnt_last_2 = main_loop.cnt;
-            loop_update(&period_2_loop);
+
             system_error_update();
   
    
