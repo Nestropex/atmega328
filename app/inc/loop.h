@@ -18,15 +18,18 @@ typedef struct loop {
 /**
  * @brief Fills requested loop object with time since the last execution 
  *        of this function and number of executions since stat up
+ *        It will set the execution_flag to 1 if the time since it was set the last
+ *        time is elapsed which is configured in execution time.
  * 
- *        Shall be called everywhere where periodic timining must be monitored 
+ *        This function must be called each main loop, the execution_flag is then,
+ *        intended as if() to achieve the desired timing. 
  * 
  * @param period Object to fill with requested info
  */
 void loop_control(loop_t  *period);
 
 /**
- * @brief Sends looptime and loopcount of requested object via uart
+ * @brief Sends looptime, loopcount etc. of requested object via uart
  * 
  *        Debug purpose only
  * 
@@ -35,11 +38,6 @@ void loop_control(loop_t  *period);
  */
 void loop_print(loop_t *period, uint8_t *str);
 
-/**
- * @brief 
- * 
- */
-void loop_time_elapsed(loop_t *period);
 
 
 
