@@ -6,11 +6,13 @@
 
 
 typedef struct loop {
-    uint32_t time;
+    uint16_t time;
     uint32_t cnt;
-    uint32_t cur_ticks;
-    uint32_t last_ticks;
-    uint32_t diff;
+    uint16_t time_config;
+    uint8_t execute_flag;
+    uint16_t cur_ticks;
+    uint16_t last_ticks;
+    uint16_t diff;
 }loop_t;
 
 /**
@@ -32,6 +34,12 @@ void loop_update(loop_t  *period);
  * @param str Text that shall be visible on serial monitor
  */
 void loop_print(loop_t *period, uint8_t *str);
+
+/**
+ * @brief 
+ * 
+ */
+void loop_time_elapsed(loop_t *period);
 
 
 

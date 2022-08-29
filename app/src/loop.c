@@ -6,11 +6,6 @@
 #include "loop.h"
 
 
-
-
-
-
-
 void loop_update(loop_t  *period)
 {
     if (period != NULL_PTR)
@@ -37,4 +32,32 @@ void loop_print(loop_t *period, uint8_t *str)
     uart_str_transmit("cnt: ");
     uart_nmb_transmit(period->cnt, 10u);
     uart_str_transmit("\n");
+}
+
+void loop_time_elapsed(loop_t *period)
+{
+  
+    period->cur_ticks = timer1_get_ticks();
+    period->diff = period->cur_ticks - period->last_ticks;
+
+    uint32_t clk_scaled = SYSTEM_CLK/1000ul;
+    uint32_t ticks_config = (period->time_config*clk_scaled)/TIMER_TIMER1_PRESCALER;
+    
+    if (period != NULL_PTR)
+    {
+        if (period->diff >= ticks_config)
+        {
+            period->execute_flag = 1u;
+        }
+        else
+        {
+            period->execute_flag = 0u;
+        }
+    }
+    else
+    {
+        ERROR_HANDLER("ERROR loop_time_elapsed");
+    }
+    
+    
 }

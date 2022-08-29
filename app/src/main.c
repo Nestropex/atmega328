@@ -40,13 +40,11 @@ int main(void)
     uint16_t cur_timer1;
     init();
     app_init();
-    uint16_t i;
+    period_1_loop.time_config = 1000u;
     uint32_t diff;
+
     while(1)
-    {  while(i < 1000u)
-        {
-            i++;
-        }
+    {  
         watchdog_reset();
         if ((timer0_get_ticks() == 0u) && (flag == 1u))
         {   
@@ -54,11 +52,11 @@ int main(void)
 
 
             flag = 0u; // Avoid multiple executions while timer is 0
+        loop_time_elapsed(&period_1_loop);
 
-        if((main_loop.cnt > period_1_loop.cnt) && ((main_loop.cnt % 30u) == 0u))
+        if(period_1_loop.execute_flag == 1u)
         {
             loop_update(&period_1_loop);
-            
 
             cnt_last_0 = main_loop.cnt;
             
@@ -76,11 +74,11 @@ int main(void)
 
            gpio_write(1,4,state0);
 
-           loop_print(&main_loop, "main.");
-           loop_print(&period_1_loop, "period_1.");
-           loop_print(&period_2_loop, "period_2.");
+           //loop_print(&main_loop, "main.");
+           //loop_print(&period_1_loop, "period_1.");
+           //loop_print(&period_2_loop, "period_2.");
         } 
- 
+
 
         if((main_loop.cnt > period_2_loop.cnt) && ((main_loop.cnt % 60u) == 0u))
         {
@@ -97,7 +95,6 @@ int main(void)
             {
                 state1 = 1;
             }
-            uart_str_transmit("hallo");
             gpio_write(2,2,state1);
             
         }

@@ -26,7 +26,7 @@ VIN               TxD -- PD1 (TxD)
 
 #include "datatypes.h"
 
-#define SYSTEM_CLK 16000000u
+#define SYSTEM_CLK 16000000ul
 #define TIMER_TIMER0_PRESCALER   256u
 #define TIMER_TIMER1_PRESCALER   256u
 #define TIMER_TIMER2_PRESCALER   1024u
