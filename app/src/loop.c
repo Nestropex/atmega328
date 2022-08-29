@@ -10,30 +10,29 @@ void loop_control(loop_t  *period)
 {
     if (period != NULL_PTR)
     {
-        period->cnt++;
-        period->cur_ticks = timer1_get_ticks();
-        period->diff = period->cur_ticks - period->last_ticks;
+        loop_t *temp_period = period;
+        temp_period->cnt++;
+        temp_period->cur_ticks = timer1_get_ticks();
+        temp_period->diff = temp_period->cur_ticks - temp_period->last_ticks;
   
 
         uint32_t clk_scaled = SYSTEM_CLK/1000ul;
-        uint32_t ticks_config = (period->time_config*clk_scaled)/TIMER_TIMER1_PRESCALER;
+        uint32_t ticks_config = (temp_period->time_config*clk_scaled)/TIMER_TIMER1_PRESCALER;
 
     	uint32_t compute = period->diff;
         compute = compute *TIMER_TIMER1_PRESCALER;
-        if (period->diff >= ticks_config)
+        if (temp_period->diff >= ticks_config)
         {
-            period->execute_flag = 1u;
-            period->time = (uint32_t)((compute)/clk_scaled);
-            period->last_ticks = period->cur_ticks;
-
- 
+            temp_period->execute_flag = 1u;
+            temp_period->time = (uint32_t)((compute)/clk_scaled);
+            temp_period->last_ticks = temp_period->cur_ticks;
         }
         else
         {
-            period->execute_flag = 0u;
+            temp_period->execute_flag = 0u;
         }
         
-        
+        *period = *temp_period;
     }
     else
     {
