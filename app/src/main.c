@@ -24,9 +24,9 @@ int main(void)
 {
     init();
     app_init();
-    main_loop.time_config = 1u;
-    period_1_loop.time_config = 10u;
-    period_2_loop.time_config = 120u;
+    main_loop.time_config = LOOP_MAIN_TIME;
+    period_1_loop.time_config = LOOP_1_TIME;
+    period_2_loop.time_config = LOOP_2_TIME;
 
 
     while(1)
