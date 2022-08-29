@@ -6,7 +6,7 @@
 
 
 typedef struct loop {
-    uint16_t time;
+    uint32_t time;
     uint32_t cnt;
     uint16_t time_config;
     uint8_t execute_flag;

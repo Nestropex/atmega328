@@ -41,6 +41,7 @@ int main(void)
     init();
     app_init();
     period_1_loop.time_config = 1000u;
+    period_2_loop.time_config = 200u;
     uint32_t diff;
 
     while(1)
@@ -75,15 +76,15 @@ int main(void)
 
            gpio_write(1,4,state0);
 
-           //loop_print(&main_loop, "main.");
-           //loop_print(&period_1_loop, "period_1.");
-           //loop_print(&period_2_loop, "period_2.");
+           loop_print(&main_loop, "main.");
+           loop_print(&period_1_loop, "period_1.");
+           loop_print(&period_2_loop, "period_2.");
         } 
 
-        //loop_control(&period_2_loop);
-        if((main_loop.cnt > period_2_loop.cnt) && ((main_loop.cnt % 60u) == 0u))
+        loop_control(&period_2_loop);
+        if(period_2_loop.execute_flag == 1u)
         {
-            cnt_last_2 = main_loop.cnt;
+
 
             system_error_update();
   

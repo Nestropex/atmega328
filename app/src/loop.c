@@ -18,10 +18,12 @@ void loop_control(loop_t  *period)
         uint32_t clk_scaled = SYSTEM_CLK/1000ul;
         uint32_t ticks_config = (period->time_config*clk_scaled)/TIMER_TIMER1_PRESCALER;
 
+    	uint32_t compute = period->diff;
+        compute = compute *TIMER_TIMER1_PRESCALER;
         if (period->diff >= ticks_config)
         {
             period->execute_flag = 1u;
-            period->time = (uint32_t)((period->diff*TIMER_TIMER1_PRESCALER * 1000u)/SYSTEM_CLK);
+            period->time = (uint32_t)((compute)/clk_scaled);
             period->last_ticks = period->cur_ticks;
 
  
