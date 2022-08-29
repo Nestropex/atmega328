@@ -3,14 +3,12 @@
 
 #include "datatypes.h"
 
-
-
 /**
  * @brief Sets baudrate to 9600,
  *        also parameters like stop bits, 
  *        parity bit and bit size
  */
-void uart_init(void);
+void uart_init(uint32_t clk, uint32_t baudrate);
 
 /**
  * @brief Transmits null terminated data 

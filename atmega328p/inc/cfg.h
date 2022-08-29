@@ -31,6 +31,9 @@ VIN               TxD -- PD1 (TxD)
 #define TIMER_TIMER1_PRESCALER   256u
 #define TIMER_TIMER2_PRESCALER   1024u
 
+/*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
+#define UART_BAUDRATE           500000u
+
 typedef struct input {
     pin_t switch1;
     pin_t switch2;

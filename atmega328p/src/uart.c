@@ -8,18 +8,35 @@
 #include "system.h"
 
 #define INIT_IN_SYNCH_MODE 0x80u
-#define BAUDRATE           103u
 #define ENABLE_TRANSMIT    (1 << TXEN0 | 1 << RXEN0)
 #define STOP_BITS_2        (1 << USBS0) 
 #define FRAME_SIZE_8BIT    (1<<UCSZ00 | 1<<UCSZ01)
 
-void uart_init(void)
+void uart_init(uint32_t clk, uint32_t baudrate)
 {
-    UCSR0C  = INIT_IN_SYNCH_MODE;
-    UCSR0C |= FRAME_SIZE_8BIT; 
-    UCSR0C |= STOP_BITS_2;              
-    UCSR0B |= ENABLE_TRANSMIT;
-    UBRR0L  = BAUDRATE;              
+    uint8_t reg_val;
+    if (baudrate >= 4800)
+    {
+        if(baudrate != 115200)
+        {
+            reg_val = (uint8_t)((clk/(16*baudrate)) - 1u);
+        }
+        else
+        {
+            // According to manual reg_val should be 8 but it is 7.
+            // Equation is not correct for 115200
+            reg_val = (uint8_t)(clk/(16*baudrate)) ;
+        }
+        
+
+        UCSR0C  = INIT_IN_SYNCH_MODE;
+        UCSR0C |= FRAME_SIZE_8BIT; 
+        UCSR0C |= STOP_BITS_2;              
+        UCSR0B |= ENABLE_TRANSMIT;
+        UBRR0L  = reg_val;  
+    }
+    
+            
 
 }
 

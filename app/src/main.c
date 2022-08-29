@@ -7,6 +7,7 @@
 #include "timer.h"
 #include "isr.h"
 #include "gpio.h"
+#include "loop.h"
 #include "app.h"
 
 static void init(void);
@@ -16,30 +17,50 @@ static void app_out(void);
 static uint16_t timer0_ovf_cnt;
 static void app_isr_timer_0_ovf(void);
 
-uint8_t state0;
-uint8_t state1;
-uint16_t cnt_last_0;
-uint16_t cnt_last_1;
-uint16_t cnt_last_2;
+
+
+
+loop_t main_loop;
+loop_t period_1_loop;
+loop_t period_2_loop;
+
+
+    uint8_t state0;
+    uint8_t state1;
+    uint16_t cnt_last_0;
+    uint16_t cnt_last_1;
+    uint16_t cnt_last_2;
+    uint16_t last_timer1;
+    
 // Main function must be the first one in the file 
 int main(void)
 {
     uint8_t flag;
     uint16_t ovf_cnt = 0u;
+    uint16_t cur_timer1;
     init();
     app_init();
-
+    uint16_t i;
+    uint32_t diff;
     while(1)
-    {  
+    {  while(i < 1000u)
+        {
+            i++;
+        }
         watchdog_reset();
         if ((timer0_get_ticks() == 0u) && (flag == 1u))
-        {
-            ovf_cnt++;
+        {   
+            loop_update(&main_loop);
+
+
             flag = 0u; // Avoid multiple executions while timer is 0
 
-        if((ovf_cnt > cnt_last_0) && ((ovf_cnt % 30u) == 0u))
+        if((main_loop.cnt > period_1_loop.cnt) && ((main_loop.cnt % 30u) == 0u))
         {
-            cnt_last_0 = ovf_cnt;
+            loop_update(&period_1_loop);
+            
+
+            cnt_last_0 = main_loop.cnt;
             
             read_inputs();
             app_main();
@@ -54,13 +75,19 @@ int main(void)
             }
 
            gpio_write(1,4,state0);
+
+           loop_print(&main_loop, "main.");
+           loop_print(&period_1_loop, "period_1.");
+           loop_print(&period_2_loop, "period_2.");
         } 
  
 
-        if((ovf_cnt > cnt_last_1) && ((ovf_cnt % 125u) == 0u))
+        if((main_loop.cnt > period_2_loop.cnt) && ((main_loop.cnt % 60u) == 0u))
         {
+            cnt_last_2 = main_loop.cnt;
+            loop_update(&period_2_loop);
             system_error_update();
-            cnt_last_1 = ovf_cnt;
+  
    
             if (state1 == 1u)
             {
@@ -70,8 +97,8 @@ int main(void)
             {
                 state1 = 1;
             }
-
-            gpio_write(1,3,state1);
+            uart_str_transmit("hallo");
+            gpio_write(2,2,state1);
             
         }
 
@@ -93,7 +120,7 @@ static void init(void)
     gpio_init(2U,(const uint8_t *)gc_portc_dir);
     gpio_init(3U,(const uint8_t *)gc_portd_dir);
     system_init(g_error_out);
-    uart_init();
+    uart_init(SYSTEM_CLK, UART_BAUDRATE);
     timer0_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
     isr_init();
     isr_register(&app_isr_timer_0_ovf, Timer0_OVF);
