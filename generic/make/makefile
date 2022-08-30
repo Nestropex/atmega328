@@ -1,6 +1,6 @@
 
 
-MCU = ATmega328P
+MCU = atmega328p
 PORT = COM10
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
@@ -24,6 +24,7 @@ INC_DIR += -I$(APP_INC_DIR)
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
+OBJSIZE = avr-size
 CC = avr-gcc
 DEBUG_LEVEL = -g
 OPT = s
@@ -79,6 +80,7 @@ $(TARGET): $(APP_OBJ_FILES) $(HAL_LIB)
 	$(CC)  $(ALL_CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES) $(OBJCOPY_FLAGS)
 	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
+	$(OBJSIZE) -C --mcu=$(MCU)  $(TARGET).elf
 
 all: gccversion clean_all lib $(TARGET) flash
 app: gccversion clean_app $(TARGET) flash

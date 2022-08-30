@@ -30,7 +30,9 @@ VIN               TxD -- PD1 (TxD)
 #define TIMER_TIMER0_PRESCALER   256u
 #define TIMER_TIMER1_PRESCALER   256u
 #define TIMER_TIMER2_PRESCALER   1024u
-
+#define LOOP_MAIN_TIME           1u
+#define LOOP_1_TIME              10u
+#define LOOP_2_TIME              120u
 /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
 #define UART_BAUDRATE           500000u
 
