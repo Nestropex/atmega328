@@ -44,7 +44,7 @@ LIBS  =-lm -L$(HAL_LIB)
 #Find all Source files withing the dir of the argument
 APP_SRC_FILES =  $(APP_SRC_DIR)/main.c
 APP_SRC_FILES +=  $(APP_SRC_DIR)/app.c
-APP_SRC_FILES +=  $(APP_SRC_DIR)/loop.c
+APP_SRC_FILES +=  $(APP_SRC_DIR)/period.c
 SRC_FILES = $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
 SRC_FILES += $(HAL_SRC_DIR)/uart.c

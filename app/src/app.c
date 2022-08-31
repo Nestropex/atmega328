@@ -6,17 +6,17 @@
 #include "gpio.h"
 #include "isr.h"
 #include "uart.h"
-#include "loop.h"
+#include "period.h"
 
 
 typedef struct app_input{
         uint16_t on_time;
         uint8_t  state;
         pin_t pin;
-        loop_t *period;
+        period_t *loop;
 }app_input_t;
 
-loop_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
+period_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
 
 
 static void read_inputs(void);
@@ -35,7 +35,7 @@ void app_main(void)
     const cfg_output_pin_t app_out = cfg_pin_output;
     app_input_t button1;
     button1.pin = cfg_pin_input.button1;
-    button1.period = &loop_button1;
+    button1.loop = &loop_button1;
  
     input_get_ONtime(&button1);
 
@@ -57,14 +57,14 @@ static void input_get_ONtime(app_input_t *object)
 
         if (temp_obj.state == 1u)
         {
-            loop_control(temp_obj.period);
+            loop_control(temp_obj.loop);
         }
         else 
         {
-            temp_obj.period->time = 0u;
-            temp_obj.period->cnt = 0u; 
+            temp_obj.loop->time = 0u;
+            temp_obj.loop->cnt = 0u; 
         }
-        temp_obj.on_time =(uint16_t) temp_obj.period->time * temp_obj.period->cnt;
+        temp_obj.on_time =(uint16_t) temp_obj.loop->time * temp_obj.loop->cnt;
         *object = temp_obj;
     }
     

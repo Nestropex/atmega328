@@ -5,7 +5,7 @@
 
 
 
-typedef struct loop {
+typedef struct period {
     uint32_t time;
     uint32_t cnt;
     uint16_t time_config;
@@ -13,7 +13,7 @@ typedef struct loop {
     uint16_t cur_ticks;
     uint16_t last_ticks;
     uint16_t diff;
-}loop_t;
+}period_t;
 
 
 
@@ -31,19 +31,19 @@ typedef struct loop {
  *        This function must be called each main loop, the execution_flag is then,
  *        intended as if() to achieve the desired timing. 
  * 
- * @param period Object to fill with requested info
+ * @param loop Object to fill with requested info
  */
-void loop_control(loop_t  *period);
+void period_control(period_t  *loop);
 
 /**
  * @brief Sends looptime, loopcount etc. of requested object via uart
  * 
  *        Debug purpose only
  * 
- * @param period Info of this object will be send 
+ * @param loop Info of this object will be send 
  * @param str Text that shall be visible on serial monitor
  */
-void loop_print(loop_t *period, uint8_t *str);
+void period_print(period_t *loop, uint8_t *str);
 
 
 

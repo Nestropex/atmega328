@@ -7,7 +7,7 @@
 #include "timer.h"
 #include "isr.h"
 #include "gpio.h"
-#include "loop.h"
+#include "period.h"
 #include "app.h"
 
 static void init(void);
@@ -15,9 +15,9 @@ static void read_inputs(void);
 static void app_out(void);
 static void app_isr_timer_0_ovf(void);
 
-loop_t main_loop;
-loop_t period_1_loop;
-loop_t period_2_loop;
+period_t main_loop;
+period_t period_1_loop;
+period_t period_2_loop;
 uint8_t state;
 // Main function must be the first one in the file 
 int main(void)
