@@ -30,7 +30,7 @@ void watchdog_init(uint8_t timeout)
         break;
     
     default:
-        ERROR_HANDLER("ERROR watchdog_init");
+        ERROR_HANDLER("ERROR watchdocfg_pin_inputit");
         break;
     }
 

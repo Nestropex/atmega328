@@ -15,6 +15,13 @@ typedef struct loop {
     uint16_t diff;
 }loop_t;
 
+
+
+/**
+ * @brief This module requires timer1 to be initialized
+ * 
+ */
+
 /**
  * @brief Fills requested loop object with time since the last execution 
  *        of this function and number of executions since stat up

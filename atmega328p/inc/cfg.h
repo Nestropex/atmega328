@@ -36,25 +36,25 @@ VIN               TxD -- PD1 (TxD)
 /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
 #define UART_BAUDRATE           500000u
 
-typedef struct input {
+typedef struct input_pin {
     pin_t switch1;
     pin_t switch2;
     pin_t button1;
     pin_t button2;
     pin_t button3;
 
-}input_t;
+}cfg_input_pin_t;
 
-typedef struct output {
+typedef struct cfg_output_pin {
     pin_t dir1;
     pin_t dir2;
     pin_t step1;
     pin_t step2;
 
-}output_t;
+}cfg_output_pin_t;
 
 
-static const uint8_t gc_portb_dir[] = {
+static const uint8_t cfg_port_b[] = {
                                 PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_IN,  // Pin 2
@@ -65,7 +65,7 @@ static const uint8_t gc_portb_dir[] = {
                                 PIN_IN   // Pin 7
                                 };
 
-static const uint8_t gc_portc_dir[] = {
+static const uint8_t cfg_port_c[] = {
                                 PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_IN,  // Pin 2
@@ -75,7 +75,7 @@ static const uint8_t gc_portc_dir[] = {
                                 PIN_IN,  // Pin 6 Reset must must remain INPUT!!!
                                 PIN_IN   // Pin 7
                                 };
-static const uint8_t gc_portd_dir[] = {
+static const uint8_t cfg_port_d[] = {
                                 PIN_IN,  // Pin 0
                                 PIN_IN,  // Pin 1
                                 PIN_OUT, // Pin 2
@@ -86,7 +86,7 @@ static const uint8_t gc_portd_dir[] = {
                                 PIN_IN   // Pin 7
                                 };               
 
-static const input_t g_in = {
+static const cfg_input_pin_t cfg_pin_input = {
     .switch1 = {.port = 1u, .bit = 1u},
     .switch2 = {.port = 2u, .bit = 4u},
     .button1 = {.port = 1u, .bit = 0u},
@@ -94,7 +94,7 @@ static const input_t g_in = {
     .button3 = {.port = 1u, .bit = 2u}
 };
 
-static const output_t g_out = {
+static const cfg_output_pin_t cfg_pin_output = {
     .dir1  = {.port = 3u, .bit = 2u},
     .dir2  = {.port = 3u, .bit = 4u},
     .step1 = {.port = 3u, .bit = 3u},
@@ -102,7 +102,7 @@ static const output_t g_out = {
 };        
 
 // Pin shall be connected to an LED in order to give an visible alarm
-static const pin_t g_error_out = {.port = 1u, .bit = 5u};
+static const pin_t cfg_error_pin = {.port = 1u, .bit = 5u};
 
 
 
