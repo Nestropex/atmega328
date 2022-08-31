@@ -18,7 +18,7 @@ static void app_isr_timer_0_ovf(void);
 period_t main_loop;
 period_t period_1_loop;
 period_t period_2_loop;
-uint8_t state;
+uint8_t heartbeat;
 // Main function must be the first one in the file 
 int main(void)
 {
@@ -32,32 +32,32 @@ int main(void)
     while(1)
     {  
         watchdog_reset();
-        loop_control(&main_loop);
+        period_control(&main_loop);
         if(main_loop.execute_flag == 1u)
         {   
 
-            loop_control(&period_1_loop);
+            period_control(&period_1_loop);
             if(period_1_loop.execute_flag == 1u)
             {                
                 app_main();
             } 
 
-            loop_control(&period_2_loop);
+            period_control(&period_2_loop);
             if(period_2_loop.execute_flag == 1u)
             {
                 system_error_update();
 
-                if(state == 0u)
+                if(heartbeat == 0u)
                 {
-                    state = 1u;
+                    heartbeat = 1u;
                 }
                 else
                 {
-                    state = 0u;
+                    heartbeat = 0u;
                 }
                 
                 uart_str_transmit("Heartbeat\n");
-                gpio_write(1,4,state);
+                gpio_write(1,4,heartbeat);
             }
 
         }

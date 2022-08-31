@@ -99,6 +99,7 @@ uint8_t gpio_read(uint8_t port, uint8_t pin)
     return ret_state >> pin;
 }
 static uint8_t state;
+
 void gpio_flash(uint8_t port, uint8_t pin)
 {
     if (state == 0u)
@@ -113,4 +114,24 @@ void gpio_flash(uint8_t port, uint8_t pin)
     }
     
     
+}
+
+void gpio_toggle(uint8_t port, uint8_t pin)
+{
+    switch (port)
+    {
+    case 1u:
+        PINB |= 1 << pin;
+        break;
+    case 2u:
+        PINC |= 1 << pin;
+        break;
+    case 3u:
+        PIND |= 1 << pin;
+        break;
+    
+    default:
+        ERROR_HANDLER("ERROR gpio_toggle");
+        break;
+    }
 }

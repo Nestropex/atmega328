@@ -40,4 +40,10 @@ uint8_t gpio_read(uint8_t port, uint8_t pin);
  */
 void gpio_flash(uint8_t port, uint8_t pin);
 
+/**
+ * @brief Reads requested output pin and writes the opposite
+ * 
+ */
+void gpio_toggle(uint8_t port, uint8_t pin);
+
 #endif

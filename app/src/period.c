@@ -7,7 +7,7 @@
 #include "period.h"
 
 
-void loop_control(period_t  *loop)
+void period_control(period_t  *loop)
 {
     if (loop != NULL_PTR)
     {
@@ -42,7 +42,7 @@ void loop_control(period_t  *loop)
     }
 }
 
-void loop_print(period_t *loop, uint8_t *str)
+void period_print(period_t *loop, uint8_t *str)
 {
     if ((loop != NULL_PTR)&&(str != NULL_PTR))
     {
