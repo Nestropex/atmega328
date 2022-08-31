@@ -21,7 +21,7 @@ loop_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
 
 static void read_inputs(void);
 static void isr_timer_1_comp_a(void);
-static void button_update(app_input_t *object);
+static void input_get_ONtime(app_input_t *object);
 
 
 void app_init(void)
@@ -37,17 +37,17 @@ void app_main(void)
     button1.pin = cfg_pin_input.button1;
     button1.period = &loop_button1;
  
-    button_update(&button1);
+    input_get_ONtime(&button1);
 
     gpio_write(app_out.dir1.port, app_out.dir1.bit,1);
-    
 }
+
 /**
- * @brief Updates input object with button state and the time it is on
+ * @brief Updates input object with input state and the time it is on
  * 
  * @param object pointer to input object as switch or button
  */
-static void button_update(app_input_t *object)
+static void input_get_ONtime(app_input_t *object)
 {
     if (object != NULL_PTR)
     {
@@ -57,14 +57,12 @@ static void button_update(app_input_t *object)
 
         if (temp_obj.state == 1u)
         {
-            
             loop_control(temp_obj.period);
         }
         else 
         {
             temp_obj.period->time = 0u;
-            temp_obj.period->cnt = 0u;
-            
+            temp_obj.period->cnt = 0u; 
         }
         temp_obj.on_time =(uint16_t) temp_obj.period->time * temp_obj.period->cnt;
         *object = temp_obj;
