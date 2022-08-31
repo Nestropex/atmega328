@@ -3,6 +3,7 @@
 #include "cfg.h"
 #include "system.h"
 #include "uart.h"
+#include "timer.h"
 #include "loop.h"
 
 
