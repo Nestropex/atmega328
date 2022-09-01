@@ -6,7 +6,6 @@
 
 void gpio_init(uint8_t port, const uint8_t pin_config)
 {
-    uart_str_transmit("enter gpio init");
 
         switch (port)
         {
@@ -27,10 +26,6 @@ void gpio_init(uint8_t port, const uint8_t pin_config)
             ERROR_HANDLER("ERROR gpio_init");
                 break;
         }
-    
-
-    uart_str_transmit("DDRD ");
-    uart_nmb_transmit(DDRD, 16);
 }
 
 

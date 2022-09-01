@@ -49,6 +49,8 @@ void app_main(void)
     get_input_ONtime(&button1);
     get_input_ONtime(&switch1);
 
+
+    
     
     if ((button1.state == TOGGLE_DIR) && (button1.loop->cnt <= VALID_ONCE))
     {
