@@ -29,13 +29,18 @@ static void get_input_ONtime(app_input_t *object);
 
 app_input_t button1;
 app_input_t switch1;
-
+uint16_t comp_a;
 void app_init(void)
 {
     button1.pin = cfg_pin_input.button1;
     button1.loop = &loop_button1;
     switch1.pin = cfg_pin_input.switch1;
     switch1.loop = &loop_switch1;
+
+    isr_init();
+    isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
+    comp_a = 1000u ;
+    timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
 
@@ -43,20 +48,17 @@ void app_main(void)
 {
     get_input_ONtime(&button1);
     get_input_ONtime(&switch1);
- 
+
+    
     if ((button1.state == TOGGLE_DIR) && (button1.loop->cnt <= VALID_ONCE))
     {
         if (switch1.state == CHANNEL_1)
         {
             gpio_toggle(cfg_pin_output.dir1.port, cfg_pin_output.dir1.bit);
-                      uart_str_transmit("dir1 ");
-                      uart_nmb_transmit(switch1.state,10);
         }
         else
         {
             gpio_toggle(cfg_pin_output.dir2.port, cfg_pin_output.dir2.bit);
-            uart_str_transmit("dir2 ");
-            uart_nmb_transmit(switch1.state,10);
         }
     }
 }
@@ -90,8 +92,23 @@ static void get_input_ONtime(app_input_t *object)
     
 
 }
-
+uint8_t state_comp_a;
 static void isr_timer_1_comp_a(void)
 {
-    //uart_str_transmit("\n");
+    if(state_comp_a == 0u)
+    {
+        gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 1u);
+        state_comp_a = 1u;
+        comp_a = comp_a + 3u;
+        
+    }
+    else
+    {
+        gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 0u);
+        state_comp_a = 0u;
+        comp_a = comp_a + 80u;
+    }
+    
+
+    timer_set_compare(Timer1_Comp_A, comp_a);
 }

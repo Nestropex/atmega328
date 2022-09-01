@@ -40,6 +40,7 @@ int main(void)
             if(period_1_loop.execute_flag == 1u)
             {                
                 app_main();
+                uart_str_transmit("Heartbeat loop 1\n");
             } 
 
             period_control(&period_2_loop);
@@ -56,7 +57,7 @@ int main(void)
                     heartbeat = 0u;
                 }
                 
-                uart_str_transmit("Heartbeat\n");
+                uart_str_transmit("Heartbeat loop 2\n");
                 gpio_write(1,4,heartbeat);
             }
 
@@ -68,15 +69,15 @@ int main(void)
 
 static void init(void)
 {  
+    uart_init(SYSTEM_CLK,UART_BAUDRATE);
     watchdog_init(1u);
-    gpio_init(1U,(const uint8_t *)cfg_port_b);
-    gpio_init(2U,(const uint8_t *)cfg_port_c);
-    gpio_init(3U,(const uint8_t *)cfg_port_d);
+    gpio_init(1U,cfg_port_b);
+    gpio_init(2U,cfg_port_c);
+    gpio_init(3U,cfg_port_d);
     system_init(cfg_error_pin);
     timer1_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
-    uart_init(SYSTEM_CLK,UART_BAUDRATE);
-    //isr_init();
-    //isr_register(&app_isr_timer_0_ovf, Timer0_OVF);
+    isr_init();
+    isr_register(&app_isr_timer_0_ovf, Timer0_OVF);
 
 }
 

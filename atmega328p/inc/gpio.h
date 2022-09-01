@@ -9,9 +9,8 @@
  * 
  * @param port port b,c and d correspond to 1,2 and 3
  * @param pin_config bitwise 1 output 0 input 
- * @param dir 0 input, 1 output
  */
-void gpio_init(uint8_t port, const uint8_t *pin_config);
+void gpio_init(uint8_t port, const uint8_t pin_config);
 
 /**
  * @brief Sets pins as high or low

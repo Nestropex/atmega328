@@ -1,31 +1,36 @@
 #include "datatypes.h"
 #include <avr/io.h>
+#include "uart.h"
 #include "system.h"
 
 
-void gpio_init(uint8_t port, const uint8_t *pin_config)
+void gpio_init(uint8_t port, const uint8_t pin_config)
 {
-    for(uint8_t i = 0u; i < 8; i++)
-    {
+    uart_str_transmit("enter gpio init");
+
         switch (port)
         {
             case 1U:
-                DDRB |= *(pin_config + i) << i;
+                DDRB = pin_config;
                 break;
 
             case 2U:
-                DDRC = *(pin_config + i) << i;
+                DDRC = pin_config;
                 break;
 
             case 3U:
-                DDRD = *(pin_config + i) << i;
+                DDRD = pin_config;
+
                 break;
 
             default:
             ERROR_HANDLER("ERROR gpio_init");
                 break;
         }
-    }
+    
+
+    uart_str_transmit("DDRD ");
+    uart_nmb_transmit(DDRD, 16);
 }
 
 
@@ -122,8 +127,6 @@ void gpio_toggle(uint8_t port, uint8_t pin)
     {
     case 1u:
         //Assembler necessary to toggle one pin at a time. See manual
-        
-
         switch (pin)
         {
             case 0u:
@@ -220,7 +223,7 @@ void gpio_toggle(uint8_t port, uint8_t pin)
                 break;
         break;
         }
-    
+        break;
     default:
         ERROR_HANDLER("ERROR gpio_toggle");
         break;

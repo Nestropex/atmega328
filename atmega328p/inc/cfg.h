@@ -31,7 +31,7 @@ VIN               TxD -- PD1 (TxD)
 #define TIMER_TIMER1_PRESCALER   256u
 #define TIMER_TIMER2_PRESCALER   1024u
 #define LOOP_MAIN_TIME           1u
-#define LOOP_1_TIME              10u
+#define LOOP_1_TIME              60u
 #define LOOP_2_TIME              120u
 /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
 #define UART_BAUDRATE           500000u
@@ -54,37 +54,9 @@ typedef struct cfg_output_pin {
 }cfg_output_pin_t;
 
 
-static const uint8_t cfg_port_b[] = {
-                                PIN_IN,  // Pin 0
-                                PIN_IN,  // Pin 1
-                                PIN_IN,  // Pin 2
-                                PIN_OUT,  // Pin 3
-                                PIN_OUT,  // Pin 4
-                                PIN_OUT, // Pin 5
-                                PIN_IN,  // Pin 6
-                                PIN_IN   // Pin 7
-                                };
-
-static const uint8_t cfg_port_c[] = {
-                                PIN_IN,  // Pin 0
-                                PIN_IN,  // Pin 1
-                                PIN_IN,  // Pin 2
-                                PIN_OUT,  // Pin 3
-                                PIN_IN,  // Pin 4
-                                PIN_IN,  // Pin 5
-                                PIN_IN,  // Pin 6 Reset must must remain INPUT!!!
-                                PIN_IN   // Pin 7
-                                };
-static const uint8_t cfg_port_d[] = {
-                                PIN_IN,  // Pin 0
-                                PIN_IN,  // Pin 1
-                                PIN_OUT, // Pin 2
-                                PIN_OUT, // Pin 3
-                                PIN_OUT, // Pin 4
-                                PIN_OUT, // Pin 5
-                                PIN_IN,  // Pin 6
-                                PIN_IN   // Pin 7
-                                };               
+static const uint8_t cfg_port_b = 0x18u;
+static const uint8_t cfg_port_c = 0x08u;
+static const uint8_t cfg_port_d = 0x3cu;             
 
 static const cfg_input_pin_t cfg_pin_input = {
     .switch1 = {.port = 1u, .bit = 1u},
