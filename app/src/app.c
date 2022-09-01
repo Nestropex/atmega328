@@ -10,6 +10,7 @@
 
 #define CHANNEL_1 0u
 #define VALID_ONCE 1u
+#define TOGGLE_DIR 1u
 
 typedef struct app_input{
         uint16_t  ONtime;
@@ -19,11 +20,13 @@ typedef struct app_input{
 }app_input_t;
 
 period_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
+period_t loop_switch1 = {0ul,0ul,0u,0u,0u,0u,0u};
 
 
 static void read_inputs(void);
 static void isr_timer_1_comp_a(void);
 static void get_input_ONtime(app_input_t *object);
+
 app_input_t button1;
 app_input_t switch1;
 
@@ -32,6 +35,7 @@ void app_init(void)
     button1.pin = cfg_pin_input.button1;
     button1.loop = &loop_button1;
     switch1.pin = cfg_pin_input.switch1;
+    switch1.loop = &loop_switch1;
 }
 
 
@@ -40,18 +44,21 @@ void app_main(void)
     get_input_ONtime(&button1);
     get_input_ONtime(&switch1);
  
-    if ((button1.state == 1u) && (button1.loop->cnt <= VALID_ONCE))
+    if ((button1.state == TOGGLE_DIR) && (button1.loop->cnt <= VALID_ONCE))
     {
         if (switch1.state == CHANNEL_1)
         {
             gpio_toggle(cfg_pin_output.dir1.port, cfg_pin_output.dir1.bit);
+                      uart_str_transmit("dir1 ");
+                      uart_nmb_transmit(switch1.state,10);
         }
         else
         {
             gpio_toggle(cfg_pin_output.dir2.port, cfg_pin_output.dir2.bit);
+            uart_str_transmit("dir2 ");
+            uart_nmb_transmit(switch1.state,10);
         }
     }
-
 }
 
 /**
@@ -83,6 +90,7 @@ static void get_input_ONtime(app_input_t *object)
     
 
 }
+
 static void isr_timer_1_comp_a(void)
 {
     //uart_str_transmit("\n");

@@ -38,7 +38,7 @@ void period_control(period_t  *loop)
     }
     else
     {
-        ERROR_HANDLER("period_time_update");
+        ERROR_HANDLER("ERROR period_control");
     }
 }
 

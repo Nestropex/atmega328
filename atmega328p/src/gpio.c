@@ -121,14 +121,105 @@ void gpio_toggle(uint8_t port, uint8_t pin)
     switch (port)
     {
     case 1u:
-        PINB |= 1 << pin;
+        //Assembler necessary to toggle one pin at a time. See manual
+        
+
+        switch (pin)
+        {
+            case 0u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB0));
+                break;
+            case 1u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB1));
+                break;
+            case 2u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB2));
+                break;
+            case 3u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB3));
+                break;
+            case 4u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB4));
+                break;
+            case 5u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB5));
+                break;
+            case 6u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB6));
+                break;
+            case 7u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PINB7));
+                break;
+            
+            default:
+                ERROR_HANDLER("ERROR gpio_toggle port b");
+                break;
+        }
         break;
     case 2u:
-        PINC |= 1 << pin;
+        switch (pin)
+        {
+            case 0u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC0));
+                break;
+            case 1u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC1));
+                break;
+            case 2u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC2));
+                break;
+            case 3u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC3));
+                break;
+            case 4u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC4));
+                break;
+            case 5u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC5));
+                break;
+            case 6u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINC)), "I" (PINC6));
+                break;
+            
+            default:
+                ERROR_HANDLER("ERROR gpio_toggle port c");
+                break;
+        }
+
         break;
     case 3u:
-        PIND |= 1 << pin;
+        switch (pin)
+        {
+            case 0u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PINB)), "I" (PIND0));
+                break;
+            case 1u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND1));
+                break;
+            case 2u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND2));
+                break;
+            case 3u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND3));
+                break;
+            case 4u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND4));
+                break;
+            case 5u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND5));
+                break;
+            case 6u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND6));
+                break;
+            case 7u:
+                asm ("sbi %0, %1 \n": : "I" (_SFR_IO_ADDR(PIND)), "I" (PIND7));
+                break;
+            
+            default:
+                ERROR_HANDLER("ERROR gpio_toggle port d");
+                break;
         break;
+        }
     
     default:
         ERROR_HANDLER("ERROR gpio_toggle");
