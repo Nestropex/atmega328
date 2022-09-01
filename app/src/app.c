@@ -20,6 +20,7 @@ typedef struct app_input{
 }app_input_t;
 
 period_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
+period_t loop_button3 = {0ul,0ul,0u,0u,0u,0u,0u};
 period_t loop_switch1 = {0ul,0ul,0u,0u,0u,0u,0u};
 
 
@@ -28,12 +29,15 @@ static void isr_timer_1_comp_a(void);
 static void get_input_ONtime(app_input_t *object);
 
 app_input_t button1;
+app_input_t button3;
 app_input_t switch1;
 uint16_t comp_a;
 void app_init(void)
 {
     button1.pin = cfg_pin_input.button1;
     button1.loop = &loop_button1;
+    button3.pin = cfg_pin_input.button3;
+    button3.loop = &loop_button3;
     switch1.pin = cfg_pin_input.switch1;
     switch1.loop = &loop_switch1;
 
@@ -43,13 +47,17 @@ void app_init(void)
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
-
+uint8_t start_stop;
 void app_main(void)
 {
     get_input_ONtime(&button1);
+    get_input_ONtime(&button3);
     get_input_ONtime(&switch1);
 
-
+    if ((button3.state == TOGGLE_DIR) && (button3.loop->cnt <= VALID_ONCE))
+    {
+        start_stop = ~start_stop;
+    }
     
     
     if ((button1.state == TOGGLE_DIR) && (button1.loop->cnt <= VALID_ONCE))
@@ -97,20 +105,28 @@ static void get_input_ONtime(app_input_t *object)
 uint8_t state_comp_a;
 static void isr_timer_1_comp_a(void)
 {
-    if(state_comp_a == 0u)
+    if (start_stop)
     {
-        gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 1u);
-        state_comp_a = 1u;
-        comp_a = comp_a + 3u;
+        if(state_comp_a == 0u)
+        {
+            gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 1u);
+            state_comp_a = 1u;
+            comp_a = comp_a + 3u;
+            
+        }
+        else
+        {
+            gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 0u);
+            state_comp_a = 0u;
+            comp_a = comp_a + 80u;
+        }
         
     }
     else
     {
-        gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 0u);
-        state_comp_a = 0u;
-        comp_a = comp_a + 80u;
+        comp_a = comp_a + 1000u;
     }
     
-
+    
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
