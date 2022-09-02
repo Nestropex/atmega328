@@ -40,7 +40,7 @@ int main(void)
             if(period_1_loop.execute_flag == 1u)
             {                
                 app_main();
-                uart_str_transmit("Heartbeat loop 1\n");
+                //uart_str_transmit("Heartbeat loop 1\n");
             } 
 
             period_control(&period_2_loop);
@@ -57,7 +57,7 @@ int main(void)
                     heartbeat = 0u;
                 }
                 
-                uart_str_transmit("Heartbeat loop 2\n");
+               // uart_str_transmit("Heartbeat loop 2\n");
                 gpio_write(1,4,heartbeat);
             }
 

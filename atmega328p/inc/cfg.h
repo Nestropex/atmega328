@@ -35,7 +35,9 @@ VIN               TxD -- PD1 (TxD)
 #define LOOP_2_TIME              120u
 /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
 #define UART_BAUDRATE           500000u
-
+#define OUT_ONTIME_MICROS       50u
+#define SYSTEM_CLK_SCALED_MICRO SYSTEM_CLK/1000000ul
+#define OUT_ONTIME_TICKS        ((OUT_ONTIME_MICROS*SYSTEM_CLK_SCALED_MICRO)/TIMER_TIMER1_PRESCALER)
 typedef struct input_pin {
     pin_t switch1;
     pin_t switch2;

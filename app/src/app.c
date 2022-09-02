@@ -20,24 +20,30 @@ typedef struct app_input{
 }app_input_t;
 
 period_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
+period_t loop_button2 = {0ul,0ul,0u,0u,0u,0u,0u};
 period_t loop_button3 = {0ul,0ul,0u,0u,0u,0u,0u};
 period_t loop_switch1 = {0ul,0ul,0u,0u,0u,0u,0u};
-
+app_input_t button1;
+app_input_t button2;
+app_input_t button3;
+app_input_t switch1;
+uint16_t comp_ticks;
+const uint16_t ontime_ticks = OUT_ONTIME_TICKS;
 
 static void read_inputs(void);
+static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime);
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
 static void get_input_ONtime(app_input_t *object);
 
-app_input_t button1;
-app_input_t button3;
-app_input_t switch1;
-uint16_t comp_ticks;
+
 
 void app_init(void)
 {
     button1.pin = cfg_pin_input.button1;
     button1.loop = &loop_button1;
+    button2.pin = cfg_pin_input.button2;
+    button2.loop = &loop_button2;
     button3.pin = cfg_pin_input.button3;
     button3.loop = &loop_button3;
     switch1.pin = cfg_pin_input.switch1;
@@ -51,19 +57,44 @@ void app_init(void)
     timer_set_compare(Timer1_Comp_B, comp_ticks);
 }
 
-uint8_t start_stop;
+static uint8_t start_stop;
+static uint8_t speed = 5u;
+static uint8_t speed_dir=0u;
 void app_main(void)
 {
     get_input_ONtime(&button1);
+    get_input_ONtime(&button2);
     get_input_ONtime(&button3);
     get_input_ONtime(&switch1);
 
-    if ((button3.state == TOGGLE_DIR) && (button3.loop->cnt <= VALID_ONCE))
+    if ((button2.state == TOGGLE_DIR) && (button2.loop->cnt <= VALID_ONCE))
     {
-        start_stop = ~start_stop;
+        if (speed == 5u)
+        {
+            speed_dir = 1u;
+        }
+        else if (speed == 1u)
+        {
+            speed_dir = 0u;
+        }
+        else
+        {
+            /* code */
+        }
+        
+
+        if (speed_dir == 1u)
+        {
+            speed--;
+        }
+        else
+        {
+            speed++;
+        }
+        uart_str_transmit("speed ");
+        uart_nmb_transmit(speed,10);
     }
-    
-    
+
     if ((button1.state == TOGGLE_DIR) && (button1.loop->cnt <= VALID_ONCE))
     {
         if (switch1.state == CHANNEL_1)
@@ -74,6 +105,11 @@ void app_main(void)
         {
             gpio_toggle(cfg_pin_output.dir2.port, cfg_pin_output.dir2.bit);
         }
+    }
+
+    if ((button3.state == TOGGLE_DIR) && (button3.loop->cnt <= VALID_ONCE))
+    {
+        start_stop = ~start_stop;
     }
 }
 
@@ -108,16 +144,17 @@ static void get_input_ONtime(app_input_t *object)
 }
 
 uint8_t state_comp;
-static uint16_t set_step_out(uint8_t port, uint8_t pin, uint8_t offtime)
+static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
 {
     if (start_stop)
     {
+        uint8_t state_comp;
         state_comp = gpio_read(port,pin);
         comp_ticks = timer1_get_ticks();
         if(state_comp == 0u)
         {
             gpio_write(port, pin, 1u);
-            comp_ticks = comp_ticks + 3u;
+            comp_ticks = comp_ticks + ontime_ticks;
             
         }
         else
@@ -136,17 +173,17 @@ static uint16_t set_step_out(uint8_t port, uint8_t pin, uint8_t offtime)
     
 }
 
-
+#define MINIMUM_TICKS_CH2 
 static void isr_timer_1_comp_a(void)
 {
     uint16_t comp_a;
-    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 240u);
+    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 300u*speed);
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
 static void isr_timer_1_comp_b(void)
 {
     uint16_t comp_b;
-    comp_b = set_step_out(cfg_pin_output.step2.port, cfg_pin_output.step2.bit, 80u);
+    comp_b = set_step_out(cfg_pin_output.step2.port, cfg_pin_output.step2.bit, 150u*speed);
     timer_set_compare(Timer1_Comp_B, comp_b);
 }
