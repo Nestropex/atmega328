@@ -26,12 +26,14 @@ period_t loop_switch1 = {0ul,0ul,0u,0u,0u,0u,0u};
 
 static void read_inputs(void);
 static void isr_timer_1_comp_a(void);
+static void isr_timer_1_comp_b(void);
 static void get_input_ONtime(app_input_t *object);
 
 app_input_t button1;
 app_input_t button3;
 app_input_t switch1;
-uint16_t comp_a;
+uint16_t comp_ticks;
+
 void app_init(void)
 {
     button1.pin = cfg_pin_input.button1;
@@ -43,8 +45,10 @@ void app_init(void)
 
     isr_init();
     isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
-    comp_a = 1000u ;
-    timer_set_compare(Timer1_Comp_A, comp_a);
+    comp_ticks = 1000u ;
+    timer_set_compare(Timer1_Comp_A, comp_ticks);
+    isr_register(isr_timer_1_comp_b, Timer1_Comp_B);
+    timer_set_compare(Timer1_Comp_B, comp_ticks);
 }
 
 uint8_t start_stop;
@@ -102,31 +106,47 @@ static void get_input_ONtime(app_input_t *object)
     
 
 }
-uint8_t state_comp_a;
-static void isr_timer_1_comp_a(void)
+
+uint8_t state_comp;
+static uint16_t set_step_out(uint8_t port, uint8_t pin, uint8_t offtime)
 {
     if (start_stop)
     {
-        if(state_comp_a == 0u)
+        state_comp = gpio_read(port,pin);
+        comp_ticks = timer1_get_ticks();
+        if(state_comp == 0u)
         {
-            gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 1u);
-            state_comp_a = 1u;
-            comp_a = comp_a + 3u;
+            gpio_write(port, pin, 1u);
+            comp_ticks = comp_ticks + 3u;
             
         }
         else
         {
-            gpio_write(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 0u);
-            state_comp_a = 0u;
-            comp_a = comp_a + 80u;
+            gpio_write(port, pin, 0u);
+            comp_ticks = comp_ticks + offtime;
         }
         
     }
     else
     {
-        comp_a = comp_a + 1000u;
+        comp_ticks = comp_ticks + 1000u;
     }
     
+    return comp_ticks;
     
+}
+
+
+static void isr_timer_1_comp_a(void)
+{
+    uint16_t comp_a;
+    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 240u);
     timer_set_compare(Timer1_Comp_A, comp_a);
+}
+
+static void isr_timer_1_comp_b(void)
+{
+    uint16_t comp_b;
+    comp_b = set_step_out(cfg_pin_output.step2.port, cfg_pin_output.step2.bit, 80u);
+    timer_set_compare(Timer1_Comp_B, comp_b);
 }
