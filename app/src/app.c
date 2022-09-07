@@ -204,7 +204,7 @@ static void isr_timer_1_comp_a(void)
 {
 
     uint16_t comp_a;
-    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 15u*speed);
+    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 19u*speed);
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
