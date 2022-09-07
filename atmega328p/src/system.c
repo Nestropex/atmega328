@@ -19,7 +19,7 @@ void system_error_handler(uint8_t *error_description)
     uart_str_transmit(error_description);
     uart_str_transmit("\n");
 
-    gpio_flash(led.port, led.bit);
+    gpio_toggle(led.port, led.bit);
 
     error_occurred = 1u;
 

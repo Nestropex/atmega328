@@ -1,7 +1,7 @@
 
 
 MCU = atmega328p
-PORT = COM10
+PORT = COM3
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 

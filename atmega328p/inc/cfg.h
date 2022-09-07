@@ -30,14 +30,15 @@ VIN               TxD -- PD1 (TxD)
 #define TIMER_TIMER0_PRESCALER   256u
 #define TIMER_TIMER1_PRESCALER   256u
 #define TIMER_TIMER2_PRESCALER   1024u
-#define LOOP_MAIN_TIME           1u
-#define LOOP_1_TIME              60u
-#define LOOP_2_TIME              120u
+#define LOOP_MAIN_TIME_MILLIS    1u
+#define LOOP_1_TIME_MILLIS       60u
+#define LOOP_2_TIME_MILLIS       500u
+
 /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
 #define UART_BAUDRATE           500000u
-#define OUT_ONTIME_MICROS       50u
-#define SYSTEM_CLK_SCALED_MICRO SYSTEM_CLK/1000000ul
-#define OUT_ONTIME_TICKS        ((OUT_ONTIME_MICROS*SYSTEM_CLK_SCALED_MICRO)/TIMER_TIMER1_PRESCALER)
+#define OUT_ONTIME_MICROS       50u // Output pulse is this long
+
+
 typedef struct input_pin {
     pin_t switch1;
     pin_t switch2;
@@ -56,7 +57,7 @@ typedef struct cfg_output_pin {
 }cfg_output_pin_t;
 
 
-static const uint8_t cfg_port_b = 0x18u;
+static const uint8_t cfg_port_b = 0x38u;
 static const uint8_t cfg_port_c = 0x08u;
 static const uint8_t cfg_port_d = 0x3cu;             
 
@@ -79,18 +80,4 @@ static const cfg_output_pin_t cfg_pin_output = {
 static const pin_t cfg_error_pin = {.port = 1u, .bit = 5u};
 
 
-
-
-/*
-
-   pin_t dir1  = {.port = 3u, .bit = 2u,.state = 0u};
-    pin_t step1 = {.port = 3u, .bit = 3u,.state = 0u};
-    pin_t dir2  = {.port = 3u, .bit = 4u,.state = 0u};
-    pin_t step2 = {.port = 3u, .bit = 5u,.state = 0u};
-
-    pin_t switch1  = {.port = 1u, .bit = 1u,.state = 0u};
-    pin_t switch2  = {.port = 2u, .bit = 4u,.state = 0u}; 
-    pin_t button1  = {.port = 1u, .bit = 0u,.state = 0u}; 
-    pin_t button2  = {.port = 2u, .bit = 5u,.state = 0u}; 
-    pin_t button3  = {.port = 1u, .bit = 2u,.state = 0u};*/
 #endif

@@ -32,14 +32,6 @@ void gpio_write(uint8_t port, uint8_t pin, uint8_t state);
 uint8_t gpio_read(uint8_t port, uint8_t pin);
 
 /**
- * @brief Pulses output pin with requested frequency
- * @param port port b,c and d correspond to 1,2 and 3
- * @param pin  corresponds to pin number i.e pb5: port 1, pin 5
- * 
- */
-void gpio_flash(uint8_t port, uint8_t pin);
-
-/**
  * @brief Reads requested output pin and writes the opposite
  * 
  */

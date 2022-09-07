@@ -12,6 +12,15 @@
 #define VALID_ONCE 1u
 #define TOGGLE_DIR 1u
 
+
+#define MINIMUM_TICKS_CH2 
+#define NMB_REVOLUTION_CH2 100u
+#define STEPS_PER_REV 200u
+#define SYSTEM_CLK_SCALED_MICRO SYSTEM_CLK/1000000ul
+#define OUT_ONTIME_TICKS        ((OUT_ONTIME_MICROS*SYSTEM_CLK_SCALED_MICRO)/TIMER_TIMER1_PRESCALER)
+
+uint16_t max_steps_1;
+uint16_t max_steps_2;
 typedef struct app_input{
         uint16_t  ONtime;
         uint8_t   state;
@@ -35,6 +44,7 @@ static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime);
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
 static void get_input_ONtime(app_input_t *object);
+static void exact_steps( uint8_t pin);
 
 
 
@@ -57,7 +67,7 @@ void app_init(void)
     timer_set_compare(Timer1_Comp_B, comp_ticks);
 }
 
-static uint8_t start_stop;
+static uint8_t start;
 static uint8_t speed = 5u;
 static uint8_t speed_dir=0u;
 void app_main(void)
@@ -91,8 +101,6 @@ void app_main(void)
         {
             speed++;
         }
-        uart_str_transmit("speed ");
-        uart_nmb_transmit(speed,10);
     }
 
     if ((button1.state == TOGGLE_DIR) && (button1.loop->cnt <= VALID_ONCE))
@@ -109,7 +117,9 @@ void app_main(void)
 
     if ((button3.state == TOGGLE_DIR) && (button3.loop->cnt <= VALID_ONCE))
     {
-        start_stop = ~start_stop;
+        start = ~start;
+        max_steps_1 = 0u;
+        max_steps_2 = 0u;
     }
 }
 
@@ -146,7 +156,7 @@ static void get_input_ONtime(app_input_t *object)
 uint8_t state_comp;
 static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
 {
-    if (start_stop)
+    if (start)
     {
         uint8_t state_comp;
         state_comp = gpio_read(port,pin);
@@ -155,6 +165,8 @@ static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
         {
             gpio_write(port, pin, 1u);
             comp_ticks = comp_ticks + ontime_ticks;
+            exact_steps(pin);
+
             
         }
         else
@@ -173,11 +185,24 @@ static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
     
 }
 
-#define MINIMUM_TICKS_CH2 
+static void exact_steps( uint8_t pin)
+{
+    if (pin == cfg_pin_output.step2.bit)
+    {
+        max_steps_2++;
+    }
+    
+    if (max_steps_2 >= NMB_REVOLUTION_CH2*STEPS_PER_REV)
+    {
+        start = 0u;
+    }
+}
+
 static void isr_timer_1_comp_a(void)
 {
+
     uint16_t comp_a;
-    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 300u*speed);
+    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 450u*speed);
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
