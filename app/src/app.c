@@ -15,12 +15,14 @@
 
 #define MINIMUM_TICKS_CH2 
 #define NMB_REVOLUTION_CH2 100u
-#define STEPS_PER_REV 200u
+#define STEP_MODE     8u // Driver in Full Step = 1, 1/2=2, 1/8=8
+#define STEPS_PER_REV 200ul*STEP_MODE
+
 #define SYSTEM_CLK_SCALED_MICRO SYSTEM_CLK/1000000ul
 #define OUT_ONTIME_TICKS        ((OUT_ONTIME_MICROS*SYSTEM_CLK_SCALED_MICRO)/TIMER_TIMER1_PRESCALER)
 
-uint16_t max_steps_1;
-uint16_t max_steps_2;
+uint32_t max_steps_1;
+uint32_t max_steps_2;
 typedef struct app_input{
         uint16_t  ONtime;
         uint8_t   state;
@@ -202,13 +204,13 @@ static void isr_timer_1_comp_a(void)
 {
 
     uint16_t comp_a;
-    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 450u*speed);
+    comp_a = set_step_out(cfg_pin_output.step1.port, cfg_pin_output.step1.bit, 15u*speed);
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
 static void isr_timer_1_comp_b(void)
 {
     uint16_t comp_b;
-    comp_b = set_step_out(cfg_pin_output.step2.port, cfg_pin_output.step2.bit, 150u*speed);
+    comp_b = set_step_out(cfg_pin_output.step2.port, cfg_pin_output.step2.bit, 5u*speed);
     timer_set_compare(Timer1_Comp_B, comp_b);
 }
