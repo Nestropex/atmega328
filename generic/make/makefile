@@ -25,6 +25,10 @@ DEPS += $(APP_INC_DIR)
 DEPS += $(AVR_HEADER)
 HAL_DIR = ../../atmega328p
 HAL_SRC_DIR = $(HAL_DIR)/src
+
+OBJ_DIR=$(HAL_DIR)/target/obj
+APP_OBJ_DIR=$(TARGET_DIR)/obj
+LDIR =$(HAL_DIR)/target/lib
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
@@ -32,17 +36,11 @@ OBJSIZE = avr-size
 CC = avr-gcc
 DEBUG_LEVEL = -g
 OPT = s
-CFLAGS = -D GCC_MEGA_AVR -D F_CPU=16000000 $(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
+CFLAGS += -D GCC_MEGA_AVR  $(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
 -fsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
-$(WARNINGS) \
--Wa,-adhlns=$(<:.c=.lst) 
-CFLAGS += -std=gnu99
-OPTIMIZATION =
+$(WARNINGS)  -std=gnu99
 DEFINES = -DDEBUG
-DEFINES += -D__AVR_ATmega328P__
-OBJ_DIR=$(HAL_DIR)/target/obj
-APP_OBJ_DIR=$(TARGET_DIR)/obj
-LDIR =$(HAL_DIR)/target/lib
+
 HAL_LIB = $(HAL_TARGET_DIR)/libatmega328p.a
 LIBS  =-lm -L$(HAL_LIB)
 #Find all Source files withing the dir of the argument
@@ -98,7 +96,7 @@ gccversion:
 
 #choose 57600 for arduino old bootloader 115200 for new bootloader
 flash: 
-	avrdude -p $(MCU) -b 115200 -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
+	avrdude -p $(MCU) -b $(BAUDRATE) -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
 .PHONY: clean
 
 clean_hal:
