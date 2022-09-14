@@ -1,11 +1,10 @@
 
 
-MCU = atmega328p
-PORT = COM11
+
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
-
+APP_DIR = ../../app
 GEN_DIR = ../../generic
 HAL_INC_DIR = $(HAL_DIR)/inc
 APP_INC_DIR = $(APP_DIR)/inc
@@ -15,7 +14,7 @@ APP_SRC_DIR = $(APP_DIR)/src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
 USR_INC = ../../../../../../usr/include
 HAL_TARGET_DIR = $(HAL_DIR)/target
-TARGET_DIR = $(APP_DIR)/target
+TARGET_DIR = ../../target/$(APP_NAME)
 
 INC_DIR = -I$(HAL_INC_DIR)
 INC_DIR += -I$(APP_INC_DIR)
@@ -42,7 +41,7 @@ OPTIMIZATION =
 DEFINES = -DDEBUG
 DEFINES += -D__AVR_ATmega328P__
 OBJ_DIR=$(HAL_DIR)/target/obj
-APP_OBJ_DIR=$(APP_DIR)/target/obj
+APP_OBJ_DIR=$(TARGET_DIR)/obj
 LDIR =$(HAL_DIR)/target/lib
 HAL_LIB = $(HAL_TARGET_DIR)/libatmega328p.a
 LIBS  =-lm -L$(HAL_LIB)
