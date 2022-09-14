@@ -6,7 +6,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "msbuild",
+            "command": "cd app",
             "args": [
                 // Ask msbuild to generate full paths for file names.
                 "/property:GenerateFullPaths=true",

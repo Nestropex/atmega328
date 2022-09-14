@@ -1,7 +1,7 @@
 MCU = atmega328p
 PORT = COM11
 BAUDRATE = 115200
-MAKEFILE_DIR = ../../generic/make
+MAKEFILE_DIR = ../generic
 
 MCU = ATmega328P
 TARGET = atmega328
