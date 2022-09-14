@@ -14,15 +14,15 @@
 
 
 #define MINIMUM_TICKS_CH2 
-#define NMB_REVOLUTION_CH2 100u
+#define NMB_REVOLUTION_CH2 300u
 #define STEP_MODE     8u // Driver in Full Step = 1, 1/2=2, 1/8=8
 #define STEPS_PER_REV 200ul*STEP_MODE
 
 #define SYSTEM_CLK_SCALED_MICRO SYSTEM_CLK/1000000ul
 #define OUT_ONTIME_TICKS        ((OUT_ONTIME_MICROS*SYSTEM_CLK_SCALED_MICRO)/TIMER_TIMER1_PRESCALER)
 
-uint32_t max_steps_1;
-uint32_t max_steps_2;
+
+
 typedef struct app_input{
         uint16_t  ONtime;
         uint8_t   state;
@@ -40,13 +40,18 @@ app_input_t button3;
 app_input_t switch1;
 uint16_t comp_ticks;
 const uint16_t ontime_ticks = OUT_ONTIME_TICKS;
+static uint8_t start;
+static uint8_t speed = 5u;
+static uint8_t speed_dir=0u;
+uint32_t max_steps_1;
+uint32_t max_steps_2;
 
 static void read_inputs(void);
-static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime);
+static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime_ticks);
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
 static void get_input_ONtime(app_input_t *object);
-static void exact_steps( uint8_t pin);
+static void step_limit( uint8_t pin);
 
 
 
@@ -67,17 +72,19 @@ void app_init(void)
     timer_set_compare(Timer1_Comp_A, comp_ticks);
     isr_register(isr_timer_1_comp_b, Timer1_Comp_B);
     timer_set_compare(Timer1_Comp_B, comp_ticks);
+
+    // This direction is preferable at start up
+    gpio_write(cfg_pin_output.dir2.port, cfg_pin_output.dir2.bit, 1u);
 }
 
-static uint8_t start;
-static uint8_t speed = 5u;
-static uint8_t speed_dir=0u;
+
 void app_main(void)
 {
     get_input_ONtime(&button1);
     get_input_ONtime(&button2);
     get_input_ONtime(&button3);
     get_input_ONtime(&switch1);
+
 
     if ((button2.state == TOGGLE_DIR) && (button2.loop->cnt <= VALID_ONCE))
     {
@@ -155,8 +162,15 @@ static void get_input_ONtime(app_input_t *object)
 
 }
 
-uint8_t state_comp;
-static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
+/**
+ * @brief Function toggles the output pin with the step signal to the driver.
+ *        It also gets the current timer count and calculates the ticks for the next interrupt.
+ * @param port Port of requested step signal pin
+ * @param pin  Bit of requested step signal pin
+ * @param offtime_ticks The step signal remains low for this many ticks
+ * @return the ticks for the next timer interrupt 
+ */
+static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime_ticks)
 {
     if (start)
     {
@@ -167,14 +181,14 @@ static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
         {
             gpio_write(port, pin, 1u);
             comp_ticks = comp_ticks + ontime_ticks;
-            exact_steps(pin);
+            step_limit(pin);
 
             
         }
         else
         {
             gpio_write(port, pin, 0u);
-            comp_ticks = comp_ticks + offtime;
+            comp_ticks = comp_ticks + offtime_ticks;
         }
         
     }
@@ -187,7 +201,12 @@ static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime)
     
 }
 
-static void exact_steps( uint8_t pin)
+/**
+ * @brief Function limits the revoultion of stepper motor CH2
+ * 
+ * @param pin bit of CH2 step signal pin
+ */
+static void step_limit(uint8_t pin)
 {
     if (pin == cfg_pin_output.step2.bit)
     {
@@ -200,6 +219,10 @@ static void exact_steps( uint8_t pin)
     }
 }
 
+/**
+ * @brief CH1 step signal pin is toggled on every interrupt.
+ *        Sets also next timer interrupt event
+ */
 static void isr_timer_1_comp_a(void)
 {
 
@@ -208,6 +231,10 @@ static void isr_timer_1_comp_a(void)
     timer_set_compare(Timer1_Comp_A, comp_a);
 }
 
+/**
+ * @brief CH2 step signal pin is toggled on every interrupt.
+ *        Sets also next timer interrupt event
+ */
 static void isr_timer_1_comp_b(void)
 {
     uint16_t comp_b;

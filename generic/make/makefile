@@ -1,7 +1,7 @@
 
 
 MCU = atmega328p
-PORT = COM3
+PORT = COM11
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
@@ -20,7 +20,12 @@ TARGET_DIR = $(APP_DIR)/target
 INC_DIR = -I$(HAL_INC_DIR)
 INC_DIR += -I$(APP_INC_DIR)
 
-
+AVR_HEADER = ../../../../../../../avr-libc
+DEPS += $(USR_INC)
+DEPS += $(APP_INC_DIR)
+DEPS += $(AVR_HEADER)
+HAL_DIR = ../../atmega328p
+HAL_SRC_DIR = $(HAL_DIR)/src
 #install arduino software and take C:\Program Files (x86)\Arduino\hardware\tools\avr folder from there
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
@@ -84,7 +89,7 @@ $(TARGET): $(APP_OBJ_FILES) $(HAL_LIB)
 
 all: gccversion clean_all lib $(TARGET) flash
 app: gccversion clean_app $(TARGET) flash
-hal: gccversion clean_all $(TARGET) flash
+hal: gccversion clean_all lib
 
 lib: $(OBJ_FILES)
 	avr-ar rcs $(HAL_LIB) $(OBJ_FILES)
