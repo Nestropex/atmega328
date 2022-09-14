@@ -23,7 +23,7 @@ AVR_HEADER = ../../../../../../../avr-libc
 DEPS += $(USR_INC)
 DEPS += $(APP_INC_DIR)
 DEPS += $(AVR_HEADER)
-HAL_DIR = ../../atmega328p
+HAL_DIR = ../../hal
 HAL_SRC_DIR = $(HAL_DIR)/src
 
 OBJ_DIR=$(HAL_DIR)/target/obj
