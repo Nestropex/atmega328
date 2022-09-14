@@ -41,7 +41,7 @@ CFLAGS += -D GCC_MEGA_AVR  $(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
 $(WARNINGS)  -std=gnu99
 DEFINES = -DDEBUG
 
-HAL_LIB = $(HAL_TARGET_DIR)/libatmega328p.a
+HAL_LIB = $(HAL_TARGET_DIR)/lib$(TARGET).a
 LIBS  =-lm -L$(HAL_LIB)
 #Find all Source files withing the dir of the argument
 APP_SRC_FILES +=  $(APP_SRC_DIR)/main.c
@@ -100,7 +100,7 @@ flash:
 .PHONY: clean
 
 clean_hal:
-	rm -f $(OBJ_DIR)/*.o $(TARGET_DIR)/*.hex $(TARGET_DIR)/*.bin *~ core $(INCDIR)/*~ 
+	rm -f $(OBJ_DIR)/*.o  $(HAL_TARGET_DIR)/*.a *~ core $(INCDIR)/*~ 
 clean_app:
 	rm -f $(APP_OBJ_DIR)/*.o $(APP_TARGET_DIR)/*.hex $(APP_TARGET_DIR)/*.bin *~ core $(INCDIR)/*~ 
 clean_all: clean_hal clean_app
