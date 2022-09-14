@@ -4,7 +4,7 @@ MAKEFILE_DIR = ../../generic/make
 MCU = ATmega328P
 TARGET = atmega328
 HAL_DIR = ../../atmega328p
-APP_DIR = ../../app
+APP_DIR = ../../bldc_driver
 #Find all Source files withing the dir of the argument
 SRC_FILES += $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c

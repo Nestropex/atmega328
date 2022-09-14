@@ -5,7 +5,7 @@ PORT = COM11
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
-APP_DIR = ../../app
+
 GEN_DIR = ../../generic
 HAL_INC_DIR = $(HAL_DIR)/inc
 APP_INC_DIR = $(APP_DIR)/inc
