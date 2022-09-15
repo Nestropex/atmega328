@@ -135,9 +135,9 @@ ICP1   PB0 |14  15| PB1 OC1A
     }cfg_output_pin_t;
 
 
-    static const uint8_t cfg_port_b = 0x39u;
-    static const uint8_t cfg_port_c = 0x38u;
-    static const uint8_t cfg_port_d = 0x6cu;             
+    static const uint8_t cfg_port_b = 0x38u;
+    static const uint8_t cfg_port_c = 0x08u;
+    static const uint8_t cfg_port_d = 0x3cu;             
 
     static const cfg_input_pin_t cfg_pin_input = {
         .switch1 = {.port = 3u, .bit = 5u},
