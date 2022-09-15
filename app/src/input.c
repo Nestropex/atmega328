@@ -9,11 +9,11 @@
 #include "input.h"
 
 
-void input_get(app_input_t *object)
+void input_get(input_t *object)
 {
     if (object != NULL_PTR)
     {
-        app_input_t temp_obj = *object;
+        input_t temp_obj = *object;
 
         temp_obj.state = gpio_read(temp_obj.pin.port,temp_obj.pin.bit);
 

@@ -4,12 +4,12 @@
 #include "datatypes.h"
 #include "period.h"
 
-typedef struct app_input{
+typedef struct input{
         uint16_t  ONtime;
         uint8_t   state;
         pin_t     pin;
         period_t *loop;
-}app_input_t;
+}input_t;
 
 
 /**
@@ -17,7 +17,7 @@ typedef struct app_input{
  * 
  * @param object pointer to input object as switch or button
  */
-void input_get(app_input_t *object);
+void input_get(input_t *object);
 
 
 #endif

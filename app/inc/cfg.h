@@ -115,7 +115,8 @@ ICP1   PB0 |14  15| PB1 OC1A
 
     /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
     #define UART_BAUDRATE           500000u
-
+    #define NMB_OF_INPUTS           4u
+    #define NMB_OF_OUTPUTS          3u
 
     typedef struct input_pin {
         pin_t switch1;
@@ -138,20 +139,20 @@ ICP1   PB0 |14  15| PB1 OC1A
     static const uint8_t cfg_port_c = 0x00u;
     static const uint8_t cfg_port_d = 0x00u;
 
-    static const cfg_input_pin_t cfg_pin_input = {
-        .switch1 = {.port = 3u, .bit = 5u},
-        .switch2 = {.port = 3u, .bit = 6u},
-        .button1 = {.port = 3u, .bit = 2u},
-        .button2 = {.port = 3u, .bit = 3u},
-        .bemf1   = {.port = 2u, .bit = 5u},
-        .bemf2   = {.port = 2u, .bit = 4u},
-        .bemf3   = {.port = 2u, .bit = 3u}
+    static const pin_t cfg_pin_input[] = {
+        {.port = 3u, .bit = 5u}, // button1
+        {.port = 3u, .bit = 6u}, // button2
+        {.port = 3u, .bit = 2u}, // switch1
+        {.port = 3u, .bit = 3u}, // switch2
+        {.port = 2u, .bit = 5u}, // backemf1
+        {.port = 2u, .bit = 4u}, // backemf2
+        {.port = 2u, .bit = 3u}  // backemf3
     };
 
-    static const cfg_output_pin_t cfg_pin_output = {
-        .phase1  = {.port = 1u, .bit = 3u},
-        .phase2  = {.port = 1u, .bit = 2u},
-        .phase3  = {.port = 1u, .bit = 1u},
+    static const pin_t cfg_pin_output[] = {
+        {.port = 1u, .bit = 3u}, // phase1
+        {.port = 1u, .bit = 2u}, // phase2
+        {.port = 1u, .bit = 1u}, // phase3
 
     };        
 

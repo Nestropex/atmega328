@@ -10,31 +10,19 @@
 #include "input.h"
 
 extern period_t period_1_loop;
-app_input_t button1;
-app_input_t button2;
-app_input_t switch1;
-app_input_t switch2;
+input_t gpio_in[NMB_OF_INPUTS] = {0u};
+period_t loop_gpio_in[NMB_OF_INPUTS] = {0u};
 
-period_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
-period_t loop_button2 = {0ul,0ul,0u,0u,0u,0u,0u};
-period_t loop_switch1 = {0ul,0ul,0u,0u,0u,0u,0u};
-period_t loop_switch2 = {0ul,0ul,0u,0u,0u,0u,0u};
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
 
-
-
-
 void app_init(void)
 {
-    button1.pin = cfg_pin_input.button1;
-    button1.loop = &loop_button1;
-    button2.pin = cfg_pin_input.button2;
-    button2.loop = &loop_button2;
-    switch1.pin = cfg_pin_input.switch1;
-    switch1.loop = &loop_switch1;
-    switch2.pin = cfg_pin_input.switch2;
-    switch2.loop = &loop_switch2;
+    for (uint8_t i = 0; i < NMB_OF_INPUTS; i++)
+    {
+       gpio_in[i].pin = cfg_pin_input[i];
+       gpio_in[i].loop = &loop_gpio_in[i];
+    }
 
     isr_init();
     isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
@@ -45,28 +33,22 @@ void app_init(void)
 
 void app_main(void)
 {
-    input_get(&button1);
-    input_get(&button2);
-    input_get(&switch1);
-    input_get(&switch2);
+    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
+    {
+        input_get(&gpio_in[i]);
+        gpio_toggle(cfg_pin_output[i].port,cfg_pin_output[i].bit);
+    }
 
-    gpio_toggle(cfg_pin_output.phase1.port,cfg_pin_output.phase1.bit);
-    gpio_toggle(cfg_pin_output.phase2.port,cfg_pin_output.phase2.bit);
-    gpio_toggle(cfg_pin_output.phase3.port,cfg_pin_output.phase3.bit);
 
     if ((period_1_loop.cnt % 2u)== 0u)
     {
-        uart_str_transmit("button1: ");
-        uart_nmb_transmit(button1.ONtime,10u);
-        uart_str_transmit("button2: ");
-        uart_nmb_transmit(button2.ONtime,10u);
-
-        uart_str_transmit("switch1: ");
-        uart_nmb_transmit(switch1.ONtime,10u);
-        uart_str_transmit("switch2: ");
-        uart_nmb_transmit(switch2.ONtime,10u);
-        uart_str_transmit("period_1_loop: ");
-        uart_nmb_transmit(period_1_loop.cnt,10u);
+        for (uint8_t i = 0; i < NMB_OF_INPUTS; i++)
+        {
+            uart_str_transmit("input: ");
+            uart_nmb_transmit(i,10u);
+            uart_str_transmit("\n");
+            uart_nmb_transmit(gpio_in[i].ONtime,10u);
+        }
     }
 }
 
