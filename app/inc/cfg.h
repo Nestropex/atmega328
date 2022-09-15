@@ -118,28 +118,12 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define NMB_OF_INPUTS           4u
     #define NMB_OF_OUTPUTS          3u
 
-    typedef struct input_pin {
-        pin_t switch1;
-        pin_t switch2;
-        pin_t button1;
-        pin_t button2;
-        pin_t bemf1;
-        pin_t bemf2;
-        pin_t bemf3;
-    }cfg_input_pin_t;
-
-    typedef struct cfg_output_pin {
-        pin_t phase1;
-        pin_t phase2;
-        pin_t phase3;
-    }cfg_output_pin_t;
-
     // Declare input (0) and output (1)
     static const uint8_t cfg_port_b = 0x0fu;
     static const uint8_t cfg_port_c = 0x00u;
     static const uint8_t cfg_port_d = 0x00u;
 
-    static const pin_t cfg_pin_input[] = {
+    static const pin_t cfg_pin_input[NMB_OF_INPUTS] = {
         {.port = 3u, .bit = 5u}, // button1
         {.port = 3u, .bit = 6u}, // button2
         {.port = 3u, .bit = 2u}, // switch1
@@ -149,14 +133,14 @@ ICP1   PB0 |14  15| PB1 OC1A
         {.port = 2u, .bit = 3u}  // backemf3
     };
 
-    static const pin_t cfg_pin_output[] = {
+    static const pin_t cfg_pin_output[NMB_OF_OUTPUTS] = {
         {.port = 1u, .bit = 3u}, // phase1
         {.port = 1u, .bit = 2u}, // phase2
         {.port = 1u, .bit = 1u}, // phase3
 
     };        
 
-    // Pin shall be connected to an LED in order to give an visible alarm
+    // Pin shall be connected to an LED in order to give visible alarm
     static const pin_t cfg_error_pin = {.port = 1u, .bit = 0u};
 #endif
 

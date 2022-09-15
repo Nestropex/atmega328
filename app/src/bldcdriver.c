@@ -9,25 +9,33 @@
 #include "period.h"
 #include "input.h"
 
+
+typedef struct output {
+    uint8_t set;
+    pin_t pin;
+}output_t;
+
 extern period_t period_1_loop;
+
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
 period_t loop_gpio_in[NMB_OF_INPUTS] = {0u};
+output_t gpio_out[NMB_OF_OUTPUTS]={0u};
 
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
 
 void app_init(void)
 {
-    for (uint8_t i = 0; i < NMB_OF_INPUTS; i++)
+    for (uint8_t i = 0u; i < NMB_OF_INPUTS; i++)
     {
-       gpio_in[i].pin = cfg_pin_input[i];
+       gpio_in[i].pin  = cfg_pin_input[i];
        gpio_in[i].loop = &loop_gpio_in[i];
+       gpio_out[i].pin = cfg_pin_input[i];
     }
 
     isr_init();
     isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
     isr_register(isr_timer_1_comp_b, Timer1_Comp_B);
-
 }
 
 
