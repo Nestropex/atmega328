@@ -7,7 +7,7 @@
 #include "isr.h"
 #include "uart.h"
 #include "period.h"
-
+#include "input.h"
 #define CHANNEL_1 0u
 #define VALID_ONCE 1u
 #define TOGGLE_DIR 1u
@@ -23,12 +23,7 @@
 
 
 
-typedef struct app_input{
-        uint16_t  ONtime;
-        uint8_t   state;
-        pin_t     pin;
-        period_t *loop;
-}app_input_t;
+
 
 period_t loop_button1 = {0ul,0ul,0u,0u,0u,0u,0u};
 period_t loop_button2 = {0ul,0ul,0u,0u,0u,0u,0u};
@@ -46,7 +41,7 @@ static uint8_t speed_dir=0u;
 uint32_t max_steps_1;
 uint32_t max_steps_2;
 
-static void read_inputs(void);
+
 static uint16_t set_step_out(uint8_t port, uint8_t pin, uint16_t offtime_ticks);
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
@@ -80,10 +75,10 @@ void app_init(void)
 
 void app_main(void)
 {
-    get_input_ONtime(&button1);
-    get_input_ONtime(&button2);
-    get_input_ONtime(&button3);
-    get_input_ONtime(&switch1);
+    input_get(&button1);
+    input_get(&button2);
+    input_get(&button3);
+    input_get(&switch1);
 
 
     if ((button2.state == TOGGLE_DIR) && (button2.loop->cnt <= VALID_ONCE))
@@ -132,35 +127,7 @@ void app_main(void)
     }
 }
 
-/**
- * @brief Updates input object with input state and the time it has been on
- * 
- * @param object pointer to input object as switch or button
- */
-static void get_input_ONtime(app_input_t *object)
-{
-    if (object != NULL_PTR)
-    {
-        app_input_t temp_obj = *object;
 
-        temp_obj.state = gpio_read(temp_obj.pin.port,temp_obj.pin.bit);
-
-        if (temp_obj.state == 1u)
-        {
-            period_control(temp_obj.loop);
-        }
-        else 
-        {
-            temp_obj.loop->time = 0u;
-            temp_obj.loop->cnt = 0u; 
-        }
-
-        temp_obj.ONtime =(uint16_t) temp_obj.loop->time * temp_obj.loop->cnt;
-        *object = temp_obj;
-    }
-    
-
-}
 
 /**
  * @brief Function toggles the output pin with the step signal to the driver.

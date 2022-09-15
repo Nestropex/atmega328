@@ -12,7 +12,6 @@ void period_control(period_t  *loop)
     if (loop != NULL_PTR)
     {
         period_t *temp_loop = loop;
-        temp_loop->cnt++;
         temp_loop->cur_ticks = timer1_get_ticks();
         temp_loop->diff = temp_loop->cur_ticks - temp_loop->last_ticks;
   
@@ -25,6 +24,7 @@ void period_control(period_t  *loop)
 
         if (temp_loop->diff >= ticks_config)
         {
+            temp_loop->cnt++;
             temp_loop->execute_flag = 1u;
             temp_loop->time = (uint32_t)((compute)/clk_scaled);
             temp_loop->last_ticks = temp_loop->cur_ticks;

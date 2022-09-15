@@ -160,7 +160,9 @@ ICP1   PB0 |14  15| PB1 OC1A
     static const pin_t cfg_error_pin = {.port = 1u, .bit = 0u};
 #endif
 
+#ifdef TEMPLATE
 
+#endif
 
 
 #endif

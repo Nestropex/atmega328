@@ -47,6 +47,7 @@ LIBS  =-lm -L$(HAL_LIB)
 APP_SRC_FILES +=  $(APP_SRC_DIR)/main.c
 APP_SRC_FILES +=  $(APP_SRC_DIR)/$(APP_NAME).c
 APP_SRC_FILES +=  $(APP_SRC_DIR)/period.c
+APP_SRC_FILES +=  $(APP_SRC_DIR)/input.c
 SRC_FILES = $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
 SRC_FILES += $(HAL_SRC_DIR)/uart.c

@@ -14,8 +14,9 @@
                 "UNICODE",
                 "_UNICODE",
                 "__AVR_ATmega328P__",
-                "COILWINDS",
-                "BLDCDRIVER"
+                "COILWIND",
+                "BLDCDRIVER",
+                "TEMPLATE"
             ],
             "cStandard": "c99",
             "cppStandard": "c++11",
