@@ -49,7 +49,6 @@ static void get_input_ONtime(app_input_t *object);
 static void step_limit( uint8_t pin);
 
 
-
 void app_init(void)
 {
     button1.pin = cfg_pin_input.button1;

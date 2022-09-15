@@ -190,7 +190,7 @@ void timer_set_compare(interrupts_t nmb, uint16_t comp_val)
             OCR2B = comp_val;
             break;
         default:
-            ERROR_HANDLER("timer_set_compare");
+            ERROR_HANDLER("ERROR timer_set_compare");
             break;
         }
 }

@@ -55,7 +55,7 @@ void period_print(period_t *loop, uint8_t *str)
         uart_nmb_transmit(loop->diff,10u);
         uart_str_transmit("cur ");
         uart_nmb_transmit(loop->cur_ticks,10u);
-        uart_str_transmit("last ");
+        uart_str_transmit("last2 ");
         uart_nmb_transmit(loop->last_ticks,10u);
     }
 }

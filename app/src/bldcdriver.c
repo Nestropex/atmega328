@@ -50,7 +50,11 @@ void app_main(void)
     input_get(&switch1);
     input_get(&switch2);
 
-    if ((period_1_loop.cnt % 10u)== 0u)
+    gpio_toggle(cfg_pin_output.phase1.port,cfg_pin_output.phase1.bit);
+    gpio_toggle(cfg_pin_output.phase2.port,cfg_pin_output.phase2.bit);
+    gpio_toggle(cfg_pin_output.phase3.port,cfg_pin_output.phase3.bit);
+
+    if ((period_1_loop.cnt % 2u)== 0u)
     {
         uart_str_transmit("button1: ");
         uart_nmb_transmit(button1.ONtime,10u);
