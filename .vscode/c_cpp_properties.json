@@ -6,13 +6,16 @@
                 "${workspaceFolder}/**",
                 "C:\\Toolchain\\avr\\avr\\include\\",
                 "C:\\Toolchain\\avr\\avr\\include\\avr",
+                "C:\\Users\\Nestropex1\\Documents\\GIT\\atmega328\\app\\inc",
                 "C:\\Users\\Nestropex1\\Documents\\GIT\\atmega328\\hal\\inc"
             ],
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                "__AVR_ATmega328P__"
+                "__AVR_ATmega328P__",
+                "COILWINDS",
+                "BLDCDRIVER"
             ],
             "cStandard": "c99",
             "cppStandard": "c++11",

@@ -57,7 +57,7 @@ int main(void)
                 }
                 uart_str_transmit("heartbeat \n");
                 uart_nmb_transmit(heartbeat,10);
-                gpio_write(1,5,heartbeat);
+                //gpio_write(cfg_error_pin.port,cfg_error_pin.bit,heartbeat);
             }
 
         }
@@ -68,13 +68,14 @@ int main(void)
 
 static void init(void)
 {  
+    system_init(cfg_error_pin);
     uart_init(SYSTEM_CLK,UART_BAUDRATE);
     watchdog_init(1u);
     gpio_init(1U,cfg_port_b);
     gpio_init(2U,cfg_port_c);
     gpio_init(3U,cfg_port_d);
-    system_init(cfg_error_pin);
     timer1_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
     isr_init();
+
 }
 
