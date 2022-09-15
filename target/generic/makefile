@@ -84,7 +84,7 @@ $(TARGET): $(APP_OBJ_FILES) $(HAL_LIB)
 	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
 	$(OBJSIZE) -C --mcu=$(MCU)  $(TARGET).elf
 
-all: gccversion clean_all lib $(TARGET) flash
+all: gccversion clean_all lib $(TARGET)  flash
 app: gccversion clean_app $(TARGET) flash
 hal: gccversion clean_all lib
 
