@@ -9,11 +9,9 @@ HAL_DIR = ../../atmega328p
 APP_NAME = bldcdriver
 APP_CFG_DEFINE = $(shell echo $(APP_NAME) | tr a-z A-Z)
 
-DEFINES += -D__AVR_ATmega328P__
+DEFINES = -D__AVR_ATmega328P__
 
-DEBUG_LEVEL = -g
-OPT = s
-CFLAGS = -D F_CPU=16000000 -D $(APP_CFG_DEFINE)
+CFLAGS = -D F_CPU=16000000 -mmcu=atmega328p -D $(APP_CFG_DEFINE)
 
-ALL_CFLAGS += -mmcu=atmega328p -I. $(CFLAGS)
+
 include $(MAKEFILE_DIR)/makefile

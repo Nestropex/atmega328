@@ -34,12 +34,12 @@ OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 OBJSIZE = avr-size
 CC = avr-gcc
-DEBUG_LEVEL = -g
-OPT = s
+DEBUG_LEVEL = -g0
+OPT = 2
 CFLAGS += -D GCC_MEGA_AVR  $(INC_DIR) $(DEBUG_LEVEL) -O$(OPT) \
 -fsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
 $(WARNINGS)  -std=gnu99
-DEFINES = -DDEBUG
+DEFINES += -DDEBUG
 
 HAL_LIB = $(HAL_TARGET_DIR)/lib$(TARGET).a
 LIBS  =-lm -L$(HAL_LIB)
@@ -60,10 +60,7 @@ SRC_FILES += $(HAL_SRC_DIR)/isr.c
 OBJ_ENDING := ${SRC_FILES:.c=.o}
 APP_OBJ_ENDING := ${APP_SRC_FILES:.c=.o}
 
-#OPTIMIZATION = -Og
-#OPTIMIZATION = -O1
-OPTIMIZATION = -O2
-#OPTIMIZATION = -O3
+
 ALL_CFLAGS += -mmcu=atmega328p -I. $(CFLAGS)
 #Replace src file path with obj file path
 OBJ_FILES := $(patsubst $(HAL_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
