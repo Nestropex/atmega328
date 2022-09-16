@@ -71,7 +71,7 @@ static void init(void)
     system_init(cfg_error_pin);
     uart_init(SYSTEM_CLK,UART_BAUDRATE);
     watchdog_init(1u);
-    gpio_init(1U,cfg_port_b);
+    gpio_init(1U,~cfg_port_b);
     gpio_init(2U,cfg_port_c);
     gpio_init(3U,cfg_port_d);
     timer1_init(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);

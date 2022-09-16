@@ -61,4 +61,13 @@ uint8_t timer2_get_ticks(void);
  */
 void timer_set_compare(interrupts_t nmb, uint16_t comp_val);
 
+/**
+ * @brief Devides the parameters and gives back the timer frequency
+ * 
+ * @param clk frequency system clock
+ * @param prescaler the that the timer in question was configured with
+ * @return  frequency [1/hz]
+ */
+uint32_t timer_get_frequency(uint32_t clk, uint16_t prescaler);
+
 #endif

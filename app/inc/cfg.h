@@ -116,6 +116,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
     #define UART_BAUDRATE           500000u
     #define NMB_OF_INPUTS           4u
+    #define NMB_OF_ANIN             3u
     #define NMB_OF_OUTPUTS          3u
 
     // Declare input (0) and output (1)
@@ -123,7 +124,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     static const uint8_t cfg_port_c = 0x00u;
     static const uint8_t cfg_port_d = 0x00u;
 
-    static const pin_t cfg_pin_input[NMB_OF_INPUTS] = {
+    static const pin_t cfg_pin_input[NMB_OF_INPUTS + NMB_OF_ANIN] = {
         {.port = 3u, .bit = 5u}, // button1
         {.port = 3u, .bit = 6u}, // button2
         {.port = 3u, .bit = 2u}, // switch1

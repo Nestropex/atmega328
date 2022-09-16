@@ -194,3 +194,8 @@ void timer_set_compare(interrupts_t nmb, uint16_t comp_val)
             break;
         }
 }
+
+uint32_t timer_get_frequency(uint32_t clk, uint16_t prescaler)
+{
+    return clk/prescaler;
+}
