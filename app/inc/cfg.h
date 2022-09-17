@@ -125,10 +125,11 @@ ICP1   PB0 |14  15| PB1 OC1A
     static const uint8_t cfg_port_d = 0x00u;
 
     static const pin_t cfg_pin_input[NMB_OF_INPUTS + NMB_OF_ANIN] = {
-        {.port = 3u, .bit = 5u}, // button1
-        {.port = 3u, .bit = 6u}, // button2
-        {.port = 3u, .bit = 2u}, // switch1
-        {.port = 3u, .bit = 3u}, // switch2
+
+        {.port = 3u, .bit = 2u}, // button1
+        {.port = 3u, .bit = 3u}, // button2
+        {.port = 3u, .bit = 5u}, // switch1
+        {.port = 3u, .bit = 6u}, // switch2
         {.port = 2u, .bit = 5u}, // backemf1
         {.port = 2u, .bit = 4u}, // backemf2
         {.port = 2u, .bit = 3u}  // backemf3

@@ -16,6 +16,8 @@ typedef struct output {
 
 extern period_t period_1_loop;
 uint16_t period_ticks;
+uint16_t g_frequency = 1000u;
+uint16_t g_phase = 60u;
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
 period_t loop_gpio_in[NMB_OF_INPUTS] = {0u};
 output_t gpio_out[NMB_OF_OUTPUTS]={0u};
@@ -39,7 +41,7 @@ void app_init(void)
     isr_init();
     isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
     isr_register(isr_timer_1_comp_b, Timer1_Comp_B);
-    signal_frequency(1000u,60u);
+    
 }
 
 
@@ -48,6 +50,9 @@ void app_main(void)
     for (uint8_t i = 0; i < NMB_OF_INPUTS; i++)
     {
         input_get(&gpio_in[i]);
+        
+        uart_str_transmit("state ");
+        uart_nmb_transmit(gpio_in[i].state,10);
     }
     
     if ((period_1_loop.cnt % 2u)== 0u)
@@ -60,7 +65,53 @@ void app_main(void)
             uart_nmb_transmit(gpio_in[i].ONtime,10u); */
         }
     }
+
+    if (gpio_in[0].state == 1u)
+    {
+        if (gpio_in[2].state == 0u)
+        {
+            g_frequency = g_frequency - 10u;
+        }
+        else
+        {
+            g_frequency = g_frequency + 10u;
+        }
+    }
+
+    if (gpio_in[1].state == 1u)
+    {
+        if (gpio_in[3].state == 0u)
+        {
+            g_phase = g_phase - 10u;
+        }
+        else
+        {
+            g_phase = g_phase + 10u;
+        }
+        
+        
+    }
+
+    if (g_phase <= 10u)
+    {
+        g_phase = 10u;
+    }
+    else if (g_phase >=90u)
+    {
+        g_phase = 90u;
+    }
+    else
+    {
+        /* code */
+    }
+    
+    
+    
+    signal_frequency(g_frequency,g_phase);
+    
 }
+
+
 uint8_t state_high;
 uint8_t state_low;
 uint16_t phase_ticks;
@@ -94,10 +145,6 @@ static void isr_timer_1_comp_a(void)
     default:
         break;
     }
-    uart_str_transmit("isr_a ");
-    
-    
-
 }
 
 /**
@@ -128,12 +175,9 @@ static void isr_timer_1_comp_b(void)
         
         default:
             break;
-    }
-    
-    uart_str_transmit("isr_b ");
-    
+    }   
 }
-
+uint8_t once;
 void signal_frequency(uint16_t frequency, uint16_t phase)
 {
     if (frequency != 0u)
@@ -142,14 +186,17 @@ void signal_frequency(uint16_t frequency, uint16_t phase)
         period_ticks = timer_freq/(2u*frequency);
         uint16_t cur_ticks = timer1_get_ticks();
 
-        // Interrupts will occure with a rate 6 times faster than frequency
-        timer_set_compare(Timer1_Comp_A, cur_ticks + period_ticks);
+        if (once == 0u)
+        {
+            // Interrupts will occure with a rate 6 times faster than frequency
+            timer_set_compare(Timer1_Comp_A, cur_ticks + period_ticks);
+        }
+        
+        once = 1u;
+
 
         phase_ticks = 360u/phase;
 
         delay_ticks = period_ticks/(phase_ticks/2);
-
-        uart_str_transmit("delay_ticks ");
-        uart_nmb_transmit(delay_ticks,10);
     }
 }
