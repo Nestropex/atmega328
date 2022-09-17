@@ -25,14 +25,14 @@ uint32_t timer0_32 = 0x0ul;
 
 //-------Static Function Declaration-------
 
-void period_timer_0_ovf(void); // Do not make static as it serves as isr
+void period_timer_0_ovf_isr(void); // Do not make static as it serves as isr
 
 
 //-------Function Definition-------
 
 void timer0_32bit_init(void)
 {
-    isr_register(period_timer_0_ovf, Timer0_OVF);
+    isr_register(period_timer_0_ovf_isr, Timer0_OVF);
 }
 
 uint32_t timer0_32_get_ticks(void)
@@ -40,7 +40,7 @@ uint32_t timer0_32_get_ticks(void)
     return  (timer0_32 | timer0_get_ticks());
 }
 
-void period_timer_0_ovf(void)
+void period_timer_0_ovf_isr(void)
 {
     timer0_32 = timer0_32 + FIRST_BIT_AFTER_8BIT_OVF;
 }
