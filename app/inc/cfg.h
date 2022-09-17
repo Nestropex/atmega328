@@ -136,9 +136,9 @@ ICP1   PB0 |14  15| PB1 OC1A
     };
 
     static const pin_t cfg_pin_output[NMB_OF_OUTPUTS] = {
-        {.port = 1u, .bit = 3u}, // phase1
+        {.port = 1u, .bit = 1u}, // phase1
         {.port = 1u, .bit = 2u}, // phase2
-        {.port = 1u, .bit = 1u}, // phase3
+        {.port = 1u, .bit = 3u}, // phase3
 
     };        
 
