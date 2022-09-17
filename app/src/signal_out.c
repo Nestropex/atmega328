@@ -74,28 +74,51 @@ void signal_frequency(uint16_t frequency, uint16_t phase)
         delay_ticks = period_ticks/(phase_ticks/2);
     }
 }
+static uint8_t isr_state;
 
 void signal_timer1_comp_a_isr(void)
 {
-    gpio_toggle(cfg_pin_output[0].port,cfg_pin_output[0].bit);
+    if (isr_state == 0u)
+    {
+        gpio_write(cfg_pin_output[0].port,cfg_pin_output[0].bit,1u);
+    }
+    else
+    {
+        gpio_write(cfg_pin_output[0].port,cfg_pin_output[0].bit,0u);
+    }
+
     uint32_t cur_ticks = timer1_32_get_ticks();
     timer_set_compare(Timer1_Comp_A, cur_ticks + period_ticks);
-   /* uart_str_transmit("timer_1 ");
-    uart_nmb_transmit(timer1_32_get_ticks(),10u);
-    uart_str_transmit("timer_2 ");
-    uart_nmb_transmit(timer2_32_get_ticks(),10u); */
 }
 
 void signal_timer1_comp_b_isr(void)
 {
-    gpio_toggle(cfg_pin_output[1].port,cfg_pin_output[1].bit);
+    if (isr_state == 0u)
+    {
+        gpio_write(cfg_pin_output[1].port,cfg_pin_output[1].bit,1u);
+    }
+    else
+    {
+        gpio_write(cfg_pin_output[1].port,cfg_pin_output[1].bit,0u);
+    }
+
     uint32_t cur_ticks = timer1_32_get_ticks();
     timer_set_compare(Timer1_Comp_B, cur_ticks + period_ticks);
 }
 
 void signal_timer2_comp_a_isr(void)
 {
-    gpio_toggle(cfg_pin_output[2].port,cfg_pin_output[2].bit);
+    if (isr_state == 0u)
+    {
+        gpio_write(cfg_pin_output[2].port,cfg_pin_output[2].bit,1u);
+        isr_state = 1u;
+    }
+    else
+    {
+        gpio_write(cfg_pin_output[2].port,cfg_pin_output[2].bit,0u);
+        isr_state = 0u;
+    }
+
     uint32_t cur_ticks = timer2_32_get_ticks();
     timer_set_compare(Timer2_Comp_A, cur_ticks + period_ticks);
 }
