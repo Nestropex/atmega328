@@ -66,6 +66,5 @@ static void init(void)
     timer0_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
     isr_init();
     period_init();
-
 }
 

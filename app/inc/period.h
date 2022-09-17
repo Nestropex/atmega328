@@ -51,12 +51,6 @@ void period_print(period_t *loop, uint8_t *str);
  */
 void period_init(void);
 
-/**
- * @brief Function or's 8 bit hw timer with 32 bit value that increases on every overflow
- * 
- * @return a 32 bit timer value based on real 8 bit timer
- */
-uint32_t timer0_get_ticks_32(void);
 
 
 

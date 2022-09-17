@@ -5,14 +5,12 @@
 #include "uart.h"
 #include "timer.h"
 #include "isr.h"
+#include "timer_32bit.h"
 #include "period.h"
-
-uint32_t timer0_32 = 0x0ul;
-void isr_timer_0_ovf(void);
 
 void period_init(void)
 {
-    isr_register(isr_timer_0_ovf, Timer0_OVF);
+    timer0_32bit_init();
 }
 
 void period_control(period_t  *loop)
@@ -20,7 +18,7 @@ void period_control(period_t  *loop)
     if (loop != NULL_PTR)
     {
         period_t *temp_loop = loop;
-        temp_loop->cur_ticks = timer0_get_ticks_32();
+        temp_loop->cur_ticks = timer0_32_get_ticks();
         temp_loop->diff = temp_loop->cur_ticks - temp_loop->last_ticks;
   
 
@@ -69,12 +67,5 @@ void period_print(period_t *loop, uint8_t *str)
 
 }
 
-void isr_timer_0_ovf(void)
-{
-    timer0_32 = timer0_32 + 0x00000100ul;
-}
 
-uint32_t timer0_get_ticks_32(void)
-{
-    return  (timer0_32 | timer0_get_ticks());
-}
+
