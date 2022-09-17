@@ -9,6 +9,7 @@
 #include "period.h"
 #include "input.h"
 
+#define NMB_OF_PHASES 3u
 
 typedef struct output {
     uint8_t set;
@@ -87,8 +88,9 @@ static void isr_timer_1_comp_a(void)
     default:
         break;
     }
+    
     uint16_t cur_ticks = timer1_get_ticks();
-    timer_set_compare(Timer1_Comp_A, cur_ticks + (next_event/3u));
+    timer_set_compare(Timer1_Comp_A, cur_ticks + (next_event/NMB_OF_PHASES));
 
 }
 
