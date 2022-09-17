@@ -40,6 +40,8 @@ int main(void)
             if(period_1_loop.execute_flag == 1u)
             {                
                 app_main();
+                uart_str_transmit("period 1 cnt  \n");
+                uart_nmb_transmit(period_1_loop.cnt,10);
             } 
 
             period_control(&period_2_loop);
@@ -55,9 +57,7 @@ int main(void)
                 {
                     heartbeat = 0u;
                 }
-                uart_str_transmit("heartbeat \n");
-                uart_nmb_transmit(heartbeat,10);
-                //gpio_write(cfg_error_pin.port,cfg_error_pin.bit,heartbeat);
+
             }
 
         }
@@ -71,7 +71,7 @@ static void init(void)
     system_init(cfg_error_pin);
     uart_init(SYSTEM_CLK,UART_BAUDRATE);
     watchdog_init(1u);
-    gpio_init(1U,~cfg_port_b);
+    gpio_init(1U,cfg_port_b);
     gpio_init(2U,cfg_port_c);
     gpio_init(3U,cfg_port_d);
     timer1_init(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);

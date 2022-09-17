@@ -23,7 +23,7 @@ output_t gpio_out[NMB_OF_OUTPUTS]={0u};
 
 static void isr_timer_1_comp_a(void);
 static void isr_timer_1_comp_b(void);
-void signal_frequency(uint16_t frequency, uint16_t phase);
+void signal_frequency(uint16_t frequency);
 void app_init(void)
 {
     for (uint8_t i = 0u; i < NMB_OF_INPUTS; i++)
@@ -40,14 +40,12 @@ void app_init(void)
     isr_init();
     isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
     isr_register(isr_timer_1_comp_b, Timer1_Comp_B);
-    signal_frequency(200u, 0u);
+    signal_frequency(1000u);
 }
 
 
 void app_main(void)
 {
-    
-
     for (uint8_t i = 0; i < NMB_OF_INPUTS; i++)
     {
         input_get(&gpio_in[i]);
@@ -64,20 +62,33 @@ void app_main(void)
         }
     }
 }
-
+uint8_t state;
 /**
  * @brief CH1 step signal pin is toggled on every interrupt.
  *        Sets also next timer interrupt event
  */
 static void isr_timer_1_comp_a(void)
 {
-    
-    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
+    switch (state)
     {
-        gpio_toggle(cfg_pin_output[i].port,cfg_pin_output[i].bit);
+    case 0u:
+        gpio_toggle(cfg_pin_output[0].port,cfg_pin_output[0].bit);
+        state = 1u;
+        break;
+    case 1u:
+        gpio_toggle(cfg_pin_output[1].port,cfg_pin_output[1].bit);
+        state = 2u;
+        break;
+    case 2u:
+        gpio_toggle(cfg_pin_output[2].port,cfg_pin_output[2].bit);
+        state = 0u;
+        break;
+    
+    default:
+        break;
     }
     uint16_t cur_ticks = timer1_get_ticks();
-    timer_set_compare(Timer1_Comp_A, cur_ticks + next_event);
+    timer_set_compare(Timer1_Comp_A, cur_ticks + (next_event/3u));
 
 }
 
@@ -90,26 +101,13 @@ static void isr_timer_1_comp_b(void)
 
 }
 
-void signal_frequency(uint16_t frequency, uint16_t phase)
+void signal_frequency(uint16_t frequency)
 {
     if (frequency != 0u)
     {
         uint32_t timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
-         next_event = timer_freq/frequency;
+        next_event = timer_freq/(2u*frequency);
         uint16_t cur_ticks = timer1_get_ticks();
         timer_set_compare(Timer1_Comp_A, cur_ticks + next_event);
-
-        uart_str_transmit("timer_freq");
-        uart_nmb_transmit(timer_freq,10u);
-
-        uart_str_transmit("next_event");
-        uart_nmb_transmit(next_event,10u);
-
-        uart_str_transmit("cur_ticks");
-        uart_nmb_transmit(cur_ticks,10u);
-
-        
-
-
     }
 }
