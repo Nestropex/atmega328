@@ -15,49 +15,39 @@ static void read_inputs(void);
 static void app_out(void);
 static void app_isr_timer_0_ovf(void);
 
-period_t main_loop;
-period_t period_1_loop;
-period_t period_2_loop;
-uint8_t heartbeat;
+period_t loop_main;
+period_t loop_1;
+period_t loop_2;
+
 // Main function must be the first one in the file 
 int main(void)
 {
     init();
     app_init();
-    main_loop.time_config = LOOP_MAIN_TIME_MILLIS;
-    period_1_loop.time_config = LOOP_1_TIME_MILLIS;
-    period_2_loop.time_config = LOOP_2_TIME_MILLIS;
+    loop_main.time_config = LOOP_MAIN_TIME_MILLIS;
+    loop_1.time_config = LOOP_1_TIME_MILLIS;
+    loop_2.time_config = LOOP_2_TIME_MILLIS;
+
 
 
     while(1)
     {  
         watchdog_reset();
-        period_control(&main_loop);
-        if(main_loop.execute_flag == 1u)
+        period_control(&loop_main);
+ 
+        if(loop_main.execute_flag == 1u)
         {   
-
-            period_control(&period_1_loop);
-            if(period_1_loop.execute_flag == 1u)
+            period_control(&loop_1);
+            if(loop_1.execute_flag == 1u)
             {                
-                app_main();
-                uart_str_transmit("period 1 cnt  \n");
-                uart_nmb_transmit(period_1_loop.cnt,10);
+                app_main();          
             } 
 
-            period_control(&period_2_loop);
-            if(period_2_loop.execute_flag == 1u)
+            period_control(&loop_2);
+            if(loop_2.execute_flag == 1u)
             {
                 system_error_update();
-
-                if(heartbeat == 0u)
-                {
-                    heartbeat = 1u;
-                }
-                else
-                {
-                    heartbeat = 0u;
-                }
-
+                uart_str_transmit("heartbeat");
             }
 
         }
@@ -74,8 +64,9 @@ static void init(void)
     gpio_init(1U,cfg_port_b);
     gpio_init(2U,cfg_port_c);
     gpio_init(3U,cfg_port_d);
-    timer1_init(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
+    timer0_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
     isr_init();
+    period_init();
 
 }
 

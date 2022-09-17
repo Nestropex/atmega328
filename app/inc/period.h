@@ -10,9 +10,9 @@ typedef struct period {
     uint32_t cnt;
     uint16_t time_config;
     uint8_t execute_flag;
-    uint16_t cur_ticks;
-    uint16_t last_ticks;
-    uint16_t diff;
+    uint32_t cur_ticks;
+    uint32_t last_ticks;
+    uint32_t diff;
 }period_t;
 
 
@@ -45,7 +45,18 @@ void period_control(period_t  *loop);
  */
 void period_print(period_t *loop, uint8_t *str);
 
+/**
+ * @brief Sets Timer0 overflow interrupt 
+ * 
+ */
+void period_init(void);
 
+/**
+ * @brief Function or's 8 bit hw timer with 32 bit value that increases on every overflow
+ * 
+ * @return a 32 bit timer value based on real 8 bit timer
+ */
+uint32_t timer0_get_ticks_32(void);
 
 
 
