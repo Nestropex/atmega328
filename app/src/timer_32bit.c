@@ -27,13 +27,13 @@ uint32_t timer0_32 = 0x0ul;
 
 void period_timer_0_ovf(void); // Do not make static as it serves as isr
 
+
 //-------Function Definition-------
 
 void timer0_32bit_init(void)
 {
     isr_register(period_timer_0_ovf, Timer0_OVF);
 }
-
 
 uint32_t timer0_32_get_ticks(void)
 {

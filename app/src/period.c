@@ -10,6 +10,7 @@
 
 void period_init(void)
 {
+    timer0_init(SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
     timer0_32bit_init();
 }
 

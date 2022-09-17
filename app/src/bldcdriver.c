@@ -37,8 +37,6 @@ void app_init(void)
     {
        gpio_out[i].pin = cfg_pin_input[i];
     }
-
-    isr_init();
     isr_register(isr_timer_1_comp_a, Timer1_Comp_A);
     isr_register(isr_timer_1_comp_b, Timer1_Comp_B);
 }
