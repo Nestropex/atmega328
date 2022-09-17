@@ -105,7 +105,7 @@ static void set_timer_frequency(timer_t timer, uint16_t prescaler)
         }
         else
         {
-            TCCR2B |= 0x03u;
+            TCCR2B |= 0x04u;
         }
         break;
     case 256u:
@@ -119,7 +119,7 @@ static void set_timer_frequency(timer_t timer, uint16_t prescaler)
         }
         else
         {
-            TCCR2B |= 0x04u;
+            TCCR2B |= 0x06u;
         }
 
         break;
@@ -134,7 +134,7 @@ static void set_timer_frequency(timer_t timer, uint16_t prescaler)
         }
         else
         {
-            TCCR2B |= 0x05u;
+            TCCR2B |= 0x07u;
         }
         break;
     
