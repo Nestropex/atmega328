@@ -10,14 +10,13 @@
 #include "period.h"
 #include "app.h"
 
-static void init(void);
-static void read_inputs(void);
-static void app_out(void);
-static void app_isr_timer_0_ovf(void);
+
 
 period_t loop_main;
 period_t loop_1;
 period_t loop_2;
+
+static void init(void);
 
 // Main function must be the first one in the file 
 int main(void)
