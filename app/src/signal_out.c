@@ -61,9 +61,9 @@ void signal_frequency(uint16_t frequency, uint16_t phase)
             uint32_t cur_ticks = timer1_32_get_ticks();
             // Interrupts will occure with a rate 6 times faster than frequency
             timer_set_compare(Timer1_Comp_A, cur_ticks + period_ticks);
-            timer_set_compare(Timer1_Comp_B, cur_ticks + period_ticks);
+            timer_set_compare(Timer1_Comp_B, cur_ticks + period_ticks + delay_ticks);
             cur_ticks = timer2_32_get_ticks();
-            timer_set_compare(Timer2_Comp_A, cur_ticks + period_ticks);
+            timer_set_compare(Timer2_Comp_A, cur_ticks + period_ticks + 2*delay_ticks);
         }
         
         once = 1u;
@@ -71,7 +71,7 @@ void signal_frequency(uint16_t frequency, uint16_t phase)
 
         phase_ticks = 360u/phase;
 
-        delay_ticks = period_ticks/(phase_ticks/2);
+        delay_ticks = period_ticks/(phase_ticks/2u);
     }
 }
 static uint8_t isr_state;
@@ -89,6 +89,9 @@ void signal_timer1_comp_a_isr(void)
 
     uint32_t cur_ticks = timer1_32_get_ticks();
     timer_set_compare(Timer1_Comp_A, cur_ticks + period_ticks);
+    timer_set_compare(Timer1_Comp_B, cur_ticks + delay_ticks);
+    cur_ticks = timer2_32_get_ticks();
+    timer_set_compare(Timer2_Comp_A, cur_ticks + 2*delay_ticks);
 }
 
 void signal_timer1_comp_b_isr(void)
@@ -103,7 +106,8 @@ void signal_timer1_comp_b_isr(void)
     }
 
     uint32_t cur_ticks = timer1_32_get_ticks();
-    timer_set_compare(Timer1_Comp_B, cur_ticks + period_ticks);
+    //timer_set_compare(Timer1_Comp_B, cur_ticks + period_ticks);
+
 }
 
 void signal_timer2_comp_a_isr(void)
@@ -120,5 +124,5 @@ void signal_timer2_comp_a_isr(void)
     }
 
     uint32_t cur_ticks = timer2_32_get_ticks();
-    timer_set_compare(Timer2_Comp_A, cur_ticks + period_ticks);
+   // timer_set_compare(Timer2_Comp_A, cur_ticks + period_ticks);
 }
