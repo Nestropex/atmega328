@@ -108,6 +108,8 @@ void signal_frequency(uint16_t frequency)
         uint32_t timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
         next_event = timer_freq/(2u*frequency);
         uint16_t cur_ticks = timer1_get_ticks();
+
+        // Interrupts will occure with a rate 6 times faster than frequency
         timer_set_compare(Timer1_Comp_A, cur_ticks + next_event);
     }
 }
