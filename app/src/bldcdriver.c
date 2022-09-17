@@ -60,11 +60,11 @@ void app_main(void)
     {
         if (gpio_in[3].state == 0u)
         {
-            g_phase = g_phase - 10u;
+            g_phase = g_phase - 1u;
         }
         else
         {
-            g_phase = g_phase + 10u;
+            g_phase = g_phase + 1u;
         }
         
         
@@ -83,6 +83,20 @@ void app_main(void)
         /* code */
     }
 
+    if (g_frequency <= 2u)
+    {
+        g_frequency = 2u;
+    }
+    else if (g_frequency >=1200u)
+    {
+        g_frequency= 1200u;
+    }
+    else
+    {
+        /* code */
+    }
+    uart_str_transmit("frequency ");
+    uart_nmb_transmit(g_frequency,10u);
     signal_frequency(g_frequency,g_phase);
     
 }

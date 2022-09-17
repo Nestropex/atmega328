@@ -10,6 +10,7 @@
 #include "isr.h"
 #include "timer.h"
 #include "gpio.h"
+#include "uart.h"
 #include "timer_32bit.h"
 #include "signal_out.h"
 
@@ -55,6 +56,9 @@ void signal_frequency(uint16_t frequency, uint16_t phase)
         uint32_t timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
         period_ticks = timer_freq/(2u*frequency);
         
+        phase_ticks = 360u/phase;
+
+        delay_ticks = period_ticks/(phase_ticks/2u);
 
         if (once == 0u)
         {
@@ -67,11 +71,6 @@ void signal_frequency(uint16_t frequency, uint16_t phase)
         }
         
         once = 1u;
-
-
-        phase_ticks = 360u/phase;
-
-        delay_ticks = period_ticks/(phase_ticks/2u);
     }
 }
 static uint8_t isr_state;
@@ -106,8 +105,6 @@ void signal_timer1_comp_b_isr(void)
     }
 
     uint32_t cur_ticks = timer1_32_get_ticks();
-    //timer_set_compare(Timer1_Comp_B, cur_ticks + period_ticks);
-
 }
 
 void signal_timer2_comp_a_isr(void)
@@ -124,5 +121,4 @@ void signal_timer2_comp_a_isr(void)
     }
 
     uint32_t cur_ticks = timer2_32_get_ticks();
-   // timer_set_compare(Timer2_Comp_A, cur_ticks + period_ticks);
 }
