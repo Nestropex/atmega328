@@ -9,6 +9,8 @@
         "system.h": "c",
         "interrupt.h": "c",
         "uart.h": "c",
-        "cfg.h": "c"
+        "cfg.h": "c",
+        "signal.h": "c",
+        "signal_out.h": "c"
     }
 }
