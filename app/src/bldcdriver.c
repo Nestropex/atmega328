@@ -48,7 +48,7 @@ void app_init(void)
     phase[2u].pin_out = cfg_pin_output[2u];
 
 
-    signal_init(&phase[0u]);
+    signal_init(&phase[0u],3u);
 }
 
 
