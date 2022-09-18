@@ -107,7 +107,7 @@ ICP1   PB0 |14  15| PB1 OC1A
 
     #define SYSTEM_CLK 16000000ul
     #define TIMER_TIMER0_PRESCALER   1024u
-    #define TIMER_TIMER1_PRESCALER   8u
+    #define TIMER_TIMER1_PRESCALER   64u
     #define TIMER_TIMER2_PRESCALER   256u
     #define LOOP_MAIN_TIME_MILLIS    1u
     #define LOOP_1_TIME_MILLIS       60u

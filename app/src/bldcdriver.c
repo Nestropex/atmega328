@@ -36,7 +36,7 @@ void app_init(void)
     }
 
     phase[0u].frequency = SIGNAL_DEFAULT_FREQ;
-    phase[0u].phase = 60u;
+    phase[0u].phase = 0u;
     phase[0u].pin_out = cfg_pin_output[0u];
 
     phase[1u].frequency = SIGNAL_DEFAULT_FREQ;
@@ -49,6 +49,10 @@ void app_init(void)
 
 
     signal_init(&phase[0u],sizeof(phase)/sizeof(signal_t));
+
+        signal_rectangle(&phase[0u]);
+    signal_rectangle(&phase[1u]);
+    signal_rectangle(&phase[2u]);
 }
 
 
@@ -111,9 +115,7 @@ void app_main(void)
         /* code */
     }
 
-    signal_rectangle(&phase[0u]);
-    signal_rectangle(&phase[1u]);
-    signal_rectangle(&phase[2u]);
+
     
 }
 

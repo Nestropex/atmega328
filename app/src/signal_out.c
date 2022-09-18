@@ -70,7 +70,7 @@ void signal_rectangle(signal_t *channel)
         {
             uint32_t cur_ticks = timer1_32_get_ticks();
             // Interrupts will occure with a rate 6 times faster than frequency
-            channel->next_event = cur_ticks + 2000u;
+            channel->next_hi_event = cur_ticks + 2000u;
             timer_set_compare(Timer1_Comp_A, cur_ticks + 1000);
         }
         
@@ -83,19 +83,34 @@ static uint8_t isr_state;
 
 void signal_timer1_comp_a_isr(void)
 {
+    gpio_write(1,0,1);
     uint32_t cur_ticks = timer1_32_get_ticks();
 
     for (uint8_t i = 0; i < NMB_OF_OUTPUTS; i++)
     {
-        if (channel_isr[i]->next_event <= cur_ticks)
+        if (channel_isr[i]->next_hi_event <= cur_ticks)
         {
             gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
-            channel_isr[i]->next_event = cur_ticks + (channel_isr[i]->period_ticks);
+            channel_isr[i]->next_hi_event  = cur_ticks + channel_isr[i]->period_ticks*2;
+
+            if (i == 0u)
+            {
+                channel_isr[1]->next_hi_event  = cur_ticks + channel_isr[1]->delay_ticks;
+                channel_isr[1]->next_low_event = channel_isr[1u]->next_hi_event + channel_isr[1]->period_ticks;
+                channel_isr[2]->next_hi_event  = cur_ticks + channel_isr[2]->delay_ticks*2;
+                channel_isr[2]->next_low_event = channel_isr[2u]->next_hi_event + channel_isr[2]->period_ticks;
+                channel_isr[0]->next_hi_event  = cur_ticks + channel_isr[0]->period_ticks*2;
+                channel_isr[0]->next_low_event = cur_ticks + channel_isr[0]->period_ticks;
+
+            }
+            
+            
         }
     }
 
-    timer_set_compare(Timer1_Comp_A, cur_ticks + 100u);
-    timer_set_compare(Timer1_Comp_B, cur_ticks + 50u);
+    timer_set_compare(Timer1_Comp_A, cur_ticks + 50u);
+    timer_set_compare(Timer1_Comp_B, cur_ticks + 25u);
+    gpio_write(1,0,0);
 }
 
 void signal_timer1_comp_b_isr(void)
@@ -103,10 +118,9 @@ void signal_timer1_comp_b_isr(void)
     uint32_t cur_ticks = timer1_32_get_ticks();
     for (uint8_t i = 0; i < NMB_OF_OUTPUTS; i++)
     {
-        if (channel_isr[i]->next_event <= cur_ticks)
+        if (channel_isr[i]->next_low_event <= cur_ticks)
         {
             gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
-            channel_isr[i]->next_event = cur_ticks + (channel_isr[i]->period_ticks);
         }
     }
 

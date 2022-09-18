@@ -26,7 +26,8 @@ typedef struct signal {
     pin_t    pin_out;
     uint32_t period_ticks;
     uint32_t delay_ticks;
-    uint32_t next_event;
+    uint32_t next_hi_event;
+    uint32_t next_low_event;
 }signal_t;
 
 
