@@ -15,6 +15,7 @@ typedef struct output {
     pin_t pin;
 }output_t;
 
+signal_t phase[NMB_OF_OUTPUTS];
 uint16_t g_frequency = 1000u;
 uint16_t g_phase = 60u;
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
@@ -33,7 +34,21 @@ void app_init(void)
     {
        gpio_out[i].pin = cfg_pin_input[i];
     }
-    signal_init();
+
+    phase[0u].frequency = SIGNAL_DEFAULT_FREQ;
+    phase[0u].phase = 60u;
+    phase[0u].pin_out = cfg_pin_input[0u];
+
+    phase[1u].frequency = SIGNAL_DEFAULT_FREQ;
+    phase[1u].phase = 60u;
+    phase[1u].pin_out = cfg_pin_input[1u];
+
+    phase[2u].frequency = SIGNAL_DEFAULT_FREQ;
+    phase[2u].phase = 60u;
+    phase[2u].pin_out = cfg_pin_input[2u];
+
+
+    signal_init(&phase[0u]);
 }
 
 
@@ -97,7 +112,9 @@ void app_main(void)
     }
     uart_str_transmit("frequency ");
     uart_nmb_transmit(g_frequency,10u);
-    signal_frequency(g_frequency,g_phase);
+    signal_rectangle(&phase[0u]);
+    signal_rectangle(&phase[1u]);
+    signal_rectangle(&phase[2u]);
     
 }
 
