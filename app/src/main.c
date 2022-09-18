@@ -46,9 +46,7 @@ int main(void)
             period_control(&loop_2);
             if(loop_2.execute_flag == 1u)
             {
-                uint32_t cur_ticks = timer1_32_get_ticks();
                 system_error_update();
-                uart_nmb_transmit(cur_ticks, 10u);
                 uart_str_transmit("heartbeat \n");
             }
 
