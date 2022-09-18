@@ -118,10 +118,11 @@ void signal_timer1_comp_a_isr(void)
         
     if (channel_isr[0u]->next_event <= cur_ticks)
     {
-        gpio_toggle(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit);
+        gpio_write(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit, 1u);
         channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
     }
-    timer_set_compare(Timer1_Comp_A, cur_ticks + 100);
+    timer_set_compare(Timer1_Comp_A, cur_ticks + 100u);
+    timer_set_compare(Timer1_Comp_B, cur_ticks + 50u);
 }
 
 void signal_timer1_comp_b_isr(void)
@@ -129,10 +130,10 @@ void signal_timer1_comp_b_isr(void)
     uint32_t cur_ticks = timer1_32_get_ticks();
     if (channel_isr[0u]->next_event <= cur_ticks)
     {
-        //gpio_write(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit,0u);
-        //channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
-        //uart_str_transmit("write  low");
+        gpio_write(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit, 0u);
+        channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
     }
+
 }
 
 void signal_timer2_comp_a_isr(void)
