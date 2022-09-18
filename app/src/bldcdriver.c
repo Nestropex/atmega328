@@ -16,8 +16,8 @@ typedef struct output {
 }output_t;
 
 signal_t phase[NMB_OF_OUTPUTS];
-uint16_t g_frequency = 1000u;
-uint16_t g_phase = 60u;
+uint16_t g_frequency = SIGNAL_DEFAULT_FREQ;
+uint8_t g_phase = SIGNAL_DEFAULT_PHASE;
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
 period_t loop_gpio_in[NMB_OF_INPUTS] = {0u};
 output_t gpio_out[NMB_OF_OUTPUTS]={0u};
@@ -35,16 +35,16 @@ void app_init(void)
        gpio_out[i].pin = cfg_pin_output[i];
     }
 
-    phase[0u].frequency = SIGNAL_DEFAULT_FREQ;
-    phase[0u].phase = 0u;
+    phase[0u].frequency = &g_frequency;
+    phase[0u].phase = &g_phase;
     phase[0u].pin_out = cfg_pin_output[0u];
 
-    phase[1u].frequency = SIGNAL_DEFAULT_FREQ;
-    phase[1u].phase = 60u;
+    phase[1u].frequency = &g_frequency;
+    phase[1u].phase = &g_phase;
     phase[1u].pin_out = cfg_pin_output[1u];
 
-    phase[2u].frequency = SIGNAL_DEFAULT_FREQ;
-    phase[2u].phase = 60u;
+    phase[2u].frequency = &g_frequency;
+    phase[2u].phase = &g_phase;
     phase[2u].pin_out = cfg_pin_output[2u];
 
 

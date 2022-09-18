@@ -60,9 +60,9 @@ void signal_rectangle(signal_t *channel)
     if (channel != NULL_PTR)
     {
         uint32_t timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
-        channel->period_ticks = timer_freq/(2u*channel->frequency);
+        channel->period_ticks = timer_freq/(2u*(*(channel->frequency)));
         
-        uint16_t local_phase_ticks = 360u/channel->phase;
+        uint16_t local_phase_ticks = 360u/(*(channel->phase));
 
         channel->delay_ticks = channel->period_ticks/(local_phase_ticks/2u);
 
