@@ -32,20 +32,20 @@ void app_init(void)
 
     for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
     {
-       gpio_out[i].pin = cfg_pin_input[i];
+       gpio_out[i].pin = cfg_pin_output[i];
     }
 
     phase[0u].frequency = SIGNAL_DEFAULT_FREQ;
     phase[0u].phase = 60u;
-    phase[0u].pin_out = cfg_pin_input[0u];
+    phase[0u].pin_out = cfg_pin_output[0u];
 
     phase[1u].frequency = SIGNAL_DEFAULT_FREQ;
     phase[1u].phase = 60u;
-    phase[1u].pin_out = cfg_pin_input[1u];
+    phase[1u].pin_out = cfg_pin_output[1u];
 
     phase[2u].frequency = SIGNAL_DEFAULT_FREQ;
     phase[2u].phase = 60u;
-    phase[2u].pin_out = cfg_pin_input[2u];
+    phase[2u].pin_out = cfg_pin_output[2u];
 
 
     signal_init(&phase[0u]);
@@ -110,8 +110,7 @@ void app_main(void)
     {
         /* code */
     }
-    uart_str_transmit("frequency ");
-    uart_nmb_transmit(g_frequency,10u);
+
     signal_rectangle(&phase[0u]);
     signal_rectangle(&phase[1u]);
     signal_rectangle(&phase[2u]);

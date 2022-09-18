@@ -39,8 +39,7 @@ static void signal_register(signal_t *channel);
 
 void signal_init(signal_t *channel)
 {
-    timer1_init(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
-    timer2_init(SYSTEM_CLK, TIMER_TIMER2_PRESCALER);
+
     isr_register(signal_timer1_comp_a_isr, Timer1_Comp_A);
     isr_register(signal_timer1_comp_b_isr, Timer1_Comp_B);
     isr_register(signal_timer2_comp_a_isr, Timer2_Comp_A);
@@ -97,10 +96,8 @@ void signal_rectangle(signal_t *channel)
         {
             uint32_t cur_ticks = timer1_32_get_ticks();
             // Interrupts will occure with a rate 6 times faster than frequency
-            
-            timer_set_compare(Timer1_Comp_B, cur_ticks + channel->period_ticks + channel->delay_ticks);
-            cur_ticks = timer2_32_get_ticks();
-            timer_set_compare(Timer2_Comp_A, cur_ticks + channel->period_ticks + 2*channel->delay_ticks);
+            channel->next_event = cur_ticks + 2000u;
+            timer_set_compare(Timer1_Comp_A, cur_ticks + 1000);
         }
         
         once = 1u;
@@ -113,22 +110,29 @@ static uint8_t isr_state;
 void signal_timer1_comp_a_isr(void)
 {
     uint32_t cur_ticks = timer1_32_get_ticks();
-    gpio_toggle(cfg_pin_output[0].port,cfg_pin_output[0].bit);
-    timer_set_compare(Timer1_Comp_A, cur_ticks + 1000);
+    /*uart_str_transmit("cur_ticks ");
+    uart_nmb_transmit(cur_ticks,10u);
+
+    uart_str_transmit("next_event ");
+    uart_nmb_transmit(channel_isr[0u]->next_event,10u);*/
+        
+    if (channel_isr[0u]->next_event <= cur_ticks)
+    {
+        gpio_toggle(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit);
+        channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
+    }
+    timer_set_compare(Timer1_Comp_A, cur_ticks + 100);
 }
 
 void signal_timer1_comp_b_isr(void)
 {
-    if (isr_state == 0u)
-    {
-        gpio_write(cfg_pin_output[1].port,cfg_pin_output[1].bit,1u);
-    }
-    else
-    {
-        gpio_write(cfg_pin_output[1].port,cfg_pin_output[1].bit,0u);
-    }
-
     uint32_t cur_ticks = timer1_32_get_ticks();
+    if (channel_isr[0u]->next_event <= cur_ticks)
+    {
+        //gpio_write(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit,0u);
+        //channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
+        //uart_str_transmit("write  low");
+    }
 }
 
 void signal_timer2_comp_a_isr(void)

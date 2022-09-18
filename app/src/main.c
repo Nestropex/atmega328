@@ -8,6 +8,7 @@
 #include "isr.h"
 #include "gpio.h"
 #include "period.h"
+#include "timer_32bit.h"
 #include "app.h"
 
 
@@ -45,8 +46,10 @@ int main(void)
             period_control(&loop_2);
             if(loop_2.execute_flag == 1u)
             {
+                uint32_t cur_ticks = timer1_32_get_ticks();
                 system_error_update();
-                uart_str_transmit("heartbeat");
+                uart_nmb_transmit(cur_ticks, 10u);
+                uart_str_transmit("heartbeat \n");
             }
 
         }
@@ -63,7 +66,7 @@ static void init(void)
     gpio_init(1U,cfg_port_b);
     gpio_init(2U,cfg_port_c);
     gpio_init(3U,cfg_port_d);
-    isr_init();
     period_init();
+    isr_init();
 }
 
