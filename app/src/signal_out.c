@@ -110,17 +110,16 @@ static uint8_t isr_state;
 void signal_timer1_comp_a_isr(void)
 {
     uint32_t cur_ticks = timer1_32_get_ticks();
-    /*uart_str_transmit("cur_ticks ");
-    uart_nmb_transmit(cur_ticks,10u);
 
-    uart_str_transmit("next_event ");
-    uart_nmb_transmit(channel_isr[0u]->next_event,10u);*/
-        
-    if (channel_isr[0u]->next_event <= cur_ticks)
+    for (uint8_t i = 0; i < NMB_OF_OUTPUTS; i++)
     {
-        gpio_write(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit, 1u);
-        channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
+        if (channel_isr[i]->next_event <= cur_ticks)
+        {
+            gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
+            channel_isr[i]->next_event = cur_ticks + (channel_isr[i]->period_ticks);
+        }
     }
+
     timer_set_compare(Timer1_Comp_A, cur_ticks + 100u);
     timer_set_compare(Timer1_Comp_B, cur_ticks + 50u);
 }
@@ -128,10 +127,13 @@ void signal_timer1_comp_a_isr(void)
 void signal_timer1_comp_b_isr(void)
 {
     uint32_t cur_ticks = timer1_32_get_ticks();
-    if (channel_isr[0u]->next_event <= cur_ticks)
+    for (uint8_t i = 0; i < NMB_OF_OUTPUTS; i++)
     {
-        gpio_write(channel_isr[0u]->pin_out.port,channel_isr[0u]->pin_out.bit, 0u);
-        channel_isr[0u]->next_event = cur_ticks + (channel_isr[0u]->period_ticks);
+        if (channel_isr[i]->next_event <= cur_ticks)
+        {
+            gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
+            channel_isr[i]->next_event = cur_ticks + (channel_isr[i]->period_ticks);
+        }
     }
 
 }
