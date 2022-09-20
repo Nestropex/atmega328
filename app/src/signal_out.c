@@ -84,67 +84,37 @@ void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels)
 }
 
 uint8_t signal_state;
-uint32_t isr_count[NMB_OF_OUTPUTS];
+uint32_t isr_count;
 
 void signal_timer1_comp_a_isr(void)
 {
     PORTB|=0x01U;
     uint32_t cur_ticks = timer1_get_ticks();
-    uint8_t shoot[NMB_OF_OUTPUTS];
-
-
     for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
     {
         
-        isr_count[i]++;
-
-            switch (i)
+        isr_count++;
+ 
+        if (isr_count == 125u)
+        {
+            if (signal_state == 0u)
             {
-                case 0u:
-                    if (isr_count[0u] == 125u)
-                    {
-                        shoot[0u] = 1u;
-                    }
-                    break;
-
-                case 1u:
-                    if (isr_count[1u] == 166u)
-                    {
-                        shoot[1u] = 1u;
-                    }
-                    break;
-                
-                case 2u:
-                    if (isr_count[2u] == 207u)
-                    {
-                        shoot[2u] = 1u;
-                    }
-                    break;
-            
-                default:
-                    break;
+                gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
+                if (i == 2u)
+                {
+                    signal_state = 1u;
+                }
             }
-
-            if (shoot[i] == 1u)
+            else
             {
-                if (signal_state == 0u)
+                gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
+                if (i == 2u)
                 {
-                    gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
-                    if (i == 2u)
-                    {
-                        signal_state = 1u;
-                    }
+                    signal_state = 0u;
                 }
-                else
-                {
-                    gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
-                    if (i == 2u)
-                    {
-                        signal_state = 0u;
-                    }
-                }
-                isr_count[i] = 0u;
             }
+            isr_count = 0u;
+        }
     }
 
     timer_set_compare(Timer1_Comp_A ,cur_ticks + 100u);
