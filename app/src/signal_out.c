@@ -13,8 +13,6 @@
 #include "uart.h"
 #include "timer_32bit.h"
 #include "signal_out.h"
-// Allow kernel stuff to keep isr small
-#include <avr/io.h>
 
 //-------Defines-------
 
@@ -84,35 +82,30 @@ void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels)
     }
 }
 
-
-static uint8_t isr_state;
-static uint32_t last_event;
 static uint8_t state[NMB_OF_OUTPUTS];
 void signal_timer1_comp_a_isr(void)
 {
-    PORTB |= 0x01u;
     uint32_t cur_ticks = timer1_32_get_ticks();
 
-    for (uint8_t i = 0u; i < (NMB_OF_OUTPUTS-0); i++)
+    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
     {
         if (((channel_isr[0]->next_hi_event + channel_isr[0]->delay_ticks * i) <= cur_ticks) && (state[i] == 0u))
         {
-            PORTB |= (1 << channel_isr[i]->pin_out.bit);
-            //gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
+            gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
             channel_isr[i]->next_low_event = cur_ticks + channel_isr[i]->period_ticks;
             state[i] = 1u;
         }
     }
 
-    OCR1A = cur_ticks + 50u;
-    OCR1B  =cur_ticks + 25u;
-    PORTB &= 0xfe;
+    timer_set_compare(Timer1_Comp_A ,cur_ticks + 50u);
+    timer_set_compare(Timer1_Comp_B, cur_ticks + 25u);
+
 }
 
 void signal_timer1_comp_b_isr(void)
 {
     uint32_t cur_ticks = timer1_32_get_ticks();
-    for (uint8_t i = 0u; i < (NMB_OF_OUTPUTS-0); i++)
+    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
     {
         if (((channel_isr[0]->next_low_event + channel_isr[0]->delay_ticks*i) <= cur_ticks) && (state[i] == 1u))
         {
