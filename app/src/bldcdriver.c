@@ -126,11 +126,7 @@ void app_main(void)
     {
         /* code */
     }
-    uart_str_transmit("frequency ");
-    uart_nmb_transmit(g_frequency, 10u);
-    signal_rectangle(&phase[0u]);
-    signal_rectangle(&phase[1u]);
-    signal_rectangle(&phase[2u]);
+    signal_rectangle(phase, 3u);
     
 }
 

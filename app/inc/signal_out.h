@@ -46,6 +46,6 @@ typedef struct signal {
  */
 void signal_init(signal_t *channel, uint8_t nmb_of_channels);
 void signal_frequency(uint16_t frequency, uint16_t phase);
-void signal_rectangle(signal_t *channel);
+void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels);
 
 #endif
