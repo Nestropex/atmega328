@@ -83,47 +83,94 @@ void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels)
     }
 }
 
-uint8_t signal_state;
-uint32_t isr_count;
+uint8_t signal_state[NMB_OF_OUTPUTS];
+uint32_t isr_count[NMB_OF_OUTPUTS];
+
 
 void signal_timer1_comp_a_isr(void)
 {
     PORTB|=0x01U;
     uint32_t cur_ticks = timer1_get_ticks();
-    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
+    uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
+
+    for (uint8_t i = 0u; i < 3; i++)
     {
-        
-        isr_count++;
- 
-        if (isr_count == 125u)
+        if (signal_state[i] == 0)
         {
-            if (signal_state == 0u)
-            {
-                gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
-                if (i == 2u)
-                {
-                    signal_state = 1u;
-                }
-            }
-            else
-            {
-                gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
-                if (i == 2u)
-                {
-                    signal_state = 0u;
-                }
-            }
-            isr_count = 0u;
+            isr_count[i]++;
+        }
+        
+        
+        if (isr_count[0] == 125u)
+        {
+            shoot[0] = 1u;
+
+        }
+
+        if (isr_count[1] == 166u)
+        {
+            shoot[1] = 1u;
+
+        }
+
+        if (isr_count[2] == 207u)
+        {
+            shoot[2] = 1u;
+
+        }
+
+        
+        if (shoot[i] == 1u)
+        {
+            gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
+            signal_state[i]= 1u;
         }
     }
 
     timer_set_compare(Timer1_Comp_A ,cur_ticks + 100u);
-    //timer_set_compare(Timer1_Comp_B, cur_ticks + 25u);
+    timer_set_compare(Timer1_Comp_B, cur_ticks + 25u);
 PORTB&=0xfeu;
 }
 
 void signal_timer1_comp_b_isr(void)
 {
+    uint32_t cur_ticks = timer1_get_ticks();
+    uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
 
+    for (uint8_t i = 0u; i < 3; i++)
+    {
+        if (signal_state[i] == 1)
+        {
+            isr_count[i]--;
+        }
+
+        if (isr_count[0] == 0u)
+        {
+            shoot[0] = 1u;
+     
+
+        }
+
+        if (isr_count[1] == 41u)
+        {
+            shoot[1] = 1u;
+
+        }
+
+        if (isr_count[2] == 82u)
+        {
+            shoot[2] = 1u;
+
+        }
+
+        if (shoot[i] == 1u)
+        {
+           gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
+
+            signal_state[i]= 0u;
+        }
+
+
+    }
 
 }
