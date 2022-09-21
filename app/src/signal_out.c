@@ -26,16 +26,11 @@ uint16_t lut_delay[NMB_OF_OUTPUTS];
 
 //-------Variables-------
 uint8_t once;
-uint32_t phase_ticks;
-uint32_t delay_ticks;
-uint32_t period_ticks;
-static signal_t *channel_isr[NMB_OF_OUTPUTS];
 //-------Static Function Declaration-------
 
 void signal_timer1_comp_a_isr(void);
 void signal_timer1_comp_b_isr(void);
 void signal_timer2_comp_a_isr(void);
-static void signal_register(signal_t *channel, uint8_t nmb_of_channels);
 //-------Function Definition-------
 
 void signal_init(signal_t *channel, uint8_t nmb_of_channels)
@@ -43,18 +38,9 @@ void signal_init(signal_t *channel, uint8_t nmb_of_channels)
 
     isr_register(signal_timer1_comp_a_isr, Timer1_Comp_A);
     isr_register(signal_timer1_comp_b_isr, Timer1_Comp_B);
-
-    signal_register(channel, nmb_of_channels);
 }
 
-static void signal_register(signal_t *channel, uint8_t nmb_of_channels)
-{
-    for (uint8_t i = 0; i < nmb_of_channels; i++)
-    {
-        channel_isr[i] = &channel[i];
-    }
-    
-}
+
 uint32_t timer_freq;
 uint32_t isr_period;
 void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
@@ -120,7 +106,7 @@ void signal_timer1_comp_a_isr(void)
         
         if (shoot[i] == 1u)
         {
-            gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 1u);
+            gpio_write(signal_out[i].port,signal_out[i].bit, 1u);
             signal_state[i]= 1u;
         }
     }
@@ -163,12 +149,10 @@ void signal_timer1_comp_b_isr(void)
 
         if (shoot[i] == 1u)
         {
-           gpio_write(channel_isr[i]->pin_out.port,channel_isr[i]->pin_out.bit, 0u);
+           gpio_write(signal_out[i].port,signal_out[i].bit, 0u);
 
             signal_state[i]= 0u;
         }
-
-
     }
 
 }
