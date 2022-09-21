@@ -110,7 +110,7 @@ void signal_timer1_comp_a_isr(void)
         }
         
         
-        if (isr_count[0] == 125u)
+        if (isr_count[0] == (lut_delay[0] + lut_period[0]))
         {
             shoot[0] = 1u;
 
@@ -122,7 +122,7 @@ void signal_timer1_comp_a_isr(void)
 
         }
 
-        if (isr_count[2] == 207u)
+        if (isr_count[2] == (lut_delay[2] + lut_period[2]))
         {
             shoot[2] = 1u;
 
