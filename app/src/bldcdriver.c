@@ -50,26 +50,12 @@ void app_main(void)
     {
         if (gpio_in[2].state == 0u)
         {
-            if (g_frequency>= 11u)
-            {
-                g_frequency = g_frequency - 10u;
-            }
-            else
-            {
-                if (g_frequency >= 1u)
-                {
-                    g_frequency = g_frequency - 1u;
-                }
-            }
-            
+            g_frequency--;
         }
         else
         {
-            if (g_frequency <= 1000u)
-            {
-                g_frequency = g_frequency + 10u;
-            }
 
+            g_frequency++;
         }
     }
 
@@ -104,15 +90,15 @@ void app_main(void)
     {
         g_frequency = 2u;
     }
-    else if (g_frequency >=1000u)
+    else if (g_frequency >=100u)
     {
-        g_frequency= 1000u;
+        g_frequency= 100u;
     }
     else
     {
         /* code */
     }
-    signal_rectangle(SIGNAL_DEFAULT_FREQ, SIGNAL_DEFAULT_PHASE, 3u);
+    signal_rectangle(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
     
 }
 
