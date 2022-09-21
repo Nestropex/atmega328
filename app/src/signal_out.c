@@ -20,7 +20,8 @@
 
 
 //-------TYPES-------
-
+uint16_t lut_period[NMB_OF_OUTPUTS];
+uint16_t lut_delay[NMB_OF_OUTPUTS];
 
 
 //-------Variables-------
@@ -55,8 +56,11 @@ static void signal_register(signal_t *channel, uint8_t nmb_of_channels)
     
 }
 uint32_t timer_freq;
+uint32_t isr_period;
 void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels)
 {
+
+    
     if (channel != NULL_PTR)
     {
         for (uint8_t i = 0u; i < nmb_of_channels; i++)
@@ -67,6 +71,9 @@ void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels)
             uint16_t local_phase_ticks = 360u/(*(channel[i].phase));
 
             channel[i].delay_ticks = channel[i].period_ticks/(local_phase_ticks/2u);
+
+            lut_period[i] = TIMER_TIMER1_A_ISR_FREQ/(*(channel[i].frequency));
+            lut_delay[i] = (lut_period[i]/(local_phase_ticks/2u))*i;
         }
         
 
@@ -74,9 +81,10 @@ void signal_rectangle(signal_t *channel, uint8_t nmb_of_channels)
         if (once == 0u)
         {
             uint32_t cur_ticks = timer1_32_get_ticks();
+            isr_period = timer_freq/TIMER_TIMER1_A_ISR_FREQ;
             // Interrupts will occure with a rate 6 times faster than frequency
             channel[0].next_hi_event = cur_ticks + 2000u;
-            timer_set_compare(Timer1_Comp_A, cur_ticks + 1000);
+            timer_set_compare(Timer1_Comp_A, cur_ticks + isr_period );
         }
         
         once = 1u;
@@ -108,7 +116,7 @@ void signal_timer1_comp_a_isr(void)
 
         }
 
-        if (isr_count[1] == 166u)
+        if (isr_count[1] == (lut_delay[1] + lut_period[1]))
         {
             shoot[1] = 1u;
 
@@ -128,8 +136,8 @@ void signal_timer1_comp_a_isr(void)
         }
     }
 
-    timer_set_compare(Timer1_Comp_A ,cur_ticks + 100u);
-    timer_set_compare(Timer1_Comp_B, cur_ticks + 25u);
+    timer_set_compare(Timer1_Comp_A ,cur_ticks + isr_period);
+    timer_set_compare(Timer1_Comp_B, cur_ticks + isr_period/2u );
 PORTB&=0xfeu;
 }
 
