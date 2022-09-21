@@ -93,6 +93,7 @@ void signal_timer1_comp_a_isr(void)
     uint32_t cur_ticks = timer1_get_ticks();
     uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
 
+
     for (uint8_t i = 0u; i < 3; i++)
     {
         if (signal_state[i] == 0)
