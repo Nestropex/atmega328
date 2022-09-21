@@ -80,15 +80,13 @@ void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channel
 uint8_t signal_state[NMB_OF_OUTPUTS];
 uint32_t isr_count[NMB_OF_OUTPUTS];
 
-
 void signal_timer1_comp_a_isr(void)
 {
     PORTB|=0x01U;
     uint32_t cur_ticks = timer1_get_ticks();
     uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
 
-
-    for (uint8_t i = 0u; i < 3; i++)
+    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
     {
         if (signal_state[i] == 0)
         {
@@ -96,21 +94,9 @@ void signal_timer1_comp_a_isr(void)
         }
         
         
-        if (isr_count[0] == (lut_delay[0] + lut_period[0]))
+        if (isr_count[i] == (lut_delay[i] + lut_period[i]))
         {
-            shoot[0] = 1u;
-
-        }
-
-        if (isr_count[1] == (lut_delay[1] + lut_period[1]))
-        {
-            shoot[1] = 1u;
-
-        }
-
-        if (isr_count[2] == (lut_delay[2] + lut_period[2]))
-        {
-            shoot[2] = 1u;
+            shoot[i] = 1u;
 
         }
 
@@ -129,33 +115,18 @@ PORTB&=0xfeu;
 
 void signal_timer1_comp_b_isr(void)
 {
-    uint32_t cur_ticks = timer1_get_ticks();
     uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
 
-    for (uint8_t i = 0u; i < 3; i++)
+    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
     {
         if (signal_state[i] == 1)
         {
             isr_count[i]--;
         }
 
-        if (isr_count[0] == lut_delay[0])
+        if (isr_count[i] == lut_delay[i])
         {
-            shoot[0] = 1u;
-     
-
-        }
-
-        if (isr_count[1] == lut_delay[1])
-        {
-            shoot[1] = 1u;
-
-        }
-
-        if (isr_count[2] == lut_delay[2])
-        {
-            shoot[2] = 1u;
-
+            shoot[i] = 1u;
         }
 
         if (shoot[i] == 1u)
@@ -165,5 +136,4 @@ void signal_timer1_comp_b_isr(void)
             signal_state[i]= 0u;
         }
     }
-
 }

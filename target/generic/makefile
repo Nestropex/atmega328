@@ -79,10 +79,10 @@ LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 OBJCOPY_FLAGS = 
 
 $(TARGET): $(APP_OBJ_FILES) $(HAL_LIB)
-	$(CC)  $(ALL_CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $@.elf $(OPTIMIZATION ) -g2 $(DEFINES) $(OBJCOPY_FLAGS)
-	${OBJCOPY} -O ihex ${TARGET}.elf ${TARGET}.hex
-	${OBJDUMP} -h -s ${TARGET}.elf > ${TARGET}.lss
-	$(OBJSIZE) -C --mcu=$(MCU)  $(TARGET).elf
+	$(CC)  $(ALL_CFLAGS)  $(LIBS) $(LDFLAGS) $^ -o  $(TARGET_DIR)/$@.elf $(OPTIMIZATION ) -g2 $(DEFINES) $(OBJCOPY_FLAGS)
+	${OBJCOPY} -O ihex $(TARGET_DIR)/${TARGET}.elf $(TARGET_DIR)/${TARGET}.hex
+	${OBJDUMP} -h -s $(TARGET_DIR)/${TARGET}.elf > $(TARGET_DIR)/${TARGET}.lss
+	$(OBJSIZE) -C --mcu=$(MCU)  $(TARGET_DIR)/$(TARGET).elf
 
 all: gccversion clean_all lib $(TARGET)  flash
 app: gccversion clean_app $(TARGET) flash

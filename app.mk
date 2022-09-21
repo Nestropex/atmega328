@@ -14,4 +14,4 @@ DEFINES = -D__AVR_ATmega328P__
 CFLAGS = -D F_CPU=16000000 -mmcu=atmega328p -D $(APP_CFG_DEFINE)
 
 
-include C:\Users\Nestropex1\Documents\GIT\atmega328\target\generic/makefile
+include target\generic/makefile
