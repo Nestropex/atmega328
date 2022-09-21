@@ -153,20 +153,20 @@ void signal_timer1_comp_b_isr(void)
             isr_count[i]--;
         }
 
-        if (isr_count[0] == 0u)
+        if (isr_count[0] == lut_delay[0])
         {
             shoot[0] = 1u;
      
 
         }
 
-        if (isr_count[1] == 41u)
+        if (isr_count[1] == lut_delay[1])
         {
             shoot[1] = 1u;
 
         }
 
-        if (isr_count[2] == 82u)
+        if (isr_count[2] == lut_delay[2])
         {
             shoot[2] = 1u;
 
