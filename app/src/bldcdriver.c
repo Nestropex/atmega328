@@ -126,7 +126,7 @@ void app_main(void)
     {
         /* code */
     }
-    signal_rectangle(phase, 3u);
+    signal_rectangle(SIGNAL_DEFAULT_FREQ, SIGNAL_DEFAULT_PHASE, 3u);
     
 }
 
