@@ -33,21 +33,26 @@ uint32_t timer_freq;
 void signal_timer1_comp_a_isr(void);
 void signal_timer1_comp_b_isr(void);
 void signal_timer2_comp_a_isr(void);
+
+static void set_isr_timing(void);
 //-------Function Definition-------
 
-void signal_init(signal_t *channel, uint8_t nmb_of_channels)
+void signal_init(void)
 {
 
     isr_register(signal_timer1_comp_a_isr, Timer1_Comp_A);
     isr_register(signal_timer1_comp_b_isr, Timer1_Comp_B);
+    set_isr_timing();
+}
+
+static void set_isr_timing(void)
+{
     timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
     isr_period = timer_freq/TIMER1_A_ISR_FREQ;
 
     uint32_t cur_ticks = timer1_32_get_ticks();
     timer_set_compare(Timer1_Comp_A, cur_ticks + 15000 );
 }
-
-
 
 
 void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
