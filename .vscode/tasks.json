@@ -4,13 +4,49 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "all",
             "type": "shell",
             "command": "make",
             "args": [
                 "-f",
-                "C:/Users/Nestropex1/Documents/GIT/atmega328/app.mk",
+                "./app.mk",
                 "all"
+            ],
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "silent"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "app",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "./app.mk",
+                "app"
+            ],
+            "group": "build",
+            "presentation": {
+                // Reveal the output only if unrecognized errors occur.
+                "reveal": "silent"
+            },
+            // Use the standard MS compiler pattern to detect errors, warnings and infos
+            "problemMatcher": "$msCompile"
+        },
+
+        {
+            "label": "flash",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "./app.mk",
+                "flash"
             ],
             "group": "build",
             "presentation": {
