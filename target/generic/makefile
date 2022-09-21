@@ -4,26 +4,26 @@
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
 
-APP_DIR = ../../app
-GEN_DIR = ../../generic
+APP_DIR = app
+GEN_DIR = generic
 HAL_INC_DIR = $(HAL_DIR)/inc
 APP_INC_DIR = $(APP_DIR)/inc
 GEN_INC_DIR +=$(GEN_DIR)/gen_include
 HAL_SRC_DIR = $(HAL_DIR)/src
 APP_SRC_DIR = $(APP_DIR)/src
 GEN_SRC_DIR += $(GEN_DIR)/gen_src
-USR_INC = ../../../../../../usr/include
+USR_INC = ../../../../usr/include
 HAL_TARGET_DIR = $(HAL_DIR)/target
-TARGET_DIR = ../../target/$(APP_NAME)
+TARGET_DIR = target/$(APP_NAME)
 
 INC_DIR = -I$(HAL_INC_DIR)
 INC_DIR += -I$(APP_INC_DIR)
 
-AVR_HEADER = ../../../../../../../avr-libc
+AVR_HEADER = ../../../../../avr-libc
 DEPS += $(USR_INC)
 DEPS += $(APP_INC_DIR)
 DEPS += $(AVR_HEADER)
-HAL_DIR = ../../hal
+HAL_DIR = hal
 HAL_SRC_DIR = $(HAL_DIR)/src
 
 OBJ_DIR=$(HAL_DIR)/target/obj
