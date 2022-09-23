@@ -74,7 +74,6 @@ void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channel
         timer_set_compare(Timer1_Comp_A, cur_ticks + 15000 );
     }
     once = 1u;
-    
 }
 
 uint8_t signal_state[NMB_OF_OUTPUTS];
@@ -93,14 +92,12 @@ void signal_timer1_comp_a_isr(void)
             isr_count[i]++;
         }
         
-        
         if (isr_count[i] == (lut_delay[i] + lut_period[i]))
         {
             shoot[i] = 1u;
 
         }
 
-        
         if (shoot[i] == 1u)
         {
             gpio_write(signal_out[i].port,signal_out[i].bit, 1u);
