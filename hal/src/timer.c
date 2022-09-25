@@ -11,37 +11,54 @@
 #define ENABLE_INT_T1_A_COMP 0x02u
 #define ENABLE_INT_T1_B_COMP 0x04u
 #define ENABLE_INT_T1_OVF    0x01u
-
+#define SET_MODE_MASK_A      0x3u 
+#define SET_MODE_MASK_B      0x8u 
+#define SET_MODE_MASK_1_B    0x18u 
 static void set_timer_frequency(timer_t timer, uint16_t prescaler);
 
-uint32_t timer0_init(uint32_t clk, uint16_t prescaler)
+uint32_t timer_init(timer_t timer, uint8_t mode, uint32_t clk, uint16_t prescaler)
 {
-    TCCR0A  = REG_RESET;
-    TCCR0B  = REG_RESET;
-    TIMSK0  = REG_RESET;
-    TIFR0   = REG_RESET;
-    set_timer_frequency(Timer0, prescaler);
+    switch (timer)
+    {
+    case Timer0:
+        TCCR0A  = SET_MODE_MASK_A & (mode & 0x3u);
+        TCCR0B  = SET_MODE_MASK_B & (mode & 0x4u);
+        TIMSK0  = REG_RESET;
+        TIFR0   = REG_RESET;
+        break;
+    case Timer1:
+        TCCR1A  = SET_MODE_MASK_A & (mode & 0x3u);
+        TCCR1B  = SET_MODE_MASK_1_B & (mode & 0xcu);
+        TIMSK1  = REG_RESET;
+        TIFR1   = REG_RESET;
+        break;
+    case Timer2:
+        TCCR2A  = SET_MODE_MASK_A & (mode & 0x3u);
+        TCCR2B  = SET_MODE_MASK_B & (mode & 0x4u);
+        TIMSK2  = REG_RESET;
+        TIFR2   = REG_RESET;
+        break;
+    
+    default:
+        break;
+    }
+
+    set_timer_frequency(timer, prescaler);
 
     return clk/prescaler; 
 }
 
-uint32_t timer1_init(uint32_t clk, uint16_t prescaler)
+uint32_t timer1_init(uint32_t clk, uint16_t prescaler, uint8_t mode)
 {
-    TCCR1A  = REG_RESET;
-    TCCR1B  = REG_RESET;
-    TIMSK1  = REG_RESET;
-    TIFR1   = REG_RESET;
+
     set_timer_frequency(Timer1, prescaler);
     
     return clk/prescaler; 
 }
 
-uint32_t timer2_init(uint32_t clk, uint16_t prescaler)
+uint32_t timer2_init(uint32_t clk, uint16_t prescaler, uint8_t mode)
 {
-    TCCR2A  = REG_RESET;
-    TCCR2B  = REG_RESET;
-    TIMSK2  = REG_RESET;
-    TIFR2   = REG_RESET;
+
     set_timer_frequency(Timer2, prescaler);
     
     return clk/prescaler; 
