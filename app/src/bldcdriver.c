@@ -98,7 +98,7 @@ void app_main(void)
         /* code */
     }
 
-    signal_rectangle(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
+    signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
     
 }
 

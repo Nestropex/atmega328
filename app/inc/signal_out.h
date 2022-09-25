@@ -35,5 +35,5 @@
 void signal_init(void);
 void signal_frequency(uint16_t frequency, uint16_t phase);
 void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels);
-
+void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels);
 #endif

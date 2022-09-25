@@ -120,7 +120,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define NMB_OF_ANIN             3u
     #define NMB_OF_OUTPUTS          3u
 
-    #define SIGNAL_DEFAULT_FREQ     20u
+    #define SIGNAL_DEFAULT_FREQ     10u
     #define SIGNAL_DEFAULT_PHASE    60u
     // Declare input (0) and output (1)
     static const uint8_t cfg_port_b = 0x0fu;
