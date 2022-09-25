@@ -50,6 +50,7 @@ APP_SRC_FILES +=  $(APP_SRC_DIR)/period.c
 APP_SRC_FILES +=  $(APP_SRC_DIR)/input.c
 APP_SRC_FILES +=  $(APP_SRC_DIR)/timer_32bit.c
 APP_SRC_FILES +=  $(APP_SRC_DIR)/signal_out.c
+APP_SRC_FILES +=  $(APP_SRC_DIR)/sine.c
 SRC_FILES = $(HAL_SRC_DIR)/gpio.c
 SRC_FILES += $(HAL_SRC_DIR)/watchdog.c
 SRC_FILES += $(HAL_SRC_DIR)/uart.c

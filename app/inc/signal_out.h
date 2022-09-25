@@ -19,16 +19,6 @@
 
 //-------TYPES-------
 
-typedef struct signal {
-    uint8_t  state;
-    uint16_t *frequency;
-    uint8_t  *phase;
-    pin_t    pin_out;
-    uint32_t period_ticks;
-    uint32_t delay_ticks;
-    uint32_t next_hi_event;
-    uint32_t next_low_event;
-}signal_t;
 
 
 //-------Variables-------

@@ -15,7 +15,6 @@ typedef struct output {
     pin_t pin;
 }output_t;
 
-signal_t phase[NMB_OF_OUTPUTS];
 uint16_t g_frequency = SIGNAL_DEFAULT_FREQ;
 uint8_t g_phase = SIGNAL_DEFAULT_PHASE;
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
