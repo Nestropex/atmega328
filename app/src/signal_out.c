@@ -17,7 +17,7 @@
 #include <avr/io.h>
 //-------Defines-------
 
-#define TIMER1_A_ISR_FREQ  2500u // Reocurrence of timer1_compA_isr
+#define TIMER1_A_ISR_FREQ        20000u // Reocurrence of timer1_compA_isr
 #define FIRST_ISR_OCURRENCE      15000u
 //-------TYPES-------
 uint16_t lut_period[NMB_OF_OUTPUTS];
@@ -83,6 +83,7 @@ void signal_timer1_comp_a_isr(void)
 {
     PORTB|=0x01U;
     uint32_t cur_ticks = timer1_get_ticks();
+    timer_set_compare(Timer1_Comp_A ,cur_ticks + isr_period - 1u);
     uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
 
     for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
@@ -105,13 +106,15 @@ void signal_timer1_comp_a_isr(void)
         }
     }
 
-    timer_set_compare(Timer1_Comp_A ,cur_ticks + isr_period);
+    
     timer_set_compare(Timer1_Comp_B, cur_ticks + isr_period/2u );
 PORTB&=0xfeu;
 }
 
 void signal_timer1_comp_b_isr(void)
 {
+    PORTB|=0x01U;
+
     uint8_t shoot[NMB_OF_OUTPUTS] = {0u};
 
     for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
@@ -133,4 +136,5 @@ void signal_timer1_comp_b_isr(void)
             signal_state[i]= 0u;
         }
     }
+    PORTB&=0xfeu;
 }
