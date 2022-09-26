@@ -108,8 +108,8 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define SYSTEM_CLK 16000000ul
     #define TIMER_TIMER0_PRESCALER   1024u
     #define TIMER_TIMER1_PRESCALER   64u
-    #define TIMER_TIMER2_PRESCALER   64u
-    #define TIMER_MODE               
+    #define TIMER_TIMER2_PRESCALER   8u
+    #define TIMER_2_MODE             0x00u   
     #define LOOP_MAIN_TIME_MILLIS    1u
     #define LOOP_1_TIME_MILLIS       60u
     #define LOOP_2_TIME_MILLIS       500u
@@ -120,7 +120,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define NMB_OF_ANIN             3u
     #define NMB_OF_OUTPUTS          3u
 
-    #define SIGNAL_DEFAULT_FREQ     10u
+    #define SIGNAL_DEFAULT_FREQ     5u
     #define SIGNAL_DEFAULT_PHASE    60u
     // Declare input (0) and output (1)
     static const uint8_t cfg_port_b = 0x0fu;
