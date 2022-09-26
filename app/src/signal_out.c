@@ -99,22 +99,25 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
         timer_set_compare(Timer2_Comp_B, cur_ticks );
     }
     once = 1u;
-    isr_ticks = timer_freq/(frequency*255u);
+    uint32_t calc = frequency*255u;
+    isr_ticks = (timer_freq/((calc*255u)))+1u;
+
+    uart_nmb_transmit(sine_index[0u],10u);
 }
 
 uint8_t g_cur_ticks;
 uint32_t ovf_count;
 void signal_timer1_ovf_isr(void)
 {
-    gpio_toggle(1,0);
-if (ovf_count >= isr_ticks)
-{
-    sine_index[0]++;
+    ovf_count++;
+    if (ovf_count >= isr_ticks)
+    {
+        //gpio_toggle(1,0);
+        sine_index[0]++;
+        ovf_count = 0u;
+    }
 
-    
-    ovf_count = 0u;
-}
-
+    timer_set_compare(Timer1_Comp_A, sine_wave[sine_index[0]]);
 }
 void signal_timer2_ovf_isr(void)
 {
@@ -122,6 +125,7 @@ void signal_timer2_ovf_isr(void)
 }
 void signal_timer2_comp_b_isr(void)
 {
-    //uart_str_transmit("t2_comp ");
+    gpio_toggle(1u,0u);
+
 }
 

@@ -11,7 +11,7 @@
 #define ENABLE_INT_T1_A_COMP 0x02u
 #define ENABLE_INT_T1_B_COMP 0x04u
 #define ENABLE_INT_T1_OVF    0x01u
-#define SET_MODE_MASK_A      0x3u 
+#define SET_MODE_MASK_A      0xf3u 
 #define SET_MODE_MASK_B      0x8u 
 #define SET_MODE_MASK_1_B    0x18u 
 static void set_timer_frequency(timer_t timer, uint16_t prescaler);
