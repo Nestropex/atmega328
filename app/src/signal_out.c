@@ -80,9 +80,9 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
 {
     for (uint8_t i = 0u; i < nmb_of_channels; i++)
     {
-        uint16_t local_phase_ticks = 360u/phase;
+        uint16_t local_phase_ticks = (360u/phase)/2u;
         lut_period[i] = TIMER1_A_ISR_FREQ/(frequency*255u);
-        lut_delay[i] = (TIMER1_A_ISR_FREQ/(3*frequency))*i;
+        lut_delay[i] = (TIMER1_A_ISR_FREQ/(local_phase_ticks*frequency))*i;
     }
 
     if (once == 0u)
