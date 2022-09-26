@@ -32,7 +32,9 @@ uint32_t isr_period;
 uint32_t timer_freq;
 //-------Static Function Declaration-------
 
-void signal_timer1_comp_a_isr(void);
+void signal_timer1_ovf_isr(void);
+void signal_timer2_ovf_isr(void);
+void signal_timer2_comp_b_isr(void);
 
 static void set_isr_timing(void);
 //-------Function Definition-------
@@ -40,7 +42,9 @@ uint8_t once;
 void signal_init(void)
 {
 
-    isr_register(signal_timer1_comp_a_isr, Timer1_Comp_A);
+    isr_register(signal_timer1_ovf_isr, Timer1_OVF);
+    isr_register(signal_timer2_ovf_isr, Timer2_OVF);
+    isr_register(signal_timer2_comp_b_isr, Timer2_Comp_B);
 
     //set_isr_timing();
 
@@ -55,7 +59,7 @@ static void set_isr_timing(void)
     timer_set_compare(Timer1_Comp_A, cur_ticks + 15000 );
 }
 
-
+uint32_t isr_ticks;
 void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
 {
     for (uint8_t i = 0u; i < nmb_of_channels; i++)
@@ -64,14 +68,14 @@ void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channel
         lut_period[i] = TIMER1_A_ISR_FREQ/frequency;
         lut_delay[i] = (lut_period[i]/(local_phase_ticks/2u))*i;
     }
-
+    
     if (once == 0u)
     {
         timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
         isr_period = timer_freq/TIMER1_A_ISR_FREQ;
 
-        uint32_t cur_ticks = timer1_32_get_ticks();
-        timer_set_compare(Timer1_Comp_A, cur_ticks + 15000 );
+        uint32_t cur_ticks = timer1_get_ticks();
+        timer_set_compare(Timer1_Comp_A, cur_ticks + 150 );
     }
     once = 1u;
 }
@@ -84,54 +88,40 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
         lut_period[i] = TIMER1_A_ISR_FREQ/(frequency*255u);
         lut_delay[i] = (TIMER1_A_ISR_FREQ/(local_phase_ticks*frequency))*i;
     }
-
+    
     if (once == 0u)
     {
         timer_freq = timer_get_frequency(SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
         isr_period = timer_freq/TIMER1_A_ISR_FREQ;
 
-        uint32_t cur_ticks = timer1_32_get_ticks();
-        timer_set_compare(Timer1_Comp_A, cur_ticks + 15000 );
+        uint32_t cur_ticks = timer1_get_ticks();
+        timer_set_compare(Timer1_Comp_A, cur_ticks );
+        timer_set_compare(Timer2_Comp_B, cur_ticks );
     }
     once = 1u;
-
-    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
-    {
-        uart_nmb_transmit(sine_index[i],10u);
-    }
+    isr_ticks = timer_freq/(frequency*255u);
 }
 
 uint8_t g_cur_ticks;
-void signal_timer1_comp_a_isr(void)
+uint32_t ovf_count;
+void signal_timer1_ovf_isr(void)
 {
-    PORTB|=0x01U;
-    uint32_t cur_ticks = timer1_get_ticks();
-    timer_set_compare(Timer1_Comp_A ,cur_ticks + isr_period);
+    gpio_toggle(1,0);
+if (ovf_count >= isr_ticks)
+{
+    sine_index[0]++;
 
-    for (uint8_t i = 0u; i < NMB_OF_OUTPUTS; i++)
-    {
-            isr_count[i]++;
-        
-        if (isr_count[i] == (lut_period[i] + lut_delay[i]))
-        {
-            if (i== 0u)
-            {
-                g_cur_ticks = timer2_get_ticks();
-            }
-            sine_index[i]++;
-
-            if (sine_wave[sine_index[i]] <= g_cur_ticks)
-            {
-                gpio_write(signal_out[i].port,signal_out[i].bit, 1u);
-                isr_count[i] = lut_delay[i];
-            }
-            else
-            {
-                gpio_write(signal_out[i].port,signal_out[i].bit, 0u);
-                isr_count[i] = lut_delay[i];
-            }
-        }
-    }
-
-PORTB&=0xfeu;
+    
+    ovf_count = 0u;
 }
+
+}
+void signal_timer2_ovf_isr(void)
+{
+
+}
+void signal_timer2_comp_b_isr(void)
+{
+    //uart_str_transmit("t2_comp ");
+}
+

@@ -21,20 +21,20 @@ uint32_t timer_init(timer_t timer, uint8_t mode, uint32_t clk, uint16_t prescale
     switch (timer)
     {
     case Timer0:
-        TCCR0A  = SET_MODE_MASK_A & (mode & 0x3u);
-        TCCR0B  = SET_MODE_MASK_B & (mode & 0x4u);
+        TCCR0A  = SET_MODE_MASK_A & mode;
+        TCCR0B  = SET_MODE_MASK_B & mode;
         TIMSK0  = REG_RESET;
         TIFR0   = REG_RESET;
         break;
     case Timer1:
-        TCCR1A  = SET_MODE_MASK_A & (mode & 0x3u);
-        TCCR1B  = SET_MODE_MASK_1_B & (mode & 0xcu);
+        TCCR1A  = SET_MODE_MASK_A & mode;
+        TCCR1B  = SET_MODE_MASK_1_B & mode ;
         TIMSK1  = REG_RESET;
         TIFR1   = REG_RESET;
         break;
     case Timer2:
-        TCCR2A  = SET_MODE_MASK_A & (mode & 0x3u);
-        TCCR2B  = SET_MODE_MASK_B & (mode & 0x4u);
+        TCCR2A  = SET_MODE_MASK_A & mode;
+        TCCR2B  = SET_MODE_MASK_B & mode;
         TIMSK2  = REG_RESET;
         TIFR2   = REG_RESET;
         break;
