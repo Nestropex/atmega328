@@ -113,11 +113,12 @@ void signal_timer1_ovf_isr(void)
     if (ovf_count >= isr_ticks)
     {
         //gpio_toggle(1,0);
-        sine_index[0]++;
+        //sine_index[0]++;
         ovf_count = 0u;
     }
 
-    timer_set_compare(Timer1_Comp_A, sine_wave[sine_index[0]]);
+    timer_set_compare(Timer1_Comp_A, (uint8_t)sine_wave[sine_index[0]++]);
+    timer_set_compare(Timer1_Comp_B, sine_wave[sine_index[0]++]);
 }
 void signal_timer2_ovf_isr(void)
 {
