@@ -117,12 +117,13 @@ void signal_timer1_ovf_isr(void)
         ovf_count = 0u;
     }
 
-    timer_set_compare(Timer1_Comp_A, (uint8_t)sine_wave[sine_index[0]++]);
+    timer_set_compare(Timer1_Comp_A, sine_wave[sine_index[0]++]);
     timer_set_compare(Timer1_Comp_B, sine_wave[sine_index[0]++]);
 }
 void signal_timer2_ovf_isr(void)
 {
-
+    timer_set_compare(Timer2_Comp_A, sine_wave[sine_index[0]++]);
+    uart_str_transmit("ovf 2");
 }
 void signal_timer2_comp_b_isr(void)
 {
