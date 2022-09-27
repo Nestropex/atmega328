@@ -38,7 +38,7 @@ static void set_isr_timing(void);
 uint8_t once;
 void signal_init(void)
 {
-
+ 
     isr_register(signal_timer1_ovf_isr, Timer1_OVF);
 }
 
