@@ -33,9 +33,6 @@ uint32_t timer_freq;
 //-------Static Function Declaration-------
 
 void signal_timer1_ovf_isr(void);
-void signal_timer2_ovf_isr(void);
-void signal_timer2_comp_b_isr(void);
-
 static void set_isr_timing(void);
 //-------Function Definition-------
 uint8_t once;
@@ -43,11 +40,6 @@ void signal_init(void)
 {
 
     isr_register(signal_timer1_ovf_isr, Timer1_OVF);
-    isr_register(signal_timer2_ovf_isr, Timer2_OVF);
-    isr_register(signal_timer2_comp_b_isr, Timer2_Comp_B);
-
-    //set_isr_timing();
-
 }
 
 static void set_isr_timing(void)
@@ -56,7 +48,7 @@ static void set_isr_timing(void)
     isr_period = timer_freq/TIMER1_A_ISR_FREQ;
 
     uint32_t cur_ticks = timer1_32_get_ticks();
-    timer_set_compare(Timer1_Comp_A, cur_ticks + 15000 );
+    timer_set_compare(Timer1_Comp_A, cur_ticks  );
 }
 
 uint32_t isr_ticks;
@@ -75,7 +67,7 @@ void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channel
         isr_period = timer_freq/TIMER1_A_ISR_FREQ;
 
         uint32_t cur_ticks = timer1_get_ticks();
-        timer_set_compare(Timer1_Comp_A, cur_ticks + 150 );
+        timer_set_compare(Timer1_Comp_A, cur_ticks );
     }
     once = 1u;
 }
@@ -102,31 +94,26 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
     uint32_t calc = frequency*255u;
     isr_ticks = (timer_freq/((calc*255u)))+1u;
 
-    uart_nmb_transmit(sine_index[0u],10u);
+    uart_nmb_transmit(isr_ticks, 10u);
+    gpio_toggle(1u,0u);
 }
 
 uint8_t g_cur_ticks;
 uint32_t ovf_count;
 void signal_timer1_ovf_isr(void)
 {
-    ovf_count++;
+    TCNT1L = 0u;
+    TCNT2 = 0u;
     if (ovf_count >= isr_ticks)
     {
-        //gpio_toggle(1,0);
-        //sine_index[0]++;
+        sine_index[0]++;
         ovf_count = 0u;
+        
     }
-
-    timer_set_compare(Timer1_Comp_A, sine_wave[sine_index[0]++]);
-    timer_set_compare(Timer1_Comp_B, sine_wave[sine_index[0]++]);
-}
-void signal_timer2_ovf_isr(void)
-{
-    timer_set_compare(Timer2_Comp_A, sine_wave[sine_index[0]++]);
-}
-void signal_timer2_comp_b_isr(void)
-{
-    gpio_toggle(1u,0u);
+    OCR1A = sine_wave[sine_index[0]];
+    OCR1B = sine_wave[sine_index[0] - 42];
+    OCR2A = sine_wave[sine_index[0] - 84];
 
 }
+
 

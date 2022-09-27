@@ -112,8 +112,8 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define TIMER_1_MODE             0x51u 
     #define TIMER_2_MODE             0x11u   
     #define LOOP_MAIN_TIME_MILLIS    1u
-    #define LOOP_1_TIME_MILLIS       60u
-    #define LOOP_2_TIME_MILLIS       500u
+    #define LOOP_1_TIME_MILLIS       10u
+    #define LOOP_2_TIME_MILLIS       60u
 
     /*Common baudrates 9600, 57600, 115200, 500000, 1000000*/
     #define UART_BAUDRATE           500000u
