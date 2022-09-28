@@ -94,7 +94,7 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
     uint32_t calc = frequency*255u;
     isr_ticks = (timer_freq/((calc*255u)))+1u;
 
-   // uart_nmb_transmit(isr_ticks, 10u);
+   uart_nmb_transmit(isr_ticks, 10u);
     gpio_toggle(1u,0u);
 }
 
@@ -102,8 +102,7 @@ uint8_t g_cur_ticks;
 uint32_t ovf_count;
 void signal_timer1_ovf_isr(void)
 {
-    TCNT1L = 0u;
-    TCNT2 = 0u;
+    ovf_count++;
     if (ovf_count >= isr_ticks)
     {
         sine_index[0]++;
