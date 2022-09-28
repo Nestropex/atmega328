@@ -9,6 +9,7 @@
 #include "period.h"
 #include "signal_out.h"
 #include "input.h"
+#include "analog.h"
 
 typedef struct output {
     uint8_t set;
@@ -20,7 +21,7 @@ uint8_t g_phase = SIGNAL_DEFAULT_PHASE;
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
 period_t loop_gpio_in[NMB_OF_INPUTS] = {0u};
 output_t gpio_out[NMB_OF_OUTPUTS]={0u};
-
+void isr_timer0_comp_a(void);
 void app_init(void)
 {
     for (uint8_t i = 0u; i < NMB_OF_INPUTS; i++)
@@ -35,6 +36,8 @@ void app_init(void)
     }
 
     signal_init();
+    //isr_register(isr_timer0_comp_a, Timer0_Comp_A);
+    analog_init();
 }
 
 
@@ -99,7 +102,12 @@ void app_main(void)
     }
 
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
-    
 }
 
-
+void isr_timer0_comp_a(void)
+{
+    uint16_t analog_ch1 = analog_read(3u);
+    uart_str_transmit("\n");
+    uart_nmb_transmit(analog_ch1, 10u);
+     timer_set_compare(Timer0_Comp_A, timer0_get_ticks() + 10u);
+}

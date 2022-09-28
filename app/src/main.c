@@ -34,20 +34,21 @@ int main(void)
     {  
         watchdog_reset();
         period_control(&loop_main);
- 
+        
         if(loop_main.execute_flag == 1u)
         {   
             period_control(&loop_1);
             if(loop_1.execute_flag == 1u)
             {                
-                app_main();          
+                app_main();
+                         
             } 
 
             period_control(&loop_2);
             if(loop_2.execute_flag == 1u)
             {
                 system_error_update();
-                uart_str_transmit("heartbeat \n");
+                
             }
 
         }
