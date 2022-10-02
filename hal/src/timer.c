@@ -27,14 +27,14 @@ uint32_t timer_init(timer_t timer, uint8_t mode, uint32_t clk, uint16_t prescale
         TIFR0   = REG_RESET;
         break;
     case Timer1:
-        TCCR1A  = 0xf1u; SET_MODE_MASK_A & mode;
-        TCCR1B  = 0x8u;//SET_MODE_MASK_1_B & mode ;
+        TCCR1A  = 0xa1u; SET_MODE_MASK_A & mode;
+        TCCR1B  = 0x09u;//SET_MODE_MASK_1_B & mode ;
         TIMSK1  = REG_RESET;
         TIFR1   = REG_RESET;
         break;
     case Timer2:
-        TCCR2A  = 0xa3u;//SET_MODE_MASK_A & mode;
-        TCCR2B  = SET_MODE_MASK_B & mode;
+        TCCR2A  = 0xf3u;//SET_MODE_MASK_A & mode;
+        TCCR2B  = 0x1u;//SET_MODE_MASK_B & mode;
         TIMSK2  = REG_RESET;
         TIFR2   = REG_RESET;
         break;

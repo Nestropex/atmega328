@@ -98,7 +98,7 @@ XCK/T0 PD4 |6   23| PC0 ADC0
 OSC1   PB6 |9   20| AVCC
 OSC2   PB7 |10  19| PB5 SCK
 T1     PD5 |11  18| PB4 MISO
-AIN0   PD6 |12  17| PB3 MOSI/OC2
+AIN0   PD6 |12  17| PB3 MOSI/OC2A
 AIN1   PD7 |13  16| PB2 SS/OC1B
 ICP1   PB0 |14  15| PB1 OC1A
 
@@ -108,7 +108,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define SYSTEM_CLK 16000000ul
     #define TIMER_TIMER0_PRESCALER   1024u
     #define TIMER_TIMER1_PRESCALER   1u
-    #define TIMER_TIMER2_PRESCALER   1u
+    #define TIMER_TIMER2_PRESCALER   0u
     #define TIMER_1_MODE             0x51u 
     #define TIMER_2_MODE             0x11u   
     #define LOOP_MAIN_TIME_MILLIS    1u
@@ -121,7 +121,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define NMB_OF_ANIN             3u
     #define NMB_OF_OUTPUTS          3u
 
-    #define SIGNAL_DEFAULT_FREQ     20u
+    #define SIGNAL_DEFAULT_FREQ     40u
     #define SIGNAL_DEFAULT_PHASE    60u
     // Declare input (0) and output (1)
     static const uint8_t cfg_port_b = 0x0fu;

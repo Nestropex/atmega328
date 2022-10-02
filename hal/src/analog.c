@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include "datatypes.h"
+#include "uart.h"
 #include "analog.h"
 
 
@@ -37,7 +38,7 @@ void analog_init(void)
     ADCSRA = ADCSRA_CONFIG;
     ADCSRB = ADCSRB_CONFIG;
     DIDR0 = DIDR0_CONFIG;
-    ADMUX  = ADMUX_CONFIG;
+    //ADMUX  = ADMUX_CONFIG;
 }
 
 
@@ -53,5 +54,7 @@ uint16_t analog_read(uint8_t adc_ch)
 
     }
 
-    return ADC;
+    uint16_t value = (ADCH << 8 | ADCL);
+    uart_nmb_transmit(value, 10u);
+    return value;
 }
