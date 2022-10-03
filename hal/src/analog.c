@@ -12,10 +12,10 @@
 
 
 //-------Defines-------
-#define ADMUX_CONFIG 0xc3u
+#define ADMUX_CONFIG 0xc0u
 
-#define ADCSRA_CONFIG 0x87u
-#define ADCSRB_CONFIG 0x04u
+#define ADCSRA_CONFIG 0xa7u
+#define ADCSRB_CONFIG 0x03u
 #define DIDR0_CONFIG  0x08u
 //-------TYPES-------
 
@@ -38,7 +38,7 @@ void analog_init(void)
     ADCSRA = ADCSRA_CONFIG;
     ADCSRB = ADCSRB_CONFIG;
     DIDR0 = DIDR0_CONFIG;
-    //ADMUX  = ADMUX_CONFIG;
+    ADMUX  = ADMUX_CONFIG;
 }
 
 
@@ -53,8 +53,6 @@ uint16_t analog_read(uint8_t adc_ch)
     {
 
     }
-
-    uint16_t value = (ADCH << 8 | ADCL);
-    uart_nmb_transmit(value, 10u);
-    return value;
+    
+    return ADC;
 }

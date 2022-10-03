@@ -36,7 +36,7 @@ void app_init(void)
     }
 
     signal_init();
-    //isr_register(isr_timer0_comp_a, Timer0_Comp_A);
+    isr_register(isr_timer0_comp_a, Timer0_Comp_A);
     analog_init();
 }
 
@@ -102,13 +102,12 @@ void app_main(void)
     }
 
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
-        uint16_t analog_ch1 = analog_read(4u);
-    uart_str_transmit("\n");
-    uart_nmb_transmit(analog_ch1, 10u);
-     timer_set_compare(Timer0_Comp_A, timer0_get_ticks() + 10u);
+
 }
 
 void isr_timer0_comp_a(void)
 {
-
+    uint16_t analog_ch1 = analog_read(4u);
+    uart_nmb_transmit(analog_ch1, 10u);
+    timer_set_compare(Timer0_Comp_A, timer0_get_ticks() + 10u);
 }
