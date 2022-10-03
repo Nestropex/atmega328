@@ -9,6 +9,7 @@
 #include "period.h"
 #include "signal_out.h"
 #include "input.h"
+#include "sine.h"
 #include "analog.h"
 
 typedef struct output {
@@ -104,10 +105,20 @@ void app_main(void)
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
 
 }
-
+double timer0_ofv_cnt;
 void isr_timer0_comp_a(void)
 {
-    uint16_t analog_ch1 = analog_read(4u);
-    uart_nmb_transmit(analog_ch1, 10u);
-    timer_set_compare(Timer0_Comp_A, timer0_get_ticks() + 10u);
+    timer0_ofv_cnt++;
+    double val = (analog_read(4) -512) / 512.0;
+
+    if (timer0_ofv_cnt == 255)
+    {
+        timer0_ofv_cnt = 0u;
+    }
+    
+    //uint16_t analog_ch1 = analog_read(4u);
+    uart_cnt_transmit((uint8_t *)&timer0_ofv_cnt,4);
+    
+
+    //timer_set_compare(Timer0_Comp_A, timer0_get_ticks() + 10u);
 }

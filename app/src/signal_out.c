@@ -115,6 +115,7 @@ void signal_timer1_ovf_isr(void)
     OCR1B = sine_wave[sine_index[0] - 42u ];
     OCR2A = sine_wave[sine_index[0] - 84u];
 
+
 }
 
 
