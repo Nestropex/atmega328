@@ -109,16 +109,12 @@ double timer0_ofv_cnt;
 void isr_timer0_comp_a(void)
 {
     timer0_ofv_cnt++;
-    double val = analog_read(4); //-512) / 512.0;
+    double val = analog_read(4);
 
     if (timer0_ofv_cnt == 255)
     {
         timer0_ofv_cnt = 0u;
     }
     
-    //uint16_t analog_ch1 = analog_read(4u);
     uart_cnt_transmit((uint8_t *)&val,4);
-    
-
-    //timer_set_compare(Timer0_Comp_A, timer0_get_ticks() + 10u);
 }
