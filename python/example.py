@@ -93,14 +93,14 @@ def main():
     xmin = 0
     xmax = maxPlotLength
     ymin = -(1)
-    ymax = 3
+    ymax = 1.5
     fig = plt.figure(figsize=(10, 8))
     ax = plt.axes(xlim=(xmin, xmax), ylim=(float(ymin - (ymax - ymin) / 10), float(ymax + (ymax - ymin) / 10)))
     ax.set_title('Arduino Accelerometer')
     ax.set_xlabel("Time")
     ax.set_ylabel("Accelerometer Output")
 
-    lineLabel = ['X', 'Y', 'Z']
+    lineLabel = ['CH1/ADC3', 'CH2/ADC4', 'CH3/ADC5']
     style = ['r-', 'c-', 'b-']  # linestyles for the different plots
     timeText = ax.text(0.70, 0.95, '', transform=ax.transAxes)
     lines = []
