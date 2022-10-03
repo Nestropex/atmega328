@@ -105,16 +105,20 @@ void app_main(void)
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
 
 }
-double timer0_ofv_cnt;
+float timer0_ofv_cnt;
 void isr_timer0_comp_a(void)
 {
     timer0_ofv_cnt++;
-    float val = analog_read(3)*0.01;
+    float val[3];
+    
+     val[0] = analog_read(3)*0.01;
+     val[1] = analog_read(4)*0.01;
+     val[2] = analog_read(5)*0.01;
 
     if (timer0_ofv_cnt == 255)
     {
         timer0_ofv_cnt = 0u;
     }
     
-    uart_cnt_transmit((uint8_t *)&val,4);
+    uart_cnt_transmit((uint8_t *)val,12);
 }
