@@ -111,9 +111,9 @@ void isr_timer0_comp_a(void)
     timer0_ofv_cnt++;
     float val[3];
     
-     val[0] = analog_read(3)*0.01;
-     val[1] = analog_read(4)*0.01;
-     val[2] = analog_read(5)*0.01;
+     val[0] = (float)(analog_read(3))*0.01;
+     val[1] = (float)(analog_read(4))*0.01;
+     val[2] = (float)(analog_read(5))*0.01;
 
     if (timer0_ofv_cnt == 255)
     {
