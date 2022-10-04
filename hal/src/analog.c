@@ -14,8 +14,8 @@
 //-------Defines-------
 #define ADMUX_CONFIG 0xc0u
 
-#define ADCSRA_CONFIG 0xa7u
-#define ADCSRB_CONFIG 0x03u
+#define ADCSRA_CONFIG 0x87u
+#define ADCSRB_CONFIG 0x00u
 #define DIDR0_CONFIG  0x08u
 //-------TYPES-------
 
@@ -44,7 +44,7 @@ void analog_init(void)
 
 uint16_t analog_read(uint8_t adc_ch)
 {
-
+    ADC = 0u;
     ADMUX = (ADMUX & 0xF0) | (adc_ch & 0x0F);
 
     ADCSRA |= (1<<ADSC);

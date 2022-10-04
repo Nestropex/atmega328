@@ -104,21 +104,20 @@ void app_main(void)
 
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
 
+
+    //uart_nmb_transmit(val[0], 10u);
+    //uart_nmb_transmit(val[1],10u);
+    //uart_nmb_transmit(val[2],10u);
+    //uart_str_transmit("\n");
 }
-float timer0_ofv_cnt;
+
 void isr_timer0_comp_a(void)
 {
-    timer0_ofv_cnt++;
-    float val[3];
+    double val[3];
     
-     val[0] = (float)(analog_read(3))*0.01;
-     val[1] = (float)(analog_read(4))*0.01;
-     val[2] = (float)(analog_read(5))*0.01;
+     val[0] = (double)analog_read(5);
+     val[1] = (double)analog_read(4);
+     val[2] = (double)analog_read(3);
 
-    if (timer0_ofv_cnt == 255)
-    {
-        timer0_ofv_cnt = 0u;
-    }
-    
     uart_cnt_transmit((uint8_t *)val,12);
 }

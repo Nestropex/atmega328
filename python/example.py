@@ -93,7 +93,7 @@ def main():
     xmin = 0
     xmax = maxPlotLength
     ymin = -(1)
-    ymax = 1.5
+    ymax = 100
     fig = plt.figure(figsize=(10, 8))
     ax = plt.axes(xlim=(xmin, xmax), ylim=(float(ymin - (ymax - ymin) / 10), float(ymax + (ymax - ymin) / 10)))
     ax.set_title('Arduino Accelerometer')
