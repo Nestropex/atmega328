@@ -27,4 +27,11 @@ uint8_t uart_str_transmit(uint8_t *str);
  */
 void uart_nmb_transmit(unsigned long n, uint8_t base);
 
+/**
+ * @brief Transmits number of bytes stated in param
+ * 
+ * @param str pointer to data that has null termination
+ * @param cnt number of bytes to transmit
+ */
+void uart_cnt_transmit(uint8_t *str, uint8_t cnt);
 #endif

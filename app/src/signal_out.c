@@ -38,7 +38,7 @@ static void set_isr_timing(void);
 uint8_t once;
 void signal_init(void)
 {
-
+ 
     isr_register(signal_timer1_ovf_isr, Timer1_OVF);
 }
 
@@ -93,17 +93,18 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
     once = 1u;
     uint32_t calc = frequency*255u;
     isr_ticks = (timer_freq/((calc*255u)))+1u;
-
-    uart_nmb_transmit(isr_ticks, 10u);
-    gpio_toggle(1u,0u);
+   //uart_nmb_transmit(timer1_get_ticks(), 10u);
+   // gpio_toggle(1u,0u);
 }
 
 uint8_t g_cur_ticks;
 uint32_t ovf_count;
 void signal_timer1_ovf_isr(void)
 {
-    TCNT1L = 0u;
+    ovf_count++;
     TCNT2 = 0u;
+    TCNT1L = 0u;
+    TCNT1H = 0u;
     if (ovf_count >= isr_ticks)
     {
         sine_index[0]++;
@@ -111,8 +112,9 @@ void signal_timer1_ovf_isr(void)
         
     }
     OCR1A = sine_wave[sine_index[0]];
-    OCR1B = sine_wave[sine_index[0] - 42];
-    OCR2A = sine_wave[sine_index[0] - 84];
+    OCR1B = sine_wave[(uint8_t)(sine_index[0] - 42u)];
+    OCR2A = sine_wave[(uint8_t)(sine_index[0] - 84u)];
+
 
 }
 

@@ -90,7 +90,7 @@ void uart_nmb_transmit(unsigned long n, uint8_t base)
        } while(n);
 
     uart_str_transmit(str);
-    uart_str_transmit("\n");
+    uart_str_transmit("   ");
   }
   else
   {
@@ -98,4 +98,31 @@ void uart_nmb_transmit(unsigned long n, uint8_t base)
   }
   
  
+}
+
+void uart_cnt_transmit(uint8_t *str, uint8_t cnt)
+{
+    uint8_t count = 0u;  
+
+    if (str != NULL_PTR)
+    {
+        
+
+        do
+        {
+            while(!(UCSR0A & (1 << UDRE0)))
+            {
+
+            }
+
+            UDR0 = *str;
+            str++;
+            count++;
+
+        }while(count < cnt);
+    }
+    else
+    {
+        ERROR_HANDLER("ERROR uart_cnt_transmit");
+    }
 }
