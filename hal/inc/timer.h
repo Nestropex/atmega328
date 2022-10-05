@@ -16,7 +16,7 @@ typedef enum timer {
  * @param clk main system clk
  * @param prescaler divides the clk and sources the timer
  */
-uint32_t timer_init(timer_t timer, uint8_t mode, uint32_t clk, uint16_t prescaler);
+void timer_init(timer_t timer, uint32_t clk, uint16_t prescaler);
 
 /**
  * @brief Returns current count of timer 0.

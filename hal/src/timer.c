@@ -8,33 +8,34 @@
 #include "timer.h"
 
 
-#define ENABLE_INT_T1_A_COMP 0x02u
-#define ENABLE_INT_T1_B_COMP 0x04u
-#define ENABLE_INT_T1_OVF    0x01u
-#define SET_MODE_MASK_A      0xf3u 
-#define SET_MODE_MASK_B      0x8u 
-#define SET_MODE_MASK_1_B    0x18u 
+#define TCCR0A_CFG 0x0u
+#define TCCR0B_CFG 0x0u
+#define TCCR1A_CFG 0x1au
+#define TCCR1B_CFG 0x09u
+#define TCCR2A_CFG 0xf3u
+#define TCCR2B_CFG 0x1u
+
 static void set_timer_frequency(timer_t timer, uint16_t prescaler);
 
-uint32_t timer_init(timer_t timer, uint8_t mode, uint32_t clk, uint16_t prescaler)
+void timer_init(timer_t timer, uint32_t clk, uint16_t prescaler)
 {
     switch (timer)
     {
     case Timer0:
-        TCCR0A  = SET_MODE_MASK_A & mode;
-        TCCR0B  = SET_MODE_MASK_B & mode;
+        TCCR0A  = TCCR0A_CFG;
+        TCCR0B  = TCCR0B_CFG;
         TIMSK0  = REG_RESET;
         TIFR0   = REG_RESET;
         break;
     case Timer1:
-        TCCR1A  = 0xa1u; SET_MODE_MASK_A & mode;
-        TCCR1B  = 0x09u;//SET_MODE_MASK_1_B & mode ;
+        TCCR1A  = TCCR1A_CFG;
+        TCCR1B  = TCCR1B_CFG;
         TIMSK1  = REG_RESET;
         TIFR1   = REG_RESET;
         break;
     case Timer2:
-        TCCR2A  = 0xf3u;//SET_MODE_MASK_A & mode;
-        TCCR2B  = 0x1u;//SET_MODE_MASK_B & mode;
+        TCCR2A  = TCCR2A_CFG;
+        TCCR2B  = TCCR2B_CFG;
         TIMSK2  = REG_RESET;
         TIFR2   = REG_RESET;
         break;
@@ -45,23 +46,6 @@ uint32_t timer_init(timer_t timer, uint8_t mode, uint32_t clk, uint16_t prescale
 
     set_timer_frequency(timer, prescaler);
 
-    return clk/prescaler; 
-}
-
-uint32_t timer1_init(uint32_t clk, uint16_t prescaler, uint8_t mode)
-{
-
-    set_timer_frequency(Timer1, prescaler);
-    
-    return clk/prescaler; 
-}
-
-uint32_t timer2_init(uint32_t clk, uint16_t prescaler, uint8_t mode)
-{
-
-    set_timer_frequency(Timer2, prescaler);
-    
-    return clk/prescaler; 
 }
 
 static void set_timer_frequency(timer_t timer, uint16_t prescaler)
