@@ -106,7 +106,7 @@ ICP1   PB0 |14  15| PB1 OC1A
 #ifdef BLDCDRIVER
  
     #define SYSTEM_CLK 16000000ul
-    #define TIMER_TIMER0_PRESCALER   1024u
+    #define TIMER_TIMER0_PRESCALER   1024u // 0 = off, 1 = SYSTEM_CLK, 8, 64, 1024
     #define TIMER_TIMER1_PRESCALER   1u
     #define TIMER_TIMER2_PRESCALER   1u   
     #define LOOP_MAIN_TIME_MILLIS    1u
