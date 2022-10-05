@@ -103,21 +103,21 @@ void app_main(void)
     }
 
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
-
-
-    //uart_nmb_transmit(val[0], 10u);
-    //uart_nmb_transmit(val[1],10u);
-    //uart_nmb_transmit(val[2],10u);
-    //uart_str_transmit("\n");
 }
-
+uint8_t cnt0;
 void isr_timer0_comp_a(void)
 {
-    double val[3];
+    cnt0++;
+    if (cnt0 == 4u)
+    {
+            double val[3];
     
      val[0] = (double)analog_read(5);
      val[1] = (double)analog_read(4);
      val[2] = (double)analog_read(3);
 
+    // Python current measurement
     uart_cnt_transmit((uint8_t *)val,12);
+    cnt0 = 0u;
+    }
 }
