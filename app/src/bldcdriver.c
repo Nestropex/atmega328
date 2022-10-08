@@ -103,6 +103,8 @@ void app_main(void)
     }
 
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
+    uint8_t dc = analog_read(4u)/10u;
+    signal_pwm(1000u,dc);
 }
 uint8_t cnt0;
 void isr_timer0_comp_a(void)

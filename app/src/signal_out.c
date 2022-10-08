@@ -30,6 +30,7 @@ uint8_t sine_index[NMB_OF_OUTPUTS];
 uint8_t once;
 uint32_t isr_period;
 uint32_t timer_freq;
+uint16_t pwm_cnt;
 //-------Static Function Declaration-------
 
 void signal_timer1_ovf_isr(void);
@@ -50,6 +51,23 @@ static void set_isr_timing(void)
     uint32_t cur_ticks = timer1_32_get_ticks();
     timer_set_compare(Timer1_Comp_A, cur_ticks  );
 }
+uint16_t pwm_hi;
+uint16_t pwm_lo;
+
+#define DC_MAX 100u
+void signal_pwm(uint16_t frequency, uint8_t dc)
+{
+    pwm_hi = timer_freq/(frequency*255u);
+
+    if (dc> DC_MAX)
+    {
+        dc = DC_MAX;
+    }
+
+    pwm_lo = (pwm_hi*dc)/DC_MAX;
+}
+
+
 
 uint32_t isr_ticks;
 void signal_rectangle(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
@@ -99,9 +117,24 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
 
 uint8_t g_cur_ticks;
 uint32_t ovf_count;
+
 void signal_timer1_ovf_isr(void)
 {
     ovf_count++;
+    pwm_cnt++;
+
+    if (pwm_cnt >= pwm_hi)
+    {
+        PORTC |= 0x20u;
+        pwm_cnt = 0u;
+    }
+
+    if (pwm_cnt >= pwm_lo)
+    {
+        PORTC &= 0xdfu; 
+    }
+    
+    
     TCNT2 = 0u;
     TCNT1L = 0u;
     TCNT1H = 0u;
