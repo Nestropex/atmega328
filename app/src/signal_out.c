@@ -125,13 +125,13 @@ void signal_timer1_ovf_isr(void)
 
     if (pwm_cnt >= pwm_hi)
     {
-        PORTC |= 0x20u;
+        PORTB |= 0x10u;
         pwm_cnt = 0u;
     }
 
     if (pwm_cnt >= pwm_lo)
     {
-        PORTC &= 0xdfu; 
+        PORTB &= 0xefu; 
     }
     
     
@@ -147,8 +147,6 @@ void signal_timer1_ovf_isr(void)
     OCR1A = sine_wave[sine_index[0]];
     OCR1B = sine_wave[(uint8_t)(sine_index[0] - 42u)];
     OCR2A = sine_wave[(uint8_t)(sine_index[0] - 84u)];
-
-
 }
 
 

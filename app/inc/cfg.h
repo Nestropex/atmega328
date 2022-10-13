@@ -122,7 +122,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define SIGNAL_DEFAULT_FREQ     30u
     #define SIGNAL_DEFAULT_PHASE    60u
     // Declare input (0) and output (1)
-    static const uint8_t cfg_port_b = 0x0fu;
+    static const uint8_t cfg_port_b = 0x1fu;
     static const uint8_t cfg_port_c = 0x20u;
     static const uint8_t cfg_port_d = 0x00u;
 
@@ -140,7 +140,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     static const pin_t cfg_pin_output[NMB_OF_OUTPUTS] = {
         {.port = 1u, .bit = 1u}, // phase1
         {.port = 1u, .bit = 2u}, // phase2
-        {.port = 1u, .bit = 3u} // phase3
+        {.port = 1u, .bit = 3u}  // phase3
 
     };        
 

@@ -9,8 +9,8 @@
 
 #define TCCR0A_CFG 0x0u
 #define TCCR0B_CFG 0x0u
-#define TCCR1A_CFG 0x1au
-#define TCCR1B_CFG 0x09u
+#define TCCR1A_CFG 0xf1u
+#define TCCR1B_CFG 0x01u
 #define TCCR2A_CFG 0xf3u
 #define TCCR2B_CFG 0x1u
 
