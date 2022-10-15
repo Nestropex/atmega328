@@ -104,4 +104,6 @@ void app_main(void)
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
     uint16_t dc = analog_read(0u)/10u;
     signal_pwm(10000u,dc);
+
+    gpio_toggle(1,5);
 }
