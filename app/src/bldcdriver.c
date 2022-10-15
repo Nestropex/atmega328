@@ -22,7 +22,7 @@ uint8_t g_phase = SIGNAL_DEFAULT_PHASE;
 input_t gpio_in[NMB_OF_INPUTS] = {0u};
 period_t loop_gpio_in[NMB_OF_INPUTS] = {0u};
 output_t gpio_out[NMB_OF_OUTPUTS]={0u};
-void isr_timer0_comp_a(void);
+
 void app_init(void)
 {
     for (uint8_t i = 0u; i < NMB_OF_INPUTS; i++)
@@ -37,7 +37,6 @@ void app_init(void)
     }
 
     signal_init();
-    isr_register(isr_timer0_comp_a, Timer0_Comp_A);
     analog_init();
 }
 
@@ -105,23 +104,4 @@ void app_main(void)
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
     uint16_t dc = analog_read(0u)/10u;
     signal_pwm(10000u,dc);
-}
-
-
-uint8_t cnt0;
-void isr_timer0_comp_a(void)
-{
-    cnt0++;
-    if (cnt0 == 4u)
-    {
-            double val[3];
-    
-     val[0] = (double)analog_read(5);
-     val[1] = (double)analog_read(4);
-     val[2] = (double)analog_read(3);
-
-    //Python current measurement
-    uart_cnt_transmit((uint8_t *)val,12);
-    cnt0 = 0u;
-    }
 }
