@@ -151,7 +151,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     static const pin_t signal_out[NMB_OF_OUTPUTS] = {
         {.port = 1u, .bit = 1u}, // phase1
         {.port = 1u, .bit = 2u}, // phase2
-        {.port = 1u, .bit = 3u} // phase3
+        {.port = 1u, .bit = 3u}, // phase3
 
     }; 
     // Pin shall be connected to an LED in order to give visible alarm
