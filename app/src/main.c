@@ -66,6 +66,9 @@ static void init(void)
     gpio_init(1U,cfg_port_b);
     gpio_init(2U,cfg_port_c);
     gpio_init(3U,cfg_port_d);
+    timer_init(Timer0, SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
+    timer_init(Timer1, SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
+    timer_init(Timer2, SYSTEM_CLK, TIMER_TIMER2_PRESCALER);
     period_init();
     isr_init();
 }

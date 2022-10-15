@@ -10,9 +10,6 @@
 
 void period_init(void)
 {
-    timer_init(Timer0, SYSTEM_CLK, TIMER_TIMER0_PRESCALER);
-    timer_init(Timer1, SYSTEM_CLK, TIMER_TIMER1_PRESCALER);
-    timer_init(Timer2, SYSTEM_CLK, TIMER_TIMER2_PRESCALER);
     timer_32bit_init();
 }
 
