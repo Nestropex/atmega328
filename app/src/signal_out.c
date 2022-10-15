@@ -132,9 +132,10 @@ void signal_timer1_ovf_isr(void)
         PWM_PORT&= (~PWM_PIN); 
     }
     
-    TCNT2  = 0u;
+    TCNT0  = 0u;
     TCNT1L = 0u;
     TCNT1H = 0u;
+    TCNT2  = 0u;
 
     if (ovf_count >= isr_ticks)
     {
@@ -142,7 +143,10 @@ void signal_timer1_ovf_isr(void)
         ovf_count = 0u;
     }
 
+    OCR0A = sine_wave[(uint8_t)(sine_index[0])];
+    OCR0B = sine_wave[(uint8_t)(sine_index[0])];
     OCR1A = sine_wave[sine_index[0]];
     OCR1B = sine_wave[(uint8_t)(sine_index[0] - 42u)];
     OCR2A = sine_wave[(uint8_t)(sine_index[0] - 84u)];
+    OCR2B = sine_wave[(uint8_t)(sine_index[0])];
 }

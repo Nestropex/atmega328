@@ -7,12 +7,12 @@
 #include "timer.h"
 
 
-#define TCCR0A_CFG 0x0u
-#define TCCR0B_CFG 0x0u
+#define TCCR0A_CFG 0xf3u
+#define TCCR0B_CFG 0x01u
 #define TCCR1A_CFG 0xf1u
 #define TCCR1B_CFG 0x08u
 #define TCCR2A_CFG 0xf3u
-#define TCCR2B_CFG 0x1u
+#define TCCR2B_CFG 0x01u
 
 static void set_timer_frequency(timer_t timer, uint16_t prescaler);
 
