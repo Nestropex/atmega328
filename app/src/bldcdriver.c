@@ -105,10 +105,6 @@ void app_main(void)
     signal_sine(g_frequency, SIGNAL_DEFAULT_PHASE, 3u);
     uint16_t dc = analog_read(0u)/10u;
     signal_pwm(10000u,dc);
-    //gpio_write(1,4,1);
-
-    uart_nmb_transmit(dc,10u);
-    uart_str_transmit("\n");
 }
 
 
@@ -124,8 +120,8 @@ void isr_timer0_comp_a(void)
      val[1] = (double)analog_read(4);
      val[2] = (double)analog_read(3);
 
-    // Python current measurement
-    //uart_cnt_transmit((uint8_t *)val,12);
+    //Python current measurement
+    uart_cnt_transmit((uint8_t *)val,12);
     cnt0 = 0u;
     }
 }
