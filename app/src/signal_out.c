@@ -111,8 +111,6 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
     once = 1u;
     uint32_t calc = frequency*255u;
     isr_ticks = (timer_freq/((calc*255u)))+1u;
-   //uart_nmb_transmit(timer1_get_ticks(), 10u);
-   // gpio_toggle(1u,0u);
 }
 
 uint8_t g_cur_ticks;
@@ -125,25 +123,26 @@ void signal_timer1_ovf_isr(void)
 
     if (pwm_cnt >= pwm_hi)
     {
-        PORTB |= 0x10u;
+        PWM_PORT |= PWM_PIN;
         pwm_cnt = 0u;
     }
 
     if (pwm_cnt >= pwm_lo)
     {
-        PORTB &= 0xefu; 
+        PWM_PORT&= (~PWM_PIN); 
     }
     
     
-    TCNT2 = 0u;
+    TCNT2  = 0u;
     TCNT1L = 0u;
     TCNT1H = 0u;
+
     if (ovf_count >= isr_ticks)
     {
         sine_index[0]++;
         ovf_count = 0u;
-        
     }
+
     OCR1A = sine_wave[sine_index[0]];
     OCR1B = sine_wave[(uint8_t)(sine_index[0] - 42u)];
     OCR2A = sine_wave[(uint8_t)(sine_index[0] - 84u)];
