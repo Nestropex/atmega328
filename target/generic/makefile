@@ -3,7 +3,8 @@
 
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
-
+TOOLCHAIN = ../../../../../Toolchain
+AVRDUDE = $(TOOLCHAIN)/avrdude/avrdude-64/avrdude
 APP_DIR = app
 GEN_DIR = generic
 HAL_INC_DIR = $(HAL_DIR)/inc
@@ -65,7 +66,7 @@ OBJ_ENDING := ${SRC_FILES:.c=.o}
 APP_OBJ_ENDING := ${APP_SRC_FILES:.c=.o}
 
 
-ALL_CFLAGS += -mmcu=atmega328p -I. $(CFLAGS)
+ALL_CFLAGS +=  -I. $(CFLAGS)
 #Replace src file path with obj file path
 OBJ_FILES := $(patsubst $(HAL_SRC_DIR)/%,$(OBJ_DIR)/%,$(OBJ_ENDING))
 APP_OBJ_FILES := $(patsubst $(APP_SRC_DIR)/%,$(APP_OBJ_DIR)/%,$(APP_OBJ_ENDING))
@@ -98,7 +99,7 @@ gccversion:
 
 #choose 57600 for arduino old bootloader 115200 for new bootloader
 flash: 
-	avrdude -p $(MCU) -b $(BAUDRATE) -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
+	$(AVRDUDE) -p $(MCU) -b $(BAUDRATE) -c $(PROGRAMMER) -F -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
 .PHONY: clean
 
 clean_hal:
