@@ -99,7 +99,7 @@ gccversion:
 
 #choose 57600 for arduino old bootloader 115200 for new bootloader
 flash: 
-	$(AVRDUDE) -p $(MCU) -b $(BAUDRATE) -c $(PROGRAMMER) -F -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
+	$(AVRDUDE) -p $(MCU) -b $(BAUDRATE) -c $(PROGRAMMER) -e -U flash:w:$(TARGET_DIR)/$(TARGET).hex  -F -P $(PORT)
 .PHONY: clean
 
 clean_hal:
