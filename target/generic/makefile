@@ -59,6 +59,7 @@ SRC_FILES += $(HAL_SRC_DIR)/timer.c
 SRC_FILES += $(HAL_SRC_DIR)/system.c
 SRC_FILES += $(HAL_SRC_DIR)/isr.c
 SRC_FILES += $(HAL_SRC_DIR)/analog.c
+SRC_FILES += $(HAL_SRC_DIR)/fifo.c
 
 
 #Change ending .c to .o; Same Path!
