@@ -20,6 +20,8 @@
 
 #define TIMER1_A_ISR_FREQ        40000u // Reocurrence of timer1_compA_isr
 #define FIRST_ISR_OCURRENCE      15000u
+#define HALF_PERIOD 127u
+#define THIRD_PERIOD 85u
 //-------TYPES-------
 uint16_t lut_period[NMB_OF_OUTPUTS];
 uint16_t lut_delay[NMB_OF_OUTPUTS];
@@ -142,11 +144,22 @@ void signal_timer1_ovf_isr(void)
         sine_index[0]++;
         ovf_count = 0u;
     }
+    if (sine_wave[(uint8_t)(sine_index[0]  -HALF_PERIOD)] >= 0xc0 )
+    {
+        PORTD |= 0x40u;
+    }
+    else
+    {
+        //PORTD &= (~0x40u);
+    }
+    
+    
 
-    OCR0A = sine_wave[(uint8_t)(sine_index[0] - 127)];
-    OCR0B = sine_wave[(uint8_t)(sine_index[0])];
-    OCR1A = sine_wave[sine_index[0]];
-    OCR1B = sine_wave[(uint8_t)(sine_index[0] - 42u)];
-    OCR2A = sine_wave[(uint8_t)(sine_index[0] - 84u)];
-    OCR2B = sine_wave[(uint8_t)(sine_index[0])];
+    //OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                               //A HI
+    OCR1A = sine_wave[(uint8_t)(sine_index[0]  -HALF_PERIOD)];                  //A LOW
+    OCR0B = sine_wave[(uint8_t)(sine_index[0] - THIRD_PERIOD)];                 //B HI
+    OCR1B = sine_wave[(uint8_t)(sine_index[0] - THIRD_PERIOD - HALF_PERIOD)];   //B LOW
+    OCR2B = sine_wave[(uint8_t)(sine_index[0] - 2*THIRD_PERIOD)];               //C HI
+    OCR2A = sine_wave[(uint8_t)(sine_index[0] - 2*THIRD_PERIOD - HALF_PERIOD)]; //C LOW
+    
 }
