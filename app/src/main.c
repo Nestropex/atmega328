@@ -9,6 +9,7 @@
 #include "gpio.h"
 #include "period.h"
 #include "timer_32bit.h"
+#include "fifo.h"
 #include "app.h"
 
 
@@ -42,6 +43,7 @@ int main(void)
             if(loop_1.execute_flag == 1u)
             {                
                 app_main();
+                fifo_init();
                          
             } 
 
