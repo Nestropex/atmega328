@@ -22,6 +22,7 @@ static void (* function_timer1_ovf)();
 static void (* function_timer2_comp_a)();
 static void (* function_timer2_comp_b)();
 static void (* function_timer2_ovf)();
+static void (* function_uart_tx)();
 
 void isr_init(void)
 {
@@ -78,6 +79,10 @@ void isr_register(void (*isr), interrupts_t nmb)
             function_timer2_ovf = isr;
             TIFR2  |= ENABLE_INT_OVF;
             TIMSK2 |= ENABLE_INT_OVF;
+            break;
+        case Uart_tx:
+            function_uart_tx = isr;
+            UCSR0B  |= 1u << TXCIE0;
             break;
         
         default:
@@ -161,5 +166,13 @@ ISR(TIMER2_OVF_vect) {
     if (function_timer2_ovf != NULL_PTR)
     {
         (*function_timer2_ovf)(); 
+    }
+}
+
+ISR(USART_TX_vect) {    
+    
+    if (function_uart_tx != NULL_PTR)
+    {
+        (*function_uart_tx)(); 
     }
 }

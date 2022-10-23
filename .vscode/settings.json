@@ -12,6 +12,7 @@
         "cfg.h": "c",
         "signal.h": "c",
         "signal_out.h": "c",
-        "fifo.h": "c"
+        "fifo.h": "c",
+        "isr.h": "c"
     }
 }

@@ -14,7 +14,8 @@ typedef enum interrupts {
     Timer1_OVF    ,
     Timer2_Comp_A ,
     Timer2_Comp_B ,
-    Timer2_OVF
+    Timer2_OVF,
+    Uart_tx
 }interrupts_t;
 
 

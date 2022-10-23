@@ -6,11 +6,15 @@
 #include <avr/io.h>
 #include "datatypes.h"
 #include "system.h"
+#include "isr.h"
+#include "fifo.h"
 
 #define INIT_IN_SYNCH_MODE 0x80u
 #define ENABLE_TRANSMIT    (1 << TXEN0 | 1 << RXEN0)
 #define STOP_BITS_2        (1 << USBS0) 
 #define FRAME_SIZE_8BIT    (1<<UCSZ00 | 1<<UCSZ01)
+
+void uart_isr_tx(void);
 
 void uart_init(uint32_t clk, uint32_t baudrate)
 {
@@ -36,7 +40,8 @@ void uart_init(uint32_t clk, uint32_t baudrate)
         UBRR0L  = reg_val;  
     }
     
-            
+
+    isr_register(uart_isr_tx, Uart_tx);
 
 }
 
@@ -125,4 +130,10 @@ void uart_cnt_transmit(uint8_t *str, uint8_t cnt)
     {
         ERROR_HANDLER("ERROR uart_cnt_transmit");
     }
+}
+
+
+void uart_isr_tx(void)
+{
+
 }

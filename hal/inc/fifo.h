@@ -35,11 +35,36 @@ typedef struct list{
 
 
 //-------Function Declaration-------
-
+/**
+ * @brief Initializes list with message
+ * 
+ * @param list pointer to fifo
+ * @param message base pointer of data
+ */
 void fifo_init(list_t *list, msg_t *message);
 
+/**
+ * @brief Writes data into fifo 
+ * 
+ * @param list pointer to fifo
+ * @param data base pointer of data to write
+ * @param cnt  number of bytes to write
+ */
 void fifo_write(list_t *list, uint8_t *data, uint8_t cnt);
 
+/**
+ * @brief writes to stream and sends the first byte
+ * 
+ * @param list pointer to fifo
+ */
 void fifo_send(list_t *list);
+
+/**
+ * @brief Reads data from fifo, one byte per call
+ * 
+ * @param list pointer to fifo
+ * @return data bytewise
+ */
+uint8_t  fifo_read(list_t *list);
 
 #endif

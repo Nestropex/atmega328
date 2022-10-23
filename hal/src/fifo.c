@@ -30,8 +30,6 @@ void fifo_init(list_t *list, msg_t *message)
 {
     list->tail = message;
     list->head = message;
-    uint8_t size;
-   // uart_cnt_transmit(size,2u);
 }
 
 void fifo_write(list_t *list, uint8_t *data, uint8_t cnt)
@@ -63,4 +61,17 @@ void fifo_send(list_t *list)
             list->tail++;
         }    
     }
+}
+
+uint8_t  fifo_read(list_t *list)
+{
+    if (list != NULL_PTR)
+    {
+        if (list->tail != list->head)
+        {
+            list->tail++;
+        }    
+    }
+
+    return list->tail->data;
 }
