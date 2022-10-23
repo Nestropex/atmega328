@@ -62,7 +62,7 @@ void fifo_send(list_t *list);
 
 /**
  * @brief Reads data from fifo, one byte per call
- * 
+ *        Must be only called aslong head is unequal tail!
  * @param list pointer to fifo
  * @return data bytewise
  */

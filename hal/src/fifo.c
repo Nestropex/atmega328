@@ -7,6 +7,7 @@
 
 #include "datatypes.h"
 #include "system.h"
+#include "stream.h"
 #include "fifo.h"
 
 
@@ -63,28 +64,19 @@ void fifo_send(list_t *list)
 {
     if (list != NULL_PTR)
     {
-        while (list->tail != list->head)
-        {
-           // uart_nmb_transmit(list->tail->data,10u);
-            list->tail++;
-        }    
+        stream_write(list);
     }
     else
     {
         ERROR_HANDLER("ERROR: fifo_send");
     }
-    
 }
 
 uint8_t  fifo_read(list_t *list)
 {
     if (list != NULL_PTR)
     {
-        if (list->tail != list->head)
-        {
-            list->tail++;
-        }    
-
+        list->tail++;
     }
     else
     {

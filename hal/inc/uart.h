@@ -34,4 +34,11 @@ void uart_nmb_transmit(unsigned long n, uint8_t base);
  * @param cnt number of bytes to transmit
  */
 void uart_cnt_transmit(uint8_t *str, uint8_t cnt);
+
+/**
+ * @brief Transmits one byte without waiting time
+ * 
+ * @param str pointer to data that has null termination
+ */
+void uart_fast_byte_transmit(uint8_t *str);
 #endif
