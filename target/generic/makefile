@@ -60,6 +60,7 @@ SRC_FILES += $(HAL_SRC_DIR)/system.c
 SRC_FILES += $(HAL_SRC_DIR)/isr.c
 SRC_FILES += $(HAL_SRC_DIR)/analog.c
 SRC_FILES += $(HAL_SRC_DIR)/fifo.c
+SRC_FILES += $(HAL_SRC_DIR)/stream.c
 
 
 #Change ending .c to .o; Same Path!
