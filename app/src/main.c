@@ -13,10 +13,13 @@
 #include "app.h"
 
 
-
+#define MAX_MSG_OBJECTS 12u
 period_t loop_main;
 period_t loop_1;
 period_t loop_2;
+
+msg_t message[MAX_MSG_OBJECTS];
+list_t fifo;
 
 static void init(void);
 
@@ -28,8 +31,15 @@ int main(void)
     loop_main.time_config = LOOP_MAIN_TIME_MILLIS;
     loop_1.time_config = LOOP_1_TIME_MILLIS;
     loop_2.time_config = LOOP_2_TIME_MILLIS;
+    uint8_t data[MAX_MSG_OBJECTS];
 
+    for (uint8_t i = 0; i < MAX_MSG_OBJECTS; i++)
+    {
+        data[i] = i;
+    }
 
+    fifo_write(&fifo, data, MAX_MSG_OBJECTS);
+    fifo_send(&fifo);
 
     while(1)
     {  
@@ -42,9 +52,8 @@ int main(void)
             period_control(&loop_1);
             if(loop_1.execute_flag == 1u)
             {                
-                app_main();
-                fifo_init();
-                         
+                app_main();        
+                uart_nmb_transmit(timer0_32_get_ticks(),10u);
             } 
 
             period_control(&loop_2);
@@ -73,5 +82,6 @@ static void init(void)
     timer_init(Timer2, SYSTEM_CLK, TIMER_TIMER2_PRESCALER);
     period_init();
     isr_init();
+    fifo_init(&fifo,message);
 }
 

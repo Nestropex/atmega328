@@ -90,7 +90,7 @@ void uart_nmb_transmit(unsigned long n, uint8_t base)
        } while(n);
 
     uart_str_transmit(str);
-    uart_str_transmit("   ");
+    uart_str_transmit("\n");
   }
   else
   {

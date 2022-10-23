@@ -19,14 +19,14 @@
 //-------TYPES-------
 
 typedef struct msg{
-    int8_t *next;
+    struct msg *next;
     uint8_t data;
 
 }msg_t;
 
 typedef struct list{
-    int8_t last;
-    int8_t first;
+    msg_t *head;
+    msg_t *tail;
 }list_t;
 
 
@@ -35,7 +35,11 @@ typedef struct list{
 
 
 //-------Function Declaration-------
-void fifo_init(void);
 
+void fifo_init(list_t *list, msg_t *message);
+
+void fifo_write(list_t *list, uint8_t *data, uint8_t cnt);
+
+void fifo_send(list_t *list);
 
 #endif
