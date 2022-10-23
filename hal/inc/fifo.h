@@ -35,6 +35,7 @@ typedef struct list{
 
 
 //-------Function Declaration-------
+
 /**
  * @brief Initializes list with message
  * 
