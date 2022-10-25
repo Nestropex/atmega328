@@ -26,7 +26,18 @@
 
 
 //-------Function Declaration-------
+/**
+ * @brief Writes to the fifo that interacts with the peripheral
+ * 
+ * @param list pointer to fifo
+ */
 void stream_write(list_t *list);
+
+/**
+ * @brief Reads from the fifo that interacts with the peripheral
+ * 
+ * @param list pointer to fifo
+ */
 void stream_read(list_t *list);
 
 

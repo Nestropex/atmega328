@@ -40,16 +40,9 @@ void fifo_write(list_t *list, uint8_t *data, uint8_t cnt)
     {
         for (uint8_t i = 0u; i < cnt; i++)
         {
-            if (list->tail == list->head)
-            {
-                list->head->data = *data;
-                list->head++; 
-            }
-            else
-            {
-                list->head->data = *(data + i);
-                list->head++;
-            }
+
+            list->head->data = *(data + i);
+            list->head++;
         }
     }
     else
@@ -74,6 +67,7 @@ void fifo_send(list_t *list)
 
 uint8_t  fifo_read(list_t *list)
 {
+    uint8_t data = list->tail->data;
     if (list != NULL_PTR)
     {
         list->tail++;
@@ -83,5 +77,5 @@ uint8_t  fifo_read(list_t *list)
         ERROR_HANDLER("ERROR: fifo_read");
     }
 
-    return list->tail->data;
+    return data;
 }

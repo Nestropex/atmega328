@@ -13,7 +13,7 @@
 #include "app.h"
 
 
-#define MAX_MSG_OBJECTS 12u
+#define MAX_MSG_OBJECTS 11u
 period_t loop_main;
 period_t loop_1;
 period_t loop_2;
@@ -32,14 +32,20 @@ int main(void)
     loop_1.time_config = LOOP_1_TIME_MILLIS;
     loop_2.time_config = LOOP_2_TIME_MILLIS;
     uint8_t data[MAX_MSG_OBJECTS];
+    char word[] = {"hallohallo"};
 
     for (uint8_t i = 0; i < MAX_MSG_OBJECTS; i++)
     {
         data[i] = i;
+        
     }
+    
+    fifo_write(&fifo, word, MAX_MSG_OBJECTS);
 
-    fifo_write(&fifo, data, MAX_MSG_OBJECTS);
+    //uart_cnt_transmit(data, MAX_MSG_OBJECTS);
     fifo_send(&fifo);
+
+
 
     while(1)
     {  

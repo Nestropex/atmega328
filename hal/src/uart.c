@@ -140,7 +140,7 @@ void uart_fast_byte_transmit(uint8_t *str)
 
     if (str != NULL_PTR)
     {
-        uart_nmb_transmit(*str, 10u);
+        uart_cnt_transmit(str, 1u);
   
     }
     else
@@ -154,6 +154,6 @@ void uart_isr_tx(void)
     if(stream.head != stream.tail)
     {
         uint8_t data = fifo_read(&stream);
-        uart_nmb_transmit(data, 10u);
+        UDR0 = data;
     }
 }

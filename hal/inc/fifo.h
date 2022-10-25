@@ -18,12 +18,14 @@
 
 //-------TYPES-------
 
+// Message object
 typedef struct msg{
     struct msg *next;
     uint8_t data;
 
 }msg_t;
 
+// Fifo structure points to top and bottom message object
 typedef struct list{
     msg_t *head;
     msg_t *tail;
