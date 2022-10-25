@@ -48,7 +48,6 @@ int main(void)
             if(loop_1.execute_flag == 1u)
             {                
                 app_main();        
-                //uart_nmb_transmit(timer0_32_get_ticks(),10u);
             } 
 
             period_control(&loop_2);
