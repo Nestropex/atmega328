@@ -31,21 +31,10 @@ int main(void)
     loop_main.time_config = LOOP_MAIN_TIME_MILLIS;
     loop_1.time_config = LOOP_1_TIME_MILLIS;
     loop_2.time_config = LOOP_2_TIME_MILLIS;
-    uint8_t data[MAX_MSG_OBJECTS];
-    char word[] = {"hallohallo"};
 
-    for (uint8_t i = 0; i < MAX_MSG_OBJECTS; i++)
-    {
-        data[i] = i;
-        
-    }
-    
+    char word[] = {"hallohallo"}; 
     fifo_write(&fifo, word, MAX_MSG_OBJECTS);
-
-    //uart_cnt_transmit(data, MAX_MSG_OBJECTS);
     fifo_send(&fifo);
-
-
 
     while(1)
     {  
