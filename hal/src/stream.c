@@ -50,8 +50,7 @@ void stream_write(list_t *list)
 
     data = stream.tail->data;
     uart_fast_byte_transmit(&data);
-    stream.tail++;
-}
+    stream.tail++;}
 
 void stream_read(list_t *list)
 {

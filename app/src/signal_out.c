@@ -144,19 +144,32 @@ void signal_timer1_ovf_isr(void)
         sine_index[0]++;
         ovf_count = 0u;
     }
-    if (sine_wave[(uint8_t)(sine_index[0]  -HALF_PERIOD)] >= 0xc0 )
+
+    uint8_t cur_sine = sine_wave[(uint8_t)(sine_index[0] + HALF_PERIOD)];
+        
+    if (cur_sine >= 0xd0)
     {
+   
         PORTD |= 0x40u;
     }
     else
     {
-        //PORTD &= (~0x40u);
+        
     }
-    
-    
+    if (cur_sine >= 0x80)
+    {
+        cur_sine = 0xff;
+
+    }
+    else
+    {
+        PORTD &= 0xbf;
+    }
+
+
 
     //OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                               //A HI
-    OCR1A = sine_wave[(uint8_t)(sine_index[0]  -HALF_PERIOD)];                  //A LOW
+    OCR1A = cur_sine;                  //A LOW
     OCR0B = sine_wave[(uint8_t)(sine_index[0] - THIRD_PERIOD)];                 //B HI
     OCR1B = sine_wave[(uint8_t)(sine_index[0] - THIRD_PERIOD - HALF_PERIOD)];   //B LOW
     OCR2B = sine_wave[(uint8_t)(sine_index[0] - 2*THIRD_PERIOD)];               //C HI

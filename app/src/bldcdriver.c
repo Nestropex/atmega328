@@ -105,5 +105,4 @@ void app_main(void)
     uint16_t dc = analog_read(0u)/10u;
     signal_pwm(10000u,dc);
 
-    gpio_toggle(1,5);
 }
