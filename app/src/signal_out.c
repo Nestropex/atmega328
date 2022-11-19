@@ -42,7 +42,7 @@ uint8_t once;
 void signal_init(void)
 {
  
-    isr_register(signal_timer1_ovf_isr, Timer1_OVF);
+    isr_register(signal_timer1_ovf_isr, Timer0_OVF);
 }
 
 static void set_isr_timing(void)
@@ -109,10 +109,12 @@ void signal_sine(uint16_t frequency, uint16_t phase, uint8_t nmb_of_channels)
         uint32_t cur_ticks = timer1_get_ticks();
         timer_set_compare(Timer1_Comp_A, cur_ticks );
         timer_set_compare(Timer2_Comp_B, cur_ticks );
+
     }
     once = 1u;
     uint32_t calc = frequency*255u;
     isr_ticks = (timer_freq/((calc*255u))) + 1u;
+
 }
 
 uint8_t g_cur_ticks;
@@ -134,32 +136,37 @@ void signal_timer1_ovf_isr(void)
         PWM_PORT&= (~PWM_PIN); 
     }
     
-    TCNT0  = 0u;
-    TCNT1L = 0u;
-    TCNT1H = 0u;
-    TCNT2  = 0u;
+    //TCNT0  = 0u;
+    //TCNT1L = 0u;
+    //TCNT1H = 0u;
+    //TCNT2  = 0u;
 
     if (ovf_count >= isr_ticks)
     {
         sine_index[0]++;
         ovf_count = 0u;
     }
-    if (sine_wave[(uint8_t)(sine_index[0]  -HALF_PERIOD)] >= 0xc0 )
+ 
+   /* if (sine_index[0] < 128u)
     {
-        PORTD |= 0x40u;
+        TCCR0A = 0xa3u;
+        TCCR1A = 0x31u;
     }
     else
     {
-        //PORTD &= (~0x40u);
-    }
+        TCCR0A = 0x33u;
+        PORTD |= 0x40u;
+        TCCR1A = 0xa1u;
+ 
+    }*/
     
     
 
-    //OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                               //A HI
-    OCR1A = sine_wave[(uint8_t)(sine_index[0]  -HALF_PERIOD)];                  //A LOW
-    OCR0B = sine_wave[(uint8_t)(sine_index[0] - THIRD_PERIOD)];                 //B HI
-    OCR1B = sine_wave[(uint8_t)(sine_index[0] - THIRD_PERIOD - HALF_PERIOD)];   //B LOW
-    OCR2B = sine_wave[(uint8_t)(sine_index[0] - 2*THIRD_PERIOD)];               //C HI
-    OCR2A = sine_wave[(uint8_t)(sine_index[0] - 2*THIRD_PERIOD - HALF_PERIOD)]; //C LOW
+    OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                               //A HI
+    OCR1A = sine_wave[(uint8_t)(sine_index[0] )];                  //A LOW
+    //OCR0B = sine_wave[(uint8_t)(sine_index[0] + THIRD_PERIOD)];                 //B HI
+    //OCR1B = sine_wave[(uint8_t)(sine_index[0] + THIRD_PERIOD + HALF_PERIOD)];   //B LOW
+    //OCR2B = sine_wave[(uint8_t)(sine_index[0] + 2*THIRD_PERIOD)];               //C HI
+    //OCR2A = sine_wave[(uint8_t)(sine_index[0] + 2*THIRD_PERIOD + HALF_PERIOD)]; //C LOW
     
 }
