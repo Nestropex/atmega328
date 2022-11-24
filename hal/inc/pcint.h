@@ -27,6 +27,7 @@
 
 //-------Function Declaration-------
 
+void pcint_init(uint8_t index);
 
 
 #endif

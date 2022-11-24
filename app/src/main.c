@@ -10,6 +10,7 @@
 #include "period.h"
 #include "timer_32bit.h"
 #include "fifo.h"
+#include "pcint.h"
 #include "app.h"
 
 
@@ -77,5 +78,8 @@ static void init(void)
     period_init();
     isr_init();
     fifo_init(&fifo,message);
+    pcint_init(pcint_index[0]);
+    pcint_init(pcint_index[1]);
+    pcint_init(pcint_index[2]);
 }
 

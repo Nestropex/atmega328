@@ -107,7 +107,6 @@ void app_main(void)
         dc=1;
     }
     signal_sine(dc, SIGNAL_DEFAULT_PHASE, 3u);
-        uart_nmb_transmit(dc, 10u);
 
 
 

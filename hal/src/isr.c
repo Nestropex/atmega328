@@ -23,6 +23,10 @@ static void (* function_timer2_comp_a)();
 static void (* function_timer2_comp_b)();
 static void (* function_timer2_ovf)();
 static void (* function_uart_tx)();
+static void (* function_pcint0)();
+static void (* function_pcint1)();
+static void (* function_pcint2)();
+
 
 void isr_init(void)
 {
@@ -83,6 +87,15 @@ void isr_register(void (*isr), interrupts_t nmb)
         case Uart_tx:
             function_uart_tx = isr;
             UCSR0B  |= 1u << TXCIE0;
+            break;
+        case Pcint0:
+            function_pcint0 = isr;
+            break;
+        case Pcint1:
+            function_pcint1 = isr;
+            break;
+        case Pcint2:
+            function_pcint2 = isr;
             break;
         
         default:
@@ -174,5 +187,29 @@ ISR(USART_TX_vect) {
     if (function_uart_tx != NULL_PTR)
     {
         (*function_uart_tx)(); 
+    }
+}
+
+ISR(PCINT0_vect) {    
+    
+    if (function_pcint0 != NULL_PTR)
+    {
+        (*function_pcint0)(); 
+    }
+}
+
+ISR(PCINT1_vect) {    
+    
+    if (function_pcint1 != NULL_PTR)
+    {
+        (*function_pcint1)(); 
+    }
+}
+
+ISR(PCINT2_vect) {    
+    
+    if (function_pcint2 != NULL_PTR)
+    {
+        (*function_pcint2)(); 
     }
 }

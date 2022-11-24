@@ -118,6 +118,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define NMB_OF_INPUTS           4u
     #define NMB_OF_ANIN             3u
     #define NMB_OF_OUTPUTS          3u
+          
 
     #define SIGNAL_DEFAULT_FREQ     5u
     #define SIGNAL_DEFAULT_PHASE    60u
@@ -126,8 +127,8 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define PWM_PIN   0x10
 
     // Declare input (0) and output (1)
-    static const uint8_t cfg_port_b = 0x1fu;
-    static const uint8_t cfg_port_c = 0x20u;
+    static const uint8_t cfg_port_b = 0x0fu;
+    static const uint8_t cfg_port_c = 0x00u;
     static const uint8_t cfg_port_d = 0x68u;
 
     static const pin_t cfg_pin_input[NMB_OF_INPUTS + NMB_OF_ANIN] = {
@@ -154,6 +155,11 @@ ICP1   PB0 |14  15| PB1 OC1A
         {.port = 1u, .bit = 3u}, // phase3
 
     }; 
+
+    static const uint8_t pcint_index[NMB_OF_OUTPUTS] = {
+        4u,12u,13u // phase1
+    }; 
+
     // Pin shall be connected to an LED in order to give visible alarm
     static const pin_t cfg_error_pin = {.port = 1u, .bit = 0u};
 #endif

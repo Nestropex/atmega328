@@ -22,6 +22,7 @@
 #define FIRST_ISR_OCURRENCE      15000u
 #define HALF_PERIOD 127u
 #define THIRD_PERIOD 85u
+#define SINE_WAVE_TOP 72u
 //-------TYPES-------
 uint16_t lut_period[NMB_OF_OUTPUTS];
 uint16_t lut_delay[NMB_OF_OUTPUTS];
@@ -37,12 +38,14 @@ uint16_t pwm_cnt;
 
 void signal_timer1_ovf_isr(void);
 static void set_isr_timing(void);
+void hall_isr_a_b(void);
 //-------Function Definition-------
 uint8_t once;
 void signal_init(void)
 {
  
     isr_register(signal_timer1_ovf_isr, Timer1_OVF);
+    isr_register(hall_isr_a_b, Pcint1);
 }
 
 static void set_isr_timing(void)
@@ -125,43 +128,12 @@ void signal_timer1_ovf_isr(void)
 {
     ovf_count++;
     pwm_cnt++;
-
-    if (pwm_cnt >= pwm_hi)
-    {
-        PWM_PORT |= PWM_PIN;
-        pwm_cnt = 0u;
-    }
-
-    if (pwm_cnt >= pwm_lo)
-    {
-        PWM_PORT&= (~PWM_PIN); 
-    }
     
-    //TCNT0  = 0u;
-    //TCNT1L = 0u;
-    //TCNT1H = 0u;
-    //TCNT2  = 0u;
-
     if (ovf_count >= isr_ticks)
     {
         sine_index[0]++;
         ovf_count = 0u;
     }
- 
-   /* if (sine_index[0] < 128u)
-    {
-        TCCR0A = 0xa3u;
-        TCCR1A = 0x31u;
-    }
-    else
-    {
-        TCCR0A = 0x33u;
-        PORTD |= 0x40u;
-        TCCR1A = 0xa1u;
- 
-    }*/
-    
-    
 
     OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                  //A HI
     OCR1A = sine_wave[(uint8_t)(sine_index[0] )];                  //A LOW
@@ -171,3 +143,22 @@ void signal_timer1_ovf_isr(void)
     OCR2A = sine_wave[(uint8_t)(sine_index[0] + 2*THIRD_PERIOD)];  //C LOW
     
 }
+
+void hall_isr_a_b(void)
+{
+    //uart_str_transmit("isr");
+    uint8_t state = gpio_read(2,5);
+    if (state == 1u)
+    {
+        //sine_index[0] = SINE_WAVE_TOP - 1u;
+        uart_str_transmit("correct");
+    }
+    else
+    {
+        /* code */
+    }
+    
+    
+
+}
+
