@@ -12,6 +12,7 @@
         "cfg.h": "c",
         "signal.h": "c",
         "signal_out.h": "c",
+        "pcint.h": "c",
         "timer_32bit.h": "c"
     }
 }
