@@ -119,7 +119,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     #define NMB_OF_ANIN             3u
     #define NMB_OF_OUTPUTS          3u
 
-    #define SIGNAL_DEFAULT_FREQ     30u
+    #define SIGNAL_DEFAULT_FREQ     5u
     #define SIGNAL_DEFAULT_PHASE    60u
 
     #define PWM_PORT  PORTB

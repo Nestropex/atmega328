@@ -100,11 +100,16 @@ void app_main(void)
     {
         /* code */
     }
-
-    signal_sine(SIGNAL_DEFAULT_FREQ, SIGNAL_DEFAULT_PHASE, 3u);
-
     uint16_t dc = analog_read(0u)/10u;
     signal_pwm(10000u,dc);
+    if(dc == 0u)
+    {
+        dc=1;
+    }
+    signal_sine(dc, SIGNAL_DEFAULT_PHASE, 3u);
+        uart_nmb_transmit(dc, 10u);
+
+
 
     //gpio_toggle(1,5);
 }

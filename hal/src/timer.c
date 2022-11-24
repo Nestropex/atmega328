@@ -11,7 +11,7 @@
 #define TCCR0B_CFG 0x01u
 #define TCCR1A_CFG 0xa1u
 #define TCCR1B_CFG 0x01u
-#define TCCR2A_CFG 0xa3u
+#define TCCR2A_CFG 0xa1u
 #define TCCR2B_CFG 0x01u
 
 static void set_timer_frequency(timer_t timer, uint16_t prescaler);
