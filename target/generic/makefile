@@ -3,7 +3,7 @@
 
 #PORT = /dev/ttyUSB0
 PROGRAMMER = arduino
-TOOLCHAIN = ../../../../../Toolchain
+TOOLCHAIN = ../../../../../../Toolchain
 AVRDUDE = $(TOOLCHAIN)/avrdude/avrdude-64/avrdude
 APP_DIR = app
 GEN_DIR = generic

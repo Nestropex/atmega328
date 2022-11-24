@@ -12,7 +12,6 @@
         "cfg.h": "c",
         "signal.h": "c",
         "signal_out.h": "c",
-        "fifo.h": "c",
-        "isr.h": "c"
+        "timer_32bit.h": "c"
     }
 }
