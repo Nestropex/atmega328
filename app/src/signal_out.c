@@ -125,22 +125,10 @@ void signal_timer1_ovf_isr(void)
 {
     ovf_count++;
     pwm_cnt++;
-
-    if (pwm_cnt >= pwm_hi)
-    {
-        PWM_PORT |= PWM_PIN;
-        pwm_cnt = 0u;
-    }
-
-    if (pwm_cnt >= pwm_lo)
-    {
-        PWM_PORT&= (~PWM_PIN); 
-    }
     
-    //TCNT0  = 0u;
-    //TCNT1L = 0u;
-    //TCNT1H = 0u;
-    //TCNT2  = 0u;
+    TCNT0  = 255u;
+    TCNT1L = 255u;
+    TCNT2  = 255u;
 
     if (ovf_count >= isr_ticks)
     {
@@ -148,21 +136,6 @@ void signal_timer1_ovf_isr(void)
         ovf_count = 0u;
     }
  
-   /* if (sine_index[0] < 128u)
-    {
-        TCCR0A = 0xa3u;
-        TCCR1A = 0x31u;
-    }
-    else
-    {
-        TCCR0A = 0x33u;
-        PORTD |= 0x40u;
-        TCCR1A = 0xa1u;
- 
-    }*/
-    
-    
-
     OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                  //A HI
     OCR1A = sine_wave[(uint8_t)(sine_index[0] )];                  //A LOW
     OCR0B = sine_wave[(uint8_t)(sine_index[0] + THIRD_PERIOD)];    //B HI
