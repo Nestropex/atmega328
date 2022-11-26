@@ -23,7 +23,7 @@
 
 //-------Variables-------
 
-extern uint8_t  sine_wave[];
+extern const  uint8_t  sine_wave[];
 
 //-------Function Declaration-------
 

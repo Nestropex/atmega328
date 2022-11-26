@@ -129,12 +129,16 @@ void signal_timer1_ovf_isr(void)
     ovf_count++;
     pwm_cnt++;
     
+    TCNT0  = 255u;
+    TCNT1L = 255u;
+    TCNT2  = 255u;
+
     if (ovf_count >= isr_ticks)
     {
         sine_index[0]++;
         ovf_count = 0u;
     }
-
+ 
     OCR0A = sine_wave[(uint8_t)(sine_index[0] )];                  //A HI
     OCR1A = sine_wave[(uint8_t)(sine_index[0] )];                  //A LOW
     OCR0B = sine_wave[(uint8_t)(sine_index[0] + THIRD_PERIOD)];    //B HI
