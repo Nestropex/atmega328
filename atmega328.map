@@ -1,0 +1,1152 @@
+Archive member included to satisfy reference by file (symbol)
+
+hal/target/libatmega328.a(gpio.o)
+                              target/bldcdriver/obj/main.o (gpio_init)
+hal/target/libatmega328.a(watchdog.o)
+                              target/bldcdriver/obj/main.o (watchdog_reset)
+hal/target/libatmega328.a(uart.o)
+                              target/bldcdriver/obj/main.o (uart_init)
+hal/target/libatmega328.a(timer.o)
+                              target/bldcdriver/obj/main.o (timer_init)
+hal/target/libatmega328.a(system.o)
+                              target/bldcdriver/obj/main.o (system_init)
+hal/target/libatmega328.a(isr.o)
+                              target/bldcdriver/obj/main.o (isr_init)
+hal/target/libatmega328.a(analog.o)
+                              target/bldcdriver/obj/bldcdriver.o (analog_init)
+hal/target/libatmega328.a(fifo.o)
+                              target/bldcdriver/obj/main.o (fifo_init)
+hal/target/libatmega328.a(stream.o)
+                              hal/target/libatmega328.a(fifo.o) (stream_write)
+hal/target/libatmega328.a(pcint.o)
+                              target/bldcdriver/obj/main.o (pcint_init)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+                              target/bldcdriver/obj/signal_out.o (__udivmodhi4)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+                              target/bldcdriver/obj/period.o (__udivmodsi4)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+                              c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o (exit)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+                              hal/target/libatmega328.a(gpio.o) (__tablejump2__)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+                              target/bldcdriver/obj/main.o (__do_copy_data)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+                              target/bldcdriver/obj/main.o (__do_clear_bss)
+c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+                              target/bldcdriver/obj/bldcdriver.o (__umulhisi3)
+
+Allocating common symbols
+Common symbol       size              file
+
+sine_index          0x3               target/bldcdriver/obj/signal_out.o
+isr_ticks           0x4               target/bldcdriver/obj/signal_out.o
+pwm_cnt             0x2               target/bldcdriver/obj/signal_out.o
+lut_period          0x6               target/bldcdriver/obj/signal_out.o
+pwm_hi              0x2               target/bldcdriver/obj/signal_out.o
+once                0x1               target/bldcdriver/obj/signal_out.o
+g_cur_ticks         0x1               target/bldcdriver/obj/signal_out.o
+loop_1              0x17              target/bldcdriver/obj/main.o
+timer_freq          0x4               target/bldcdriver/obj/signal_out.o
+pwm_lo              0x2               target/bldcdriver/obj/signal_out.o
+ovf_count           0x4               target/bldcdriver/obj/signal_out.o
+isr_period          0x4               target/bldcdriver/obj/signal_out.o
+isr_count           0xc               target/bldcdriver/obj/signal_out.o
+lut_delay           0x6               target/bldcdriver/obj/signal_out.o
+loop_main           0x17              target/bldcdriver/obj/main.o
+loop_2              0x17              target/bldcdriver/obj/main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000003         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+user_signatures  0x00850000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+LOAD c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5\libm.a
+LOAD target/bldcdriver/obj/main.o
+LOAD target/bldcdriver/obj/bldcdriver.o
+LOAD target/bldcdriver/obj/period.o
+LOAD target/bldcdriver/obj/input.o
+LOAD target/bldcdriver/obj/timer_32bit.o
+LOAD target/bldcdriver/obj/signal_out.o
+LOAD target/bldcdriver/obj/sine.o
+LOAD hal/target/libatmega328.a
+START GROUP
+LOAD c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a
+LOAD c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5\libm.a
+LOAD c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5\libc.a
+LOAD c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5\libatmega328p.a
+END GROUP
+                0x00020000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x20000
+                0x0000ffa0                __DATA_REGION_LENGTH__ = DEFINED (__DATA_REGION_LENGTH__)?__DATA_REGION_LENGTH__:0xffa0
+                0x00010000                __EEPROM_REGION_LENGTH__ = DEFINED (__EEPROM_REGION_LENGTH__)?__EEPROM_REGION_LENGTH__:0x10000
+                [0x00000003]                __FUSE_REGION_LENGTH__ = DEFINED (__FUSE_REGION_LENGTH__)?__FUSE_REGION_LENGTH__:0x400
+                0x00000400                __LOCK_REGION_LENGTH__ = DEFINED (__LOCK_REGION_LENGTH__)?__LOCK_REGION_LENGTH__:0x400
+                0x00000400                __SIGNATURE_REGION_LENGTH__ = DEFINED (__SIGNATURE_REGION_LENGTH__)?__SIGNATURE_REGION_LENGTH__:0x400
+                0x00000400                __USER_SIGNATURE_REGION_LENGTH__ = DEFINED (__USER_SIGNATURE_REGION_LENGTH__)?__USER_SIGNATURE_REGION_LENGTH__:0x400
+                0x00800060                __DATA_REGION_ORIGIN__ = DEFINED (__DATA_REGION_ORIGIN__)?__DATA_REGION_ORIGIN__:0x800060
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x17b0
+ *(.vectors)
+ .vectors       0x00000000       0x68 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+                0x00000068                . = ALIGN (0x2)
+                0x00000068                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000068        0x0 linker stubs
+ *(.trampolines*)
+                0x00000068                __trampolines_end = .
+ *libprintf_flt.a:*(.progmem.data)
+ *libc.a:*(.progmem.data)
+ *(.progmem*)
+                0x00000068                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000068                __ctors_start = .
+ *(.ctors)
+                0x00000068                __ctors_end = .
+                0x00000068                __dtors_start = .
+ *(.dtors)
+                0x00000068                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000068        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+                0x00000068                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000068        0xc c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000074       0x16 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+                0x00000074                __do_copy_data
+ .init4         0x0000008a       0x10 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000008a                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x0000009a        0x8 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ *(.init9)
+ *(.text)
+ .text          0x000000a2        0x4 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+                0x000000a2                __vector_22
+                0x000000a2                __vector_1
+                0x000000a2                __vector_24
+                0x000000a2                __bad_interrupt
+                0x000000a2                __vector_6
+                0x000000a2                __vector_23
+                0x000000a2                __vector_25
+                0x000000a2                __vector_17
+                0x000000a2                __vector_19
+                0x000000a2                __vector_2
+                0x000000a2                __vector_21
+                0x000000a2                __vector_10
+                0x000000a2                __vector_18
+ .text          0x000000a6        0x0 target/bldcdriver/obj/main.o
+ .text          0x000000a6      0x168 target/bldcdriver/obj/bldcdriver.o
+                0x000000a6                app_init
+                0x000000fc                app_main
+ .text          0x0000020e      0x162 target/bldcdriver/obj/period.o
+                0x0000020e                period_init
+                0x00000212                period_control
+                0x000002e0                period_print
+ .text          0x00000370       0x80 target/bldcdriver/obj/input.o
+                0x00000370                input_get
+ .text          0x000003f0       0x58 target/bldcdriver/obj/timer_32bit.o
+                0x000003f0                period_timer_0_ovf_isr
+                0x00000418                timer_32bit_init
+                0x00000422                timer0_32_get_ticks
+ .text          0x00000448      0x3d2 target/bldcdriver/obj/signal_out.o
+                0x00000448                signal_timer1_ovf_isr
+                0x0000053e                hall_isr_c
+                0x00000582                signal_init
+                0x00000596                signal_pwm
+                0x00000604                signal_rectangle
+                0x000006ac                signal_sine
+                0x000007c2                hall_isr_a_b
+ .text          0x0000081a        0x0 target/bldcdriver/obj/sine.o
+ .text          0x0000081a      0x1bc hal/target/libatmega328.a(gpio.o)
+                0x0000081a                gpio_init
+                0x0000083a                gpio_write
+                0x000008ae                gpio_read
+                0x000008f4                gpio_toggle
+ .text          0x000009d6       0x72 hal/target/libatmega328.a(watchdog.o)
+                0x000009d6                watchdog_reset
+                0x000009da                watchdog_disable
+                0x000009f2                watchdog_init
+ .text          0x00000a48      0x1ae hal/target/libatmega328.a(uart.o)
+                0x00000a48                uart_isr_tx
+                0x00000aa2                uart_init
+                0x00000b22                uart_str_transmit
+                0x00000b36                uart_nmb_transmit
+                0x00000bd4                uart_cnt_transmit
+                0x00000be4                uart_fast_byte_transmit
+ .text          0x00000bf6      0x260 hal/target/libatmega328.a(timer.o)
+                0x00000bf6                timer_init
+                0x00000de8                timer0_get_ticks
+                0x00000dec                timer1_get_ticks
+                0x00000df6                timer2_get_ticks
+                0x00000dfc                timer_set_compare
+                0x00000e46                timer_get_frequency
+ .text          0x00000e56       0x3c hal/target/libatmega328.a(system.o)
+                0x00000e56                system_init
+                0x00000e60                system_error_handler
+                0x00000e80                system_error_update
+ .text          0x00000e92      0x55c hal/target/libatmega328.a(isr.o)
+                0x00000e92                isr_init
+                0x00000e96                isr_register
+                0x00000fc4                __vector_14
+                0x00001016                __vector_15
+                0x00001068                __vector_16
+                0x000010ba                __vector_11
+                0x0000110c                __vector_12
+                0x0000115e                __vector_13
+                0x000011b0                __vector_7
+                0x00001202                __vector_8
+                0x00001254                __vector_9
+                0x000012a6                __vector_20
+                0x000012f8                __vector_3
+                0x0000134a                __vector_4
+                0x0000139c                __vector_5
+ .text          0x000013ee       0x4a hal/target/libatmega328.a(analog.o)
+                0x000013ee                analog_init
+                0x00001406                analog_read
+ .text          0x00001438       0x96 hal/target/libatmega328.a(fifo.o)
+                0x00001438                fifo_init
+                0x00001444                fifo_write
+                0x0000148e                fifo_send
+                0x0000149e                fifo_read
+ .text          0x000014ce       0x8c hal/target/libatmega328.a(stream.o)
+                0x000014ce                stream_write
+                0x00001558                stream_read
+ .text          0x0000155a       0x7c hal/target/libatmega328.a(pcint.o)
+                0x0000155a                pcint_init
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text          0x000015d6        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+                0x000015d6                . = ALIGN (0x2)
+ *(.text.*)
+ .text.startup  0x000015d6      0x140 target/bldcdriver/obj/main.o
+                0x000015d6                main
+ .text.libgcc.mul
+                0x00001716        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.div
+                0x00001716       0x28 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x00001716                __udivmodhi4
+ .text.libgcc   0x0000173e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x0000173e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x0000173e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x0000173e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x0000173e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x0000173e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.div
+                0x0000173e       0x44 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x0000173e                __udivmodsi4
+ .text.libgcc   0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.div
+                0x00001782        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc   0x00001782        0xc c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+                0x00001782                __tablejump2__
+ .text.libgcc.prologue
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.builtins
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.fmul
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.fixed
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .text.libgcc.mul
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x0000178e        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x0000178e       0x1e c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000178e                __umulhisi3
+ .text.libgcc.div
+                0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc   0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.prologue
+                0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.builtins
+                0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fmul
+                0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ .text.libgcc.fixed
+                0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+                0x000017ac                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000017ac        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+                0x000017ac                _exit
+                0x000017ac                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000017ac        0x4 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ *(.fini0)
+                0x000017b0                _etext = .
+
+.data           0x00800100      0x2e8 load address 0x000017b0
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .data          0x00800100        0x0 target/bldcdriver/obj/main.o
+ .data          0x00800100        0x3 target/bldcdriver/obj/bldcdriver.o
+                0x00800100                g_phase
+                0x00800101                g_frequency
+ .data          0x00800103        0x0 target/bldcdriver/obj/period.o
+ .data          0x00800103        0x0 target/bldcdriver/obj/input.o
+ .data          0x00800103        0x0 target/bldcdriver/obj/timer_32bit.o
+ .data          0x00800103        0x1 target/bldcdriver/obj/signal_out.o
+                0x00800103                sine_top
+ .data          0x00800104        0x0 target/bldcdriver/obj/sine.o
+ .data          0x00800104        0x0 hal/target/libatmega328.a(gpio.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(watchdog.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(uart.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(timer.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(system.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(isr.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(analog.o)
+ .data          0x00800104        0x0 hal/target/libatmega328.a(fifo.o)
+ .data          0x00800104        0x4 hal/target/libatmega328.a(stream.o)
+                0x00800104                stream
+ .data          0x00800108        0x0 hal/target/libatmega328.a(pcint.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .data          0x00800108        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ *(.data*)
+ *(.gnu.linkonce.d*)
+ *(.rodata)
+ .rodata        0x00800108        0x2 target/bldcdriver/obj/main.o
+ .rodata        0x0080010a      0x100 target/bldcdriver/obj/sine.o
+                0x0080010a                sine_wave
+ *(.rodata*)
+ .rodata.str1.1
+                0x0080020a        0xb target/bldcdriver/obj/main.o
+ .rodata.str1.1
+                0x00800215       0x34 target/bldcdriver/obj/period.o
+ .rodata.str1.1
+                0x00800249       0x8e hal/target/libatmega328.a(gpio.o)
+ .rodata.str1.1
+                0x008002d7       0x1d hal/target/libatmega328.a(watchdog.o)
+ .rodata.str1.1
+                0x008002f4       0x4a hal/target/libatmega328.a(uart.o)
+ .rodata.str1.1
+                0x0080033e       0x32 hal/target/libatmega328.a(timer.o)
+ .rodata.str1.1
+                0x00800370       0x30 hal/target/libatmega328.a(system.o)
+                                 0x32 (size before relaxing)
+ .rodata.str1.1
+                0x008003a0       0x13 hal/target/libatmega328.a(isr.o)
+ .rodata.str1.1
+                0x008003b3       0x34 hal/target/libatmega328.a(fifo.o)
+ *(.gnu.linkonce.r*)
+                0x008003e8                . = ALIGN (0x2)
+ *fill*         0x008003e7        0x1 
+                0x008003e8                _edata = .
+                0x008003e8                PROVIDE (__data_end, .)
+
+.bss            0x008003e8      0x2af
+                0x008003e8                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x008003e8        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .bss           0x008003e8       0x25 target/bldcdriver/obj/main.o
+ .bss           0x0080040d       0x81 target/bldcdriver/obj/bldcdriver.o
+                0x0080040d                gpio_out
+                0x00800416                loop_gpio_in
+                0x00800472                gpio_in
+ .bss           0x0080048e        0x0 target/bldcdriver/obj/period.o
+ .bss           0x0080048e        0x0 target/bldcdriver/obj/input.o
+ .bss           0x0080048e        0xc target/bldcdriver/obj/timer_32bit.o
+                0x0080048e                timer2_32
+                0x00800492                timer1_32
+                0x00800496                timer0_32
+ .bss           0x0080049a        0x0 target/bldcdriver/obj/signal_out.o
+ .bss           0x0080049a        0x0 target/bldcdriver/obj/sine.o
+ .bss           0x0080049a        0x0 hal/target/libatmega328.a(gpio.o)
+ .bss           0x0080049a        0x0 hal/target/libatmega328.a(watchdog.o)
+ .bss           0x0080049a        0x0 hal/target/libatmega328.a(uart.o)
+ .bss           0x0080049a        0x0 hal/target/libatmega328.a(timer.o)
+ .bss           0x0080049a        0x3 hal/target/libatmega328.a(system.o)
+ .bss           0x0080049d       0x1a hal/target/libatmega328.a(isr.o)
+ .bss           0x008004b7        0x0 hal/target/libatmega328.a(analog.o)
+ .bss           0x008004b7        0x0 hal/target/libatmega328.a(fifo.o)
+ .bss           0x008004b7      0x168 hal/target/libatmega328.a(stream.o)
+ .bss           0x0080061f        0x0 hal/target/libatmega328.a(pcint.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x0080061f        0x0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080061f       0x45 target/bldcdriver/obj/main.o
+                0x0080061f                loop_1
+                0x00800636                loop_main
+                0x0080064d                loop_2
+ COMMON         0x00800664       0x33 target/bldcdriver/obj/signal_out.o
+                0x00800664                sine_index
+                0x00800667                isr_ticks
+                0x0080066b                pwm_cnt
+                0x0080066d                lut_period
+                0x00800673                pwm_hi
+                0x00800675                once
+                0x00800676                g_cur_ticks
+                0x00800677                timer_freq
+                0x0080067b                pwm_lo
+                0x0080067d                ovf_count
+                0x00800681                isr_period
+                0x00800685                isr_count
+                0x00800691                lut_delay
+                0x00800697                PROVIDE (__bss_end, .)
+                0x000017b0                __data_load_start = LOADADDR (.data)
+                0x00001a98                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00800697        0x0
+                [!provide]                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                [!provide]                PROVIDE (__noinit_end, .)
+                0x00800697                _end = .
+                [!provide]                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.user_signatures
+ *(.user_signatures*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x11
+ *(.comment)
+ .comment       0x00000000       0x11 target/bldcdriver/obj/main.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000011       0x12 target/bldcdriver/obj/bldcdriver.o
+ .comment       0x00000011       0x12 target/bldcdriver/obj/period.o
+ .comment       0x00000011       0x12 target/bldcdriver/obj/input.o
+ .comment       0x00000011       0x12 target/bldcdriver/obj/timer_32bit.o
+ .comment       0x00000011       0x12 target/bldcdriver/obj/signal_out.o
+ .comment       0x00000011       0x12 target/bldcdriver/obj/sine.o
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(gpio.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(watchdog.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(uart.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(timer.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(system.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(isr.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(analog.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(fifo.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(stream.o)
+ .comment       0x00000011       0x12 hal/target/libatmega328.a(pcint.o)
+
+.note.gnu.avr.deviceinfo
+                0x00000000       0x40
+ .note.gnu.avr.deviceinfo
+                0x00000000       0x40 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+
+.avr.prop       0x00000000       0x3e
+ .avr.prop      0x00000000       0x28 hal/target/libatmega328.a(gpio.o)
+ .avr.prop      0x00000028       0x16 hal/target/libatmega328.a(isr.o)
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x2f8
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 target/bldcdriver/obj/main.o
+ .debug_aranges
+                0x00000020       0x20 target/bldcdriver/obj/bldcdriver.o
+ .debug_aranges
+                0x00000040       0x20 target/bldcdriver/obj/period.o
+ .debug_aranges
+                0x00000060       0x20 target/bldcdriver/obj/input.o
+ .debug_aranges
+                0x00000080       0x20 target/bldcdriver/obj/timer_32bit.o
+ .debug_aranges
+                0x000000a0       0x20 target/bldcdriver/obj/signal_out.o
+ .debug_aranges
+                0x000000c0       0x18 target/bldcdriver/obj/sine.o
+ .debug_aranges
+                0x000000d8       0x20 hal/target/libatmega328.a(gpio.o)
+ .debug_aranges
+                0x000000f8       0x20 hal/target/libatmega328.a(watchdog.o)
+ .debug_aranges
+                0x00000118       0x20 hal/target/libatmega328.a(uart.o)
+ .debug_aranges
+                0x00000138       0x20 hal/target/libatmega328.a(timer.o)
+ .debug_aranges
+                0x00000158       0x20 hal/target/libatmega328.a(system.o)
+ .debug_aranges
+                0x00000178       0x20 hal/target/libatmega328.a(isr.o)
+ .debug_aranges
+                0x00000198       0x20 hal/target/libatmega328.a(analog.o)
+ .debug_aranges
+                0x000001b8       0x20 hal/target/libatmega328.a(fifo.o)
+ .debug_aranges
+                0x000001d8       0x20 hal/target/libatmega328.a(stream.o)
+ .debug_aranges
+                0x000001f8       0x20 hal/target/libatmega328.a(pcint.o)
+ .debug_aranges
+                0x00000218       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_aranges
+                0x00000238       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_aranges
+                0x00000258       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .debug_aranges
+                0x00000278       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .debug_aranges
+                0x00000298       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .debug_aranges
+                0x000002b8       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .debug_aranges
+                0x000002d8       0x20 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0x3dee
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000      0x5f4 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .debug_info    0x000005f4      0x6a1 target/bldcdriver/obj/main.o
+ .debug_info    0x00000c95      0x4cd target/bldcdriver/obj/bldcdriver.o
+ .debug_info    0x00001162      0x434 target/bldcdriver/obj/period.o
+ .debug_info    0x00001596      0x2d9 target/bldcdriver/obj/input.o
+ .debug_info    0x0000186f      0x190 target/bldcdriver/obj/timer_32bit.o
+ .debug_info    0x000019ff      0x766 target/bldcdriver/obj/signal_out.o
+ .debug_info    0x00002165       0x90 target/bldcdriver/obj/sine.o
+ .debug_info    0x000021f5      0x246 hal/target/libatmega328.a(gpio.o)
+ .debug_info    0x0000243b      0x1bb hal/target/libatmega328.a(watchdog.o)
+ .debug_info    0x000025f6      0x53e hal/target/libatmega328.a(uart.o)
+ .debug_info    0x00002b34      0x2ed hal/target/libatmega328.a(timer.o)
+ .debug_info    0x00002e21      0x1a9 hal/target/libatmega328.a(system.o)
+ .debug_info    0x00002fca      0x353 hal/target/libatmega328.a(isr.o)
+ .debug_info    0x0000331d       0xb8 hal/target/libatmega328.a(analog.o)
+ .debug_info    0x000033d5      0x271 hal/target/libatmega328.a(fifo.o)
+ .debug_info    0x00003646      0x1fc hal/target/libatmega328.a(stream.o)
+ .debug_info    0x00003842       0x8f hal/target/libatmega328.a(pcint.o)
+ .debug_info    0x000038d1       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_info    0x0000398c       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_info    0x00003a47       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .debug_info    0x00003b02       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .debug_info    0x00003bbd       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .debug_info    0x00003c78       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .debug_info    0x00003d33       0xbb c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_abbrev   0x00000000     0x1a3f
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000      0x5a2 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .debug_abbrev  0x000005a2      0x16e target/bldcdriver/obj/main.o
+ .debug_abbrev  0x00000710      0x192 target/bldcdriver/obj/bldcdriver.o
+ .debug_abbrev  0x000008a2      0x16f target/bldcdriver/obj/period.o
+ .debug_abbrev  0x00000a11      0x128 target/bldcdriver/obj/input.o
+ .debug_abbrev  0x00000b39       0xe9 target/bldcdriver/obj/timer_32bit.o
+ .debug_abbrev  0x00000c22      0x22b target/bldcdriver/obj/signal_out.o
+ .debug_abbrev  0x00000e4d       0x66 target/bldcdriver/obj/sine.o
+ .debug_abbrev  0x00000eb3       0xe8 hal/target/libatmega328.a(gpio.o)
+ .debug_abbrev  0x00000f9b      0x126 hal/target/libatmega328.a(watchdog.o)
+ .debug_abbrev  0x000010c1      0x24e hal/target/libatmega328.a(uart.o)
+ .debug_abbrev  0x0000130f      0x141 hal/target/libatmega328.a(timer.o)
+ .debug_abbrev  0x00001450      0x107 hal/target/libatmega328.a(system.o)
+ .debug_abbrev  0x00001557      0x103 hal/target/libatmega328.a(isr.o)
+ .debug_abbrev  0x0000165a       0x7a hal/target/libatmega328.a(analog.o)
+ .debug_abbrev  0x000016d4      0x15a hal/target/libatmega328.a(fifo.o)
+ .debug_abbrev  0x0000182e      0x127 hal/target/libatmega328.a(stream.o)
+ .debug_abbrev  0x00001955       0x5e hal/target/libatmega328.a(pcint.o)
+ .debug_abbrev  0x000019b3       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_abbrev  0x000019c7       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_abbrev  0x000019db       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .debug_abbrev  0x000019ef       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .debug_abbrev  0x00001a03       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .debug_abbrev  0x00001a17       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x00001a2b       0x14 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_line     0x00000000     0x1d7d
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x00000000       0x1a c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .debug_line    0x0000001a      0x1b3 target/bldcdriver/obj/main.o
+ .debug_line    0x000001cd      0x1b4 target/bldcdriver/obj/bldcdriver.o
+ .debug_line    0x00000381      0x18e target/bldcdriver/obj/period.o
+ .debug_line    0x0000050f       0xe5 target/bldcdriver/obj/input.o
+ .debug_line    0x000005f4       0xb2 target/bldcdriver/obj/timer_32bit.o
+ .debug_line    0x000006a6      0x2d1 target/bldcdriver/obj/signal_out.o
+ .debug_line    0x00000977       0x67 target/bldcdriver/obj/sine.o
+ .debug_line    0x000009de      0x2a9 hal/target/libatmega328.a(gpio.o)
+ .debug_line    0x00000c87       0xf6 hal/target/libatmega328.a(watchdog.o)
+ .debug_line    0x00000d7d      0x1df hal/target/libatmega328.a(uart.o)
+ .debug_line    0x00000f5c      0x27b hal/target/libatmega328.a(timer.o)
+ .debug_line    0x000011d7       0xda hal/target/libatmega328.a(system.o)
+ .debug_line    0x000012b1      0x2f3 hal/target/libatmega328.a(isr.o)
+ .debug_line    0x000015a4       0xb3 hal/target/libatmega328.a(analog.o)
+ .debug_line    0x00001657      0x137 hal/target/libatmega328.a(fifo.o)
+ .debug_line    0x0000178e       0xb9 hal/target/libatmega328.a(stream.o)
+ .debug_line    0x00001847       0x9c hal/target/libatmega328.a(pcint.o)
+ .debug_line    0x000018e3       0xce c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+ .debug_line    0x000019b1      0x122 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+ .debug_line    0x00001ad3       0x62 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+ .debug_line    0x00001b35       0x7a c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+ .debug_line    0x00001baf       0x98 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+ .debug_line    0x00001c47       0x86 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+ .debug_line    0x00001ccd       0xb0 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+
+.debug_frame    0x00000000      0xa38
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x34 target/bldcdriver/obj/main.o
+ .debug_frame   0x00000034       0x40 target/bldcdriver/obj/bldcdriver.o
+ .debug_frame   0x00000074       0x84 target/bldcdriver/obj/period.o
+ .debug_frame   0x000000f8       0x48 target/bldcdriver/obj/input.o
+ .debug_frame   0x00000140       0x50 target/bldcdriver/obj/timer_32bit.o
+ .debug_frame   0x00000190       0xc8 target/bldcdriver/obj/signal_out.o
+ .debug_frame   0x00000258       0x5c hal/target/libatmega328.a(gpio.o)
+ .debug_frame   0x000002b4       0x44 hal/target/libatmega328.a(watchdog.o)
+ .debug_frame   0x000002f8       0xc4 hal/target/libatmega328.a(uart.o)
+ .debug_frame   0x000003bc       0x74 hal/target/libatmega328.a(timer.o)
+ .debug_frame   0x00000430       0x44 hal/target/libatmega328.a(system.o)
+ .debug_frame   0x00000474      0x4ac hal/target/libatmega328.a(isr.o)
+ .debug_frame   0x00000920       0x34 hal/target/libatmega328.a(analog.o)
+ .debug_frame   0x00000954       0x68 hal/target/libatmega328.a(fifo.o)
+ .debug_frame   0x000009bc       0x58 hal/target/libatmega328.a(stream.o)
+ .debug_frame   0x00000a14       0x24 hal/target/libatmega328.a(pcint.o)
+
+.debug_str      0x00000000      0xc55
+ *(.debug_str)
+ .debug_str     0x00000000      0x208 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+ .debug_str     0x00000208      0x2e1 target/bldcdriver/obj/main.o
+                                0x33a (size before relaxing)
+ .debug_str     0x000004e9       0xaf target/bldcdriver/obj/bldcdriver.o
+                                0x2d6 (size before relaxing)
+ .debug_str     0x00000598       0xa6 target/bldcdriver/obj/period.o
+                                0x2bb (size before relaxing)
+ .debug_str     0x0000063e       0x2a target/bldcdriver/obj/input.o
+                                0x258 (size before relaxing)
+ .debug_str     0x00000668      0x106 target/bldcdriver/obj/timer_32bit.o
+                                0x259 (size before relaxing)
+ .debug_str     0x0000076e      0x135 target/bldcdriver/obj/signal_out.o
+                                0x3fe (size before relaxing)
+ .debug_str     0x000008a3        0xf target/bldcdriver/obj/sine.o
+                                0x146 (size before relaxing)
+ .debug_str     0x000008b2       0x3b hal/target/libatmega328.a(gpio.o)
+                                0x1a5 (size before relaxing)
+ .debug_str     0x000008ed       0x52 hal/target/libatmega328.a(watchdog.o)
+                                0x1ba (size before relaxing)
+ .debug_str     0x0000093f       0x6c hal/target/libatmega328.a(uart.o)
+                                0x2c0 (size before relaxing)
+ .debug_str     0x000009ab       0x62 hal/target/libatmega328.a(timer.o)
+                                0x2c7 (size before relaxing)
+ .debug_str     0x00000a0d       0x3c hal/target/libatmega328.a(system.o)
+                                0x1c7 (size before relaxing)
+ .debug_str     0x00000a49      0x1ab hal/target/libatmega328.a(isr.o)
+                                0x3ad (size before relaxing)
+ .debug_str     0x00000bf4       0x18 hal/target/libatmega328.a(analog.o)
+                                0x166 (size before relaxing)
+ .debug_str     0x00000c0c       0x1c hal/target/libatmega328.a(fifo.o)
+                                0x1b5 (size before relaxing)
+ .debug_str     0x00000c28       0x1d hal/target/libatmega328.a(stream.o)
+                                0x1b9 (size before relaxing)
+ .debug_str     0x00000c45       0x10 hal/target/libatmega328.a(pcint.o)
+                                0x14e (size before relaxing)
+
+.debug_loc      0x00000000     0x259c
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x47 target/bldcdriver/obj/main.o
+ .debug_loc     0x00000047      0x117 target/bldcdriver/obj/bldcdriver.o
+ .debug_loc     0x0000015e      0x2aa target/bldcdriver/obj/period.o
+ .debug_loc     0x00000408      0x1b2 target/bldcdriver/obj/input.o
+ .debug_loc     0x000005ba       0x2f target/bldcdriver/obj/timer_32bit.o
+ .debug_loc     0x000005e9      0x403 target/bldcdriver/obj/signal_out.o
+ .debug_loc     0x000009ec      0x31d hal/target/libatmega328.a(gpio.o)
+ .debug_loc     0x00000d09       0x94 hal/target/libatmega328.a(watchdog.o)
+ .debug_loc     0x00000d9d      0x4aa hal/target/libatmega328.a(uart.o)
+ .debug_loc     0x00001247      0x374 hal/target/libatmega328.a(timer.o)
+ .debug_loc     0x000015bb       0x26 hal/target/libatmega328.a(system.o)
+ .debug_loc     0x000015e1      0xc73 hal/target/libatmega328.a(isr.o)
+ .debug_loc     0x00002254       0x21 hal/target/libatmega328.a(analog.o)
+ .debug_loc     0x00002275      0x207 hal/target/libatmega328.a(fifo.o)
+ .debug_loc     0x0000247c       0xc2 hal/target/libatmega328.a(stream.o)
+ .debug_loc     0x0000253e       0x5e hal/target/libatmega328.a(pcint.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x00000000       0xd0
+ *(.debug_ranges)
+ .debug_ranges  0x00000000       0x10 target/bldcdriver/obj/main.o
+ .debug_ranges  0x00000010       0x18 target/bldcdriver/obj/period.o
+ .debug_ranges  0x00000028       0x18 target/bldcdriver/obj/input.o
+ .debug_ranges  0x00000040       0x50 target/bldcdriver/obj/signal_out.o
+ .debug_ranges  0x00000090       0x18 hal/target/libatmega328.a(uart.o)
+ .debug_ranges  0x000000a8       0x28 hal/target/libatmega328.a(timer.o)
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(target/bldcdriver/atmega328.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+__FUSE_REGION_LENGTH__                            c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__bad_interrupt                                   c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__bss_end                                         c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+__bss_start                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+__data_end                                        c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+__data_load_start                                 c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+__data_start                                      c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+__do_clear_bss                                    c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_clear_bss.o)
+                                                  hal/target/libatmega328.a(stream.o)
+                                                  hal/target/libatmega328.a(isr.o)
+                                                  hal/target/libatmega328.a(system.o)
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/timer_32bit.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+                                                  target/bldcdriver/obj/main.o
+__do_copy_data                                    c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_copy_data.o)
+                                                  hal/target/libatmega328.a(stream.o)
+                                                  hal/target/libatmega328.a(fifo.o)
+                                                  hal/target/libatmega328.a(isr.o)
+                                                  hal/target/libatmega328.a(system.o)
+                                                  hal/target/libatmega328.a(timer.o)
+                                                  hal/target/libatmega328.a(uart.o)
+                                                  hal/target/libatmega328.a(watchdog.o)
+                                                  hal/target/libatmega328.a(gpio.o)
+                                                  target/bldcdriver/obj/sine.o
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/period.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+                                                  target/bldcdriver/obj/main.o
+__heap_end                                        c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__init                                            c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__stack                                           c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__tablejump2__                                    c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_tablejump2.o)
+                                                  hal/target/libatmega328.a(isr.o)
+                                                  hal/target/libatmega328.a(gpio.o)
+__udivmodhi4                                      c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodhi4.o)
+                                                  target/bldcdriver/obj/signal_out.o
+__udivmodsi4                                      c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_udivmodsi4.o)
+                                                  hal/target/libatmega328.a(timer.o)
+                                                  hal/target/libatmega328.a(uart.o)
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/period.o
+__umulhisi3                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_umulhisi3.o)
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/period.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+__vector_1                                        c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_10                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_11                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_12                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_13                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_14                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_15                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_16                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_17                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_18                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_19                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_2                                        c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_20                                       hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_21                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_22                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_23                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_24                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_25                                       c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_3                                        hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_4                                        hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_5                                        hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_6                                        c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_7                                        hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_8                                        hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_9                                        hal/target/libatmega328.a(isr.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vector_default                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+__vectors                                         c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+_exit                                             c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+analog_init                                       hal/target/libatmega328.a(analog.o)
+                                                  target/bldcdriver/obj/bldcdriver.o
+analog_read                                       hal/target/libatmega328.a(analog.o)
+                                                  target/bldcdriver/obj/bldcdriver.o
+app_init                                          target/bldcdriver/obj/bldcdriver.o
+                                                  target/bldcdriver/obj/main.o
+app_main                                          target/bldcdriver/obj/bldcdriver.o
+                                                  target/bldcdriver/obj/main.o
+exit                                              c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/avr5\libgcc.a(_exit.o)
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+fifo_init                                         hal/target/libatmega328.a(fifo.o)
+                                                  target/bldcdriver/obj/main.o
+fifo_read                                         hal/target/libatmega328.a(fifo.o)
+                                                  hal/target/libatmega328.a(stream.o)
+                                                  hal/target/libatmega328.a(uart.o)
+fifo_send                                         hal/target/libatmega328.a(fifo.o)
+                                                  target/bldcdriver/obj/main.o
+fifo_write                                        hal/target/libatmega328.a(fifo.o)
+                                                  hal/target/libatmega328.a(stream.o)
+                                                  target/bldcdriver/obj/main.o
+g_cur_ticks                                       target/bldcdriver/obj/signal_out.o
+g_frequency                                       target/bldcdriver/obj/bldcdriver.o
+g_phase                                           target/bldcdriver/obj/bldcdriver.o
+gpio_in                                           target/bldcdriver/obj/bldcdriver.o
+gpio_init                                         hal/target/libatmega328.a(gpio.o)
+                                                  target/bldcdriver/obj/main.o
+gpio_out                                          target/bldcdriver/obj/bldcdriver.o
+gpio_read                                         hal/target/libatmega328.a(gpio.o)
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/input.o
+gpio_toggle                                       hal/target/libatmega328.a(gpio.o)
+                                                  hal/target/libatmega328.a(system.o)
+gpio_write                                        hal/target/libatmega328.a(gpio.o)
+hall_isr_a_b                                      target/bldcdriver/obj/signal_out.o
+hall_isr_c                                        target/bldcdriver/obj/signal_out.o
+input_get                                         target/bldcdriver/obj/input.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+isr_count                                         target/bldcdriver/obj/signal_out.o
+isr_init                                          hal/target/libatmega328.a(isr.o)
+                                                  target/bldcdriver/obj/main.o
+isr_period                                        target/bldcdriver/obj/signal_out.o
+isr_register                                      hal/target/libatmega328.a(isr.o)
+                                                  hal/target/libatmega328.a(uart.o)
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/timer_32bit.o
+isr_ticks                                         target/bldcdriver/obj/signal_out.o
+loop_1                                            target/bldcdriver/obj/main.o
+loop_2                                            target/bldcdriver/obj/main.o
+loop_gpio_in                                      target/bldcdriver/obj/bldcdriver.o
+loop_main                                         target/bldcdriver/obj/main.o
+lut_delay                                         target/bldcdriver/obj/signal_out.o
+lut_period                                        target/bldcdriver/obj/signal_out.o
+main                                              target/bldcdriver/obj/main.o
+                                                  c:/toolchain/avr/bin/../lib/gcc/avr/7.3.0/../../../../avr/lib/avr5/crtatmega328p.o
+once                                              target/bldcdriver/obj/signal_out.o
+ovf_count                                         target/bldcdriver/obj/signal_out.o
+pcint_init                                        hal/target/libatmega328.a(pcint.o)
+                                                  target/bldcdriver/obj/main.o
+period_control                                    target/bldcdriver/obj/period.o
+                                                  target/bldcdriver/obj/input.o
+                                                  target/bldcdriver/obj/main.o
+period_init                                       target/bldcdriver/obj/period.o
+                                                  target/bldcdriver/obj/main.o
+period_print                                      target/bldcdriver/obj/period.o
+period_timer_0_ovf_isr                            target/bldcdriver/obj/timer_32bit.o
+pwm_cnt                                           target/bldcdriver/obj/signal_out.o
+pwm_hi                                            target/bldcdriver/obj/signal_out.o
+pwm_lo                                            target/bldcdriver/obj/signal_out.o
+signal_init                                       target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+signal_pwm                                        target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+signal_rectangle                                  target/bldcdriver/obj/signal_out.o
+signal_sine                                       target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+signal_timer1_ovf_isr                             target/bldcdriver/obj/signal_out.o
+sine_index                                        target/bldcdriver/obj/signal_out.o
+sine_top                                          target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/bldcdriver.o
+sine_wave                                         target/bldcdriver/obj/sine.o
+                                                  target/bldcdriver/obj/signal_out.o
+stream                                            hal/target/libatmega328.a(stream.o)
+                                                  hal/target/libatmega328.a(uart.o)
+stream_read                                       hal/target/libatmega328.a(stream.o)
+stream_write                                      hal/target/libatmega328.a(stream.o)
+                                                  hal/target/libatmega328.a(fifo.o)
+system_error_handler                              hal/target/libatmega328.a(system.o)
+                                                  hal/target/libatmega328.a(fifo.o)
+                                                  hal/target/libatmega328.a(isr.o)
+                                                  hal/target/libatmega328.a(timer.o)
+                                                  hal/target/libatmega328.a(uart.o)
+                                                  hal/target/libatmega328.a(watchdog.o)
+                                                  hal/target/libatmega328.a(gpio.o)
+                                                  target/bldcdriver/obj/period.o
+system_error_update                               hal/target/libatmega328.a(system.o)
+                                                  target/bldcdriver/obj/main.o
+system_init                                       hal/target/libatmega328.a(system.o)
+                                                  target/bldcdriver/obj/main.o
+timer0_32                                         target/bldcdriver/obj/timer_32bit.o
+timer0_32_get_ticks                               target/bldcdriver/obj/timer_32bit.o
+                                                  target/bldcdriver/obj/period.o
+timer0_get_ticks                                  hal/target/libatmega328.a(timer.o)
+                                                  target/bldcdriver/obj/timer_32bit.o
+timer1_32                                         target/bldcdriver/obj/timer_32bit.o
+timer1_get_ticks                                  hal/target/libatmega328.a(timer.o)
+                                                  target/bldcdriver/obj/signal_out.o
+timer2_32                                         target/bldcdriver/obj/timer_32bit.o
+timer2_get_ticks                                  hal/target/libatmega328.a(timer.o)
+timer_32bit_init                                  target/bldcdriver/obj/timer_32bit.o
+                                                  target/bldcdriver/obj/period.o
+timer_freq                                        target/bldcdriver/obj/signal_out.o
+timer_get_frequency                               hal/target/libatmega328.a(timer.o)
+                                                  target/bldcdriver/obj/signal_out.o
+timer_init                                        hal/target/libatmega328.a(timer.o)
+                                                  target/bldcdriver/obj/main.o
+timer_set_compare                                 hal/target/libatmega328.a(timer.o)
+                                                  target/bldcdriver/obj/signal_out.o
+uart_cnt_transmit                                 hal/target/libatmega328.a(uart.o)
+uart_fast_byte_transmit                           hal/target/libatmega328.a(uart.o)
+                                                  hal/target/libatmega328.a(stream.o)
+uart_init                                         hal/target/libatmega328.a(uart.o)
+                                                  target/bldcdriver/obj/main.o
+uart_isr_tx                                       hal/target/libatmega328.a(uart.o)
+uart_nmb_transmit                                 hal/target/libatmega328.a(uart.o)
+                                                  target/bldcdriver/obj/signal_out.o
+                                                  target/bldcdriver/obj/period.o
+uart_str_transmit                                 hal/target/libatmega328.a(uart.o)
+                                                  hal/target/libatmega328.a(system.o)
+                                                  target/bldcdriver/obj/period.o
+watchdog_disable                                  hal/target/libatmega328.a(watchdog.o)
+watchdog_init                                     hal/target/libatmega328.a(watchdog.o)
+                                                  target/bldcdriver/obj/main.o
+watchdog_reset                                    hal/target/libatmega328.a(watchdog.o)
+                                                  target/bldcdriver/obj/main.o

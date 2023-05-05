@@ -22,7 +22,7 @@
 #define FIRST_ISR_OCURRENCE      15000u
 #define HALF_PERIOD 127u
 #define THIRD_PERIOD 85u
-#define SINE_WAVE_TOP 72u
+uint8_t sine_top = 50u;
 //-------TYPES-------
 uint16_t lut_period[NMB_OF_OUTPUTS];
 uint16_t lut_delay[NMB_OF_OUTPUTS];
@@ -38,6 +38,7 @@ uint16_t pwm_cnt;
 
 void signal_timer1_ovf_isr(void);
 static void set_isr_timing(void);
+void hall_isr_c(void);
 void hall_isr_a_b(void);
 //-------Function Definition-------
 uint8_t once;
@@ -45,7 +46,8 @@ void signal_init(void)
 {
  
     isr_register(signal_timer1_ovf_isr, Timer1_OVF);
-    isr_register(hall_isr_a_b, Pcint1);
+    isr_register(hall_isr_c, Pcint0);
+    //isr_register(hall_isr_a_b, Pcint1);
 }
 
 static void set_isr_timing(void)
@@ -135,7 +137,7 @@ void signal_timer1_ovf_isr(void)
 
     if (ovf_count >= isr_ticks)
     {
-        sine_index[0]++;
+        sine_index[0]++; 
         ovf_count = 0u;
     }
  
@@ -148,21 +150,39 @@ void signal_timer1_ovf_isr(void)
     
 }
 
-void hall_isr_a_b(void)
+void hall_isr_c(void)
 {
-    //uart_str_transmit("isr");
-    uint8_t state = gpio_read(2,5);
+
+    uint8_t state = gpio_read(1u,5u);
     if (state == 1u)
     {
-        //sine_index[0] = SINE_WAVE_TOP - 1u;
-        uart_str_transmit("correct");
+       //sine_index[0] = 238u;
+        uart_nmb_transmit(sine_index[0],10u);
+       uart_nmb_transmit(state,10u);
     }
     else
     {
-        /* code */
+        //sine_index[0] = 111u;
+        uart_nmb_transmit(sine_index[0],10u);
+       uart_nmb_transmit(state,10u);
     }
-    
-    
-
 }
 
+
+void hall_isr_a_b(void)
+{
+
+    uint8_t state_b = gpio_read(2u,5u);
+    if (state_b == 1u)
+    {
+       sine_index[0] = 154u;
+       uart_nmb_transmit(sine_index[0],10u);
+       uart_nmb_transmit(state_b,10u);
+    }
+    else
+    {
+        sine_index[0] = 26u;
+        uart_nmb_transmit(sine_index[0],10u);
+       uart_nmb_transmit(state_b,10u);
+    }
+}

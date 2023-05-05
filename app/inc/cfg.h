@@ -157,7 +157,7 @@ ICP1   PB0 |14  15| PB1 OC1A
     }; 
 
     static const uint8_t pcint_index[NMB_OF_OUTPUTS] = {
-        4u,12u,13u // phase1
+        5u,12u,13u // phase1
     }; 
 
     // Pin shall be connected to an LED in order to give visible alarm

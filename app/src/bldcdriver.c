@@ -40,7 +40,7 @@ void app_init(void)
     analog_init();
 }
 
-
+extern uint8_t sine_top;
 void app_main(void)
 {
     for (uint8_t i = 0; i < NMB_OF_INPUTS; i++)
@@ -101,7 +101,8 @@ void app_main(void)
         /* code */
     }
     uint16_t dc = analog_read(0u)/10u;
-    signal_pwm(10000u,dc);
+    sine_top = 80 + dc;
+    signal_pwm(10000u,90u);
     if(dc == 0u)
     {
         dc=1;
